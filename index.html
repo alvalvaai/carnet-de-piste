@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carnet de Piste — entraînement padel</title>
+<meta name="description" content="Agenda et bibliothèque d'exercices de padel du groupe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --encre:#0C1F26;
+  --verre:#0F3A4A;
+  --verre-2:#17566B;
+  --gazon:#2E6B4E;
+  --balle:#D9E84A;
+  --craie:#EAEEE9;
+  --papier:#F7F8F5;
+  --trait:#C6CFC9;
+  --gris:#5C6B68;
+  --alerte:#B4553A;
+  --r:4px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--papier);
+  color:var(--encre);
+  font-family:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.5;
+  padding-bottom:84px;
+}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;line-height:1.05;margin:0}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* ---------- header ---------- */
+header{
+  background:var(--verre);color:var(--craie);
+  padding:18px 18px 16px;
+  position:sticky;top:0;z-index:20;
+  border-bottom:3px solid var(--balle);
+}
+header .wordmark{display:flex;align-items:baseline;gap:10px}
+header h1{font-size:26px;letter-spacing:-.02em}
+header .sub{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+header .ctx{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--balle)}
+.ctx-row{margin-top:9px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.pill.vert{background:rgba(217,232,74,.16);color:var(--balle);border-color:rgba(217,232,74,.45)}
+.pill.jaune{background:var(--balle);color:var(--encre)}
+.pill.rouge{background:rgba(180,85,58,.22);color:#F0B9A6;border-color:rgba(240,185,166,.5)}
+.pill.gris{background:rgba(234,238,233,.14);color:var(--craie)}
+
+main{padding:18px 16px 24px;max-width:720px;margin:0 auto}
+section[hidden]{display:none}
+
+/* ---------- blocs ---------- */
+.card{background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.card.flat{background:transparent;border-style:dashed}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:6px}
+.lede{color:var(--gris);font-size:14px;margin:6px 0 0}
+h2.title{font-size:22px;letter-spacing:-.02em;margin-bottom:12px}
+h3.exo{font-size:18px;letter-spacing:-.01em}
+
+/* ---------- boutons ---------- */
+button{font-family:inherit;font-size:15px;cursor:pointer;border-radius:var(--r)}
+.btn{
+  background:var(--verre);color:var(--craie);border:1px solid var(--verre);
+  padding:12px 18px;font-weight:600;width:100%;
+}
+.btn:active{transform:translateY(1px)}
+.btn.accent{background:var(--balle);color:var(--encre);border-color:var(--balle)}
+.btn.ghost{background:transparent;color:var(--verre);border:1px solid var(--trait);font-weight:500}
+.btn.mini{width:auto;padding:8px 12px;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- chips / selection ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  border:1px solid var(--trait);background:#fff;border-radius:999px;
+  padding:8px 14px;font-size:14px;display:inline-flex;align-items:center;gap:7px;
+}
+.chip[aria-pressed="true"]{background:var(--verre);color:var(--craie);border-color:var(--verre)}
+.chip .lvl{font-family:"JetBrains Mono",monospace;font-size:11px;opacity:.75}
+.chip[aria-pressed="true"] .lvl{color:var(--balle);opacity:1}
+
+/* ---------- terrain (signature) ---------- */
+.terrain{width:100%;max-width:190px;display:block;margin:0 auto 4px}
+.terrain-wrap{background:var(--verre);border-radius:var(--r);padding:12px 10px 8px;margin:12px 0}
+.terrain-legend{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--craie);opacity:.75;text-align:center;letter-spacing:.06em}
+
+/* ---------- exos ---------- */
+.exo-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--trait);border-radius:999px;padding:3px 8px;color:var(--gris);white-space:nowrap}
+.tag.niv{background:var(--gazon);color:#fff;border-color:var(--gazon)}
+.tag.duree{background:var(--craie)}
+.tag.imp{letter-spacing:1px;color:var(--gazon);border-color:var(--gazon);font-size:9px;padding:4px 7px}
+.count-note{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gris);letter-spacing:.06em;margin:0 0 12px}
+.swap{background:none;border:0;color:var(--gazon);font-size:13px;font-weight:600;padding:4px 6px;white-space:nowrap}
+.exo p{margin:10px 0 0;font-size:15px}
+.exo .label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);display:block;margin-top:14px}
+.exo ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.exo li{margin-bottom:4px}
+.adapt{border-left:3px solid var(--balle);background:#FCFDF3;padding:10px 12px;margin-top:12px;font-size:14px}
+.adapt.gap{border-left-color:var(--alerte);background:#FDF5F2}
+.adapt b{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.reussite{margin-top:12px;font-size:14px;background:var(--craie);padding:10px 12px;border-radius:var(--r)}
+.reussite b{font-weight:600}
+
+/* ---------- séance ---------- */
+.step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--trait)}
+.step:last-child{border-bottom:0}
+.step .time{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--gazon);min-width:44px;padding-top:2px;font-weight:600}
+.step .body{flex:1}
+.step .body strong{display:block;font-size:16px}
+.step .body span{font-size:13px;color:var(--gris)}
+.step input[type=checkbox]{width:22px;height:22px;accent-color:var(--gazon);margin-top:2px}
+
+/* ---------- formulaires ---------- */
+label.field{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:14px 0 6px}
+input[type=text],select,textarea{
+  width:100%;padding:11px 12px;border:1px solid var(--trait);border-radius:var(--r);
+  font-family:inherit;font-size:16px;background:#fff;color:var(--encre)
+}
+textarea{min-height:70px;resize:vertical}
+.range-row{display:flex;align-items:center;gap:12px}
+input[type=range]{flex:1;accent-color:var(--gazon)}
+.range-val{font-family:"JetBrains Mono",monospace;font-weight:600;min-width:26px;text-align:right}
+
+/* ---------- joueurs ---------- */
+.player{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--trait)}
+.player:last-of-type{border-bottom:0}
+.player .name{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:18px}
+.player .axe{font-size:13px;color:var(--gris);margin-top:2px}
+.badge-lvl{font-family:"JetBrains Mono",monospace;background:var(--verre);color:var(--balle);border-radius:var(--r);
+  padding:6px 9px;font-size:13px;font-weight:600;white-space:nowrap}
+.link-del{background:none;border:0;color:var(--alerte);font-size:13px;padding:4px}
+.stepper{display:flex;align-items:center;gap:2px}
+.stepper button{width:34px;height:34px;border:1px solid var(--trait);background:#fff;color:var(--verre);
+  font-size:19px;line-height:1;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0}
+.stepper button:disabled{opacity:.3;cursor:default}
+.stepper button:first-child{border-radius:var(--r) 0 0 var(--r)}
+.stepper button:last-child{border-radius:0 var(--r) var(--r) 0}
+.stepper .badge-lvl{border-radius:0;padding:8px 10px}
+.progress-note{font-size:12px;color:var(--gazon);margin-top:3px;font-weight:600}
+
+/* édition de séance */
+.step .mins{display:flex;align-items:center;gap:1px;margin-left:auto}
+.step .mins button{width:28px;height:28px;border:1px solid var(--trait);background:#fff;color:var(--verre);
+  font-size:16px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center}
+.step .mins .v{font-family:"JetBrains Mono",monospace;font-size:12px;min-width:38px;text-align:center;color:var(--gris)}
+.step .kill{background:none;border:0;color:var(--alerte);font-size:18px;line-height:1;padding:4px 6px;margin-left:2px}
+.step.libre .body strong{color:var(--gazon)}
+.total-row{display:flex;justify-content:space-between;align-items:center;padding-top:12px;margin-top:4px;
+  border-top:2px solid var(--encre);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600}
+.total-row .over{color:var(--alerte)}
+
+/* ---------- suivi ---------- */
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.bar-row .cat{width:88px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+.bar{height:12px;background:var(--craie);flex:1;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gazon)}
+.bar-row .n{font-family:"JetBrains Mono",monospace;width:18px;text-align:right}
+.hist{border-left:2px solid var(--trait);padding-left:14px;margin-left:4px}
+.hist .h-item{padding-bottom:14px;position:relative}
+.hist .h-item::before{content:"";position:absolute;left:-19px;top:6px;width:8px;height:8px;background:var(--balle);border:1px solid var(--verre);border-radius:50%}
+.hist .h-date{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gris);letter-spacing:.06em}
+
+/* ---------- vidéos ---------- */
+.vid{display:block;padding:13px 0;border-bottom:1px solid var(--trait);text-decoration:none;color:inherit}
+.vid:last-child{border-bottom:0}
+.vid .t{font-weight:600;font-size:15px}
+.vid .d{font-size:13px;color:var(--gris);margin-top:2px}
+.flag{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;background:var(--craie);border-radius:2px;padding:2px 5px;margin-right:6px;vertical-align:1px}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;bottom:0;left:0;right:0;background:var(--verre);
+  display:flex;z-index:30;padding-bottom:env(safe-area-inset-bottom)
+}
+nav button{
+  flex:1;background:none;border:0;color:var(--craie);opacity:.6;
+  padding:11px 2px 13px;font-family:"JetBrains Mono",monospace;
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:5px;border-radius:0
+}
+nav button svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
+nav button[aria-current="true"]{opacity:1;color:var(--balle);box-shadow:inset 0 3px 0 var(--balle)}
+
+.empty{text-align:center;padding:28px 16px;color:var(--gris);font-size:15px}
+.empty b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;color:var(--encre);margin-bottom:6px}
+
+/* rôles */
+.role-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
+.role-bar .who{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.role-bar .who b{color:var(--encre);font-weight:600}
+.role-bar button{background:none;border:0;color:var(--verre);font-size:13px;font-weight:600;padding:4px;text-decoration:underline}
+body.joueur .nav-coach{display:none}
+
+/* bandeau du jour */
+.today{background:var(--verre);color:var(--craie);border-radius:var(--r);padding:16px;margin-bottom:12px;border-left:4px solid var(--balle)}
+.today .eyebrow{color:var(--balle);margin-bottom:8px}
+.today h3{font-size:20px;letter-spacing:-.01em;margin-bottom:4px}
+.today .meta{font-size:13px;opacity:.8}
+.today ol{margin:12px 0 0;padding-left:20px;font-size:15px}
+.today ol li{margin-bottom:5px}
+.today .rien{font-size:15px;opacity:.85}
+
+/* bande de semaine */
+.week{display:flex;gap:5px;margin-bottom:12px}
+.week .d{flex:1;background:#fff;border:1px solid var(--trait);border-radius:var(--r);
+  text-align:center;padding:8px 2px 9px;font-family:"JetBrains Mono",monospace}
+.week .d .j{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--gris)}
+.week .d .n{font-size:16px;font-weight:600;margin-top:2px}
+.week .d .dot{width:6px;height:6px;border-radius:50%;background:var(--balle);margin:4px auto 0;border:1px solid var(--verre)}
+.week .d .dot.vide{background:transparent;border-color:transparent}
+.week .d.today{background:var(--verre);border-color:var(--verre);color:var(--craie)}
+.week .d.today .j{color:var(--balle)}
+
+/* synthèse joueur */
+.synth{background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.synth h3{font-size:19px;margin-bottom:2px}
+.synth .sub{font-size:13px;color:var(--gris);margin-bottom:12px}
+.kpis{display:flex;gap:8px;margin-bottom:12px}
+.kpi{flex:1;background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:10px 8px;text-align:center}
+.kpi .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:22px;line-height:1}
+.kpi .l{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-top:4px}
+
+/* agenda */
+.ag-sec{margin-bottom:18px}
+.ag-sec > .eyebrow{margin-bottom:8px}
+.ag-item{border:1px solid var(--trait);border-radius:var(--r);padding:12px;margin-bottom:8px;background:#fff}
+.ag-item.prevue{border-left:4px solid var(--balle)}
+.ag-item.faite{border-left:4px solid var(--gazon)}
+.ag-item .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ag-item .dt{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--gris);text-transform:uppercase}
+.ag-item .st{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;background:var(--craie);color:var(--gris)}
+.ag-item.prevue .st{background:var(--balle);color:var(--encre)}
+.ag-item .nm{font-weight:600;font-size:16px;margin-top:3px}
+.ag-item ol{margin:8px 0 0;padding-left:19px;font-size:14px;color:var(--gris)}
+.ag-item .note{font-size:14px;margin-top:8px}
+.toast{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);background:var(--encre);color:var(--craie);
+  padding:11px 18px;border-radius:var(--r);font-size:14px;z-index:40;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+:focus-visible{outline:2px solid var(--gazon);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark"><h1>Carnet de Piste</h1><span class="sub">padel</span></div>
+  <div class="ctx-row">
+    <span class="ctx mono" id="ctx">Aucun joueur sur la piste</span>
+    <span class="pill gris" id="etatPill">Chargement…</span>
+  </div>
+</header>
+
+<main>
+  <!-- ============ SÉANCE ============ -->
+  <section id="v-seance">
+    <div id="roleCard"></div>
+    <h2 class="title">Construire la séance</h2>
+    <div class="card" id="builderCard">
+      <label class="field" for="dateSeance">Date de la séance</label>
+      <input type="date" id="dateSeance">
+      <p class="lede" id="dateNote"></p>
+
+      <div class="eyebrow" style="margin-top:18px">Qui joue</div>
+      <div class="chips" id="pickPlayers"></div>
+      <p class="lede" id="spreadNote"></p>
+
+      <label class="field" for="duree">Temps de piste</label>
+      <select id="duree">
+        <option value="60">60 minutes</option>
+        <option value="75" selected>75 minutes</option>
+        <option value="90">90 minutes</option>
+      </select>
+
+      <label class="field" for="theme">Axe de travail</label>
+      <select id="theme">
+        <option value="auto">Automatique — le moins travaillé</option>
+        <option value="defense">Défense / sortie de mur</option>
+        <option value="transition">Transition / montée au filet</option>
+        <option value="filet">Volée</option>
+        <option value="attaque">Bandeja, vibora, smash</option>
+        <option value="service">Service et retour</option>
+        <option value="tactique">Tactique et points à thème</option>
+      </select>
+
+      <div style="height:16px"></div>
+      <button class="btn accent" id="genBtn">Composer la séance</button>
+    </div>
+    <div id="seanceOut"></div>
+  </section>
+
+  <!-- ============ EXOS ============ -->
+  <section id="v-exos" hidden>
+    <h2 class="title">Bibliothèque d'exercices</h2>
+    <div class="card">
+      <label class="field" for="fQ">Rechercher</label>
+      <input type="text" id="fQ" placeholder="Ex. bandeja, lob, mur, replacement…" autocomplete="off">
+      <label class="field" for="fTheme">Thème</label>
+      <select id="fTheme"></select>
+      <label class="field" for="fImp">Importance minimum</label>
+      <select id="fImp">
+        <option value="1">Tous les exercices</option>
+        <option value="3">Importants et plus (3+)</option>
+        <option value="4">Prioritaires (4+)</option>
+        <option value="5">Fondamentaux uniquement (5)</option>
+      </select>
+      <label class="field" for="fNiv">Niveau du joueur qui travaille</label>
+      <div class="range-row">
+        <input type="range" id="fNiv" min="1" max="8" value="4">
+        <span class="range-val mono" id="fNivVal">4</span>
+      </div>
+      <label class="field" for="fJoueurs">Nombre de joueurs</label>
+      <select id="fJoueurs">
+        <option value="0">Peu importe</option>
+        <option value="1">Seul</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <p class="count-note" id="exosCount"></p>
+    <div id="exosOut"></div>
+  </section>
+
+  <!-- ============ JOUEURS ============ -->
+  <section id="v-joueurs" hidden>
+    <h2 class="title">Joueurs</h2>
+    <div class="card" id="playersCard"></div>
+    <div class="card">
+      <div class="eyebrow">Ajouter un joueur</div>
+      <label class="field" for="pName">Prénom</label>
+      <input type="text" id="pName" placeholder="Ex. Claire" autocomplete="off">
+      <label class="field" for="pLvl">Niveau estimé (1 débutant → 8 confirmé)</label>
+      <div class="range-row">
+        <input type="range" id="pLvl" min="1" max="8" value="3">
+        <span class="range-val mono" id="pLvlVal">3</span>
+      </div>
+      <p class="lede" id="pLvlDesc"></p>
+      <div style="height:14px"></div>
+      <button class="btn" id="addPlayer">Ajouter</button>
+    </div>
+    <div class="card flat">
+      <div class="eyebrow">Repères de niveau</div>
+      <p class="lede"><b>1–2</b> découvre : tenue, service, renvoyer après un rebond.<br>
+      <b>3–4</b> échange : joue le mur de temps en temps, lob irrégulier, monte au filet sans logique.<br>
+      <b>5–6</b> construit : sortie de mur fiable, bandeja, garde le filet.<br>
+      <b>7–8</b> décide : vibora et smash choisis, joue les zones, gagne le point où il veut.</p>
+    </div>
+  </section>
+
+  <!-- ============ SUIVI ============ -->
+  <section id="v-agenda" hidden>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
+      <h2 class="title" style="margin:0">Agenda</h2>
+      <button class="btn ghost mini" id="refreshBtn">↻ Actualiser</button>
+    </div>
+    <div id="agFilter"></div>
+    <div id="todayCard"></div>
+    <div id="weekStrip"></div>
+    <div class="card" id="agendaCard"></div>
+    <div class="card" id="statsCard"></div>
+  </section>
+
+  <!-- ============ VIDÉOS ============ -->
+  <section id="v-videos" hidden>
+    <h2 class="title">Vidéos</h2>
+    <p class="lede" style="margin-bottom:14px">Les chaînes espagnoles sont plus techniques, les françaises plus faciles à suivre pour Claire et les débutants. Les liens « recherche » s'ouvrent sur YouTube et restent à jour.</p>
+    <div id="videosOut"></div>
+  </section>
+</main>
+
+<nav>
+  <button data-view="seance" aria-current="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="7" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="17" y2="20"/></svg>Séance</button>
+  <button data-view="exos"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Exos</button>
+  <button data-view="joueurs" class="nav-coach"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9.5" r="2.2"/><path d="M15.5 20c0-2.5 1.6-4.5 4-4.5"/></svg>Joueurs</button>
+  <button data-view="agenda"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Agenda</button>
+  <button data-view="videos"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Vidéos</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CONFIGURATION — à remplir une seule fois avant de publier
+   ---------------------------------------------------------
+   owner   : ton nom d'utilisateur GitHub
+   repo    : le nom du dépôt
+   branche : presque toujours "main"
+   chemin  : où sont stockées les données dans le dépôt
+   ========================================================= */
+const CONFIG = {
+  owner:   "TON-COMPTE",
+  repo:    "carnet-de-piste",
+  branche: "main",
+  chemin:  "data/carnet.json"
+};
+
+/* =========================================================
+   DONNÉES
+   ========================================================= */
+const THEMES = {
+  echauffement:"Échauffement", defense:"Défense", transition:"Transition",
+  filet:"Volée", attaque:"Attaque", service:"Service / retour",
+  tactique:"Tactique", maison:"À la maison"
+};
+
+/* Terrain : repère 100 × 200 (10 m × 20 m). Filet à y=100, lignes de service à y=70 et y=130.
+   pos = {x,y,l} joueurs ; balles = {from:[x,y], to:[x,y], lob:true|false} */
+const EXOS = [
+{id:"e1",imp:4,t:"Échauffement croisé progressif",th:"echauffement",n:[1,8],j:2,d:10,
+ o:"Trouver les sensations et chauffer l'épaule sans forcer.",
+ dr:"Croisé, 3 minutes de fond à fond sans mur. Puis 3 minutes en laissant la balle taper le mur du fond. Puis un joueur monte au filet, volées lentes, 2 minutes chacun.",
+ k:["Personne ne frappe fort avant la 6ᵉ minute.","Compter les échanges à voix haute : ça oblige à jouer pour l'autre."],
+ ad:"Rester sans mur tout l'échauffement, la balle rebondit une fois et on renvoie.",
+ ae:"Le plus fort joue à 60 % et vise le milieu du corps de l'autre, pas les coins.",
+ r:"20 balles d'affilée sans faute avant de passer à la suite.",
+ pos:[{x:25,y:170,l:"A"},{x:75,y:30,l:"B"}], balls:[{from:[25,165],to:[75,35]}]},
+
+{id:"e2",imp:5,t:"Sortie de mur croisée",th:"defense",n:[3,8],j:2,d:12,
+ o:"Le coup qui décide le plus de points en amateur : sortir la balle du mur du fond.",
+ dr:"A est au filet et envoie des balles longues qui touchent le mur du fond. B laisse passer, se replace, attend que la balle revienne et la joue en croisé. Séries de 10, on change.",
+ k:["Se déplacer vers le mur avec la balle, pas attendre sur place.","Frapper la balle quand elle redescend, à hauteur de hanche.","Finir le geste vers l'avant, jamais vers le haut."],
+ ad:"Sans raquette d'abord : poser la main sur la vitre, laisser passer la balle, attraper le rebond. 10 fois. Ensuite avec raquette et balle envoyée à la main.",
+ ae:"Le joueur fort tient le rôle de lanceur (au filet) plus longtemps : il travaille sa volée de placement pendant que l'autre travaille son mur.",
+ r:"8 sorties de mur sur 10 qui repassent la ligne de service adverse.",
+ pos:[{x:30,y:150,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,192]},{from:[30,192],to:[75,60],lob:true}]},
+
+{id:"e3",imp:5,t:"Sortie de mur, version découverte",th:"defense",n:[1,3],j:2,d:10,
+ o:"Comprendre que le mur est un ami, pas un piège.",
+ dr:"Le partenaire envoie la balle à la main contre le mur du fond, en cloche. Le débutant laisse rebondir au sol puis au mur, se place de côté et pousse la balle vers le filet. 15 balles, puis on change.",
+ k:["Se mettre de profil avant que la balle arrive.","Reculer jusqu'à la vitre, puis avancer en frappant."],
+ ad:"Commencer sans raquette, juste attraper la balle après le mur, pour apprendre le timing.",
+ ae:"Le joueur fort ne frappe pas : il lance à la main. C'est un temps donné, pas un entraînement partagé — l'inverse est vrai à l'exercice suivant.",
+ r:"10 balles sur 15 renvoyées par-dessus le filet.",
+ pos:[{x:30,y:160,l:"Déb"},{x:60,y:110,l:"Lanceur"}], balls:[{from:[60,115],to:[30,195]}]},
+
+{id:"e4",imp:5,t:"Lob croisé de régularité",th:"defense",n:[2,8],j:2,d:10,
+ o:"Le lob est un coup offensif : il reprend le filet. C'est le meilleur rapport effort/points du padel.",
+ dr:"A au filet volée doucement, B au fond lobe systématiquement en croisé. A rattrape et revoleye. 3 séries de 3 minutes.",
+ k:["Viser à un mètre du mur du fond, pas plus court.","Ouvrir la raquette et accompagner haut, l'épaule finit vers le ciel.","Après un bon lob, on avance de deux pas."],
+ ad:"Autoriser deux rebonds côté fond. Objectif : que la balle passe au-dessus de la raquette levée du joueur au filet, la profondeur viendra après.",
+ ae:"Le joueur fort au filet n'a pas le droit de smasher : il ne fait que volée, ce qui l'oblige à un placement propre.",
+ r:"7 lobs sur 10 qui retombent derrière la ligne de service.",
+ pos:[{x:30,y:150,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[30,145],to:[70,25],lob:true},{from:[70,65],to:[30,145]}]},
+
+{id:"e5",imp:3,t:"Double mur : fond puis latéral",th:"defense",n:[5,8],j:2,d:12,
+ o:"Survivre aux balles qui partent dans le coin, là où on perd les points serrés.",
+ dr:"A envoie des balles croisées longues dans le coin. B laisse faire les deux murs et rejoue en lob. Séries de 8 par coin, deux coins.",
+ k:["Anticiper la deuxième vitre : le corps recule en diagonale.","Ne jamais coller la vitre, garder un bras d'écart.","La réponse par défaut est le lob, pas la contre-attaque."],
+ ad:"Trop tôt à ce niveau. Remplacer par l'exercice « Sortie de mur croisée ».",
+ ae:"À faire uniquement entre joueurs de niveau proche. Sinon le débutant observe depuis l'extérieur et compte les réussites à voix haute.",
+ r:"6 balles sur 8 remises en jeu, peu importe la qualité.",
+ pos:[{x:22,y:158,l:"B"},{x:72,y:70,l:"A"}], balls:[{from:[72,75],to:[10,190]},{from:[22,155],to:[70,25],lob:true}]},
+
+{id:"e6",imp:5,t:"Lob puis montée au filet",th:"transition",n:[3,8],j:2,d:12,
+ o:"Relier le bon lob à la prise du filet. Beaucoup de joueurs lobent bien et restent au fond.",
+ dr:"B au fond lobe, puis monte immédiatement. A au filet recule, joue une bandeja douce, et B doit jouer une volée en arrivant. On enchaîne 4 balles puis on repart.",
+ k:["Monter dès que la balle a quitté la raquette, pas après avoir regardé.","S'arrêter net avant la volée, pieds au sol.","Monter jusqu'à un mètre du filet, pas à mi-terrain."],
+ ad:"Version marche : lober, puis simplement marcher jusqu'au filet sans jouer la balle suivante. Répéter le déplacement 10 fois.",
+ ae:"Le joueur fort renvoie toujours au même endroit pour que l'autre n'ait qu'à gérer son déplacement.",
+ r:"Arriver à l'arrêt avant la volée sur 8 montées sur 10.",
+ pos:[{x:30,y:150,l:"B"},{x:70,y:60,l:"A"}], balls:[{from:[30,145],to:[70,20],lob:true},{from:[30,145],to:[35,115]}]},
+
+{id:"e7",imp:4,t:"Le rectangle : trois volées en montant",th:"transition",n:[2,6],j:2,d:10,
+ o:"Traverser la zone du milieu sans se faire passer.",
+ dr:"B part du fond. A lui envoie trois balles à mi-hauteur. B joue une volée depuis le fond, avance, une deuxième depuis la ligne de service, avance, une troisième au filet. Retour au fond, on recommence. 6 tours chacun.",
+ k:["Un arrêt avant chaque volée.","Volée haute et longue quand on est loin, courte et croisée quand on est près."],
+ ad:"Deux volées au lieu de trois, balles envoyées à la main.",
+ ae:"Le lanceur ajuste la hauteur selon celui qui travaille : haute et lente pour le débutant, aux pieds pour le joueur confirmé.",
+ r:"Les trois volées passent le filet sur 5 tours sur 6.",
+ pos:[{x:30,y:160,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,150]},{from:[70,75],to:[30,120]},{from:[70,75],to:[30,95]}]},
+
+{id:"e8",imp:5,t:"Volée croisée de régularité",th:"filet",n:[2,8],j:2,d:10,
+ o:"Ne pas rater la balle facile. C'est 80 % de la volée en amateur.",
+ dr:"Les deux joueurs au filet, en croisé, volées continues. 3 séries : 2 min main droite, 2 min revers, 2 min libre.",
+ k:["Préparation courte : la raquette ne dépasse jamais l'épaule.","Poignet ferme, on bloque, on ne frappe pas.","Regarder la balle jusqu'au contact."],
+ ad:"Se rapprocher à trois mètres l'un de l'autre et volleyer doucement. Le but est de toucher la balle proprement, pas de la placer.",
+ ae:"Le joueur fort recule d'un mètre : il joue ses volées plus bas et plus difficiles, l'autre garde une balle facile.",
+ r:"30 volées d'affilée sans faute.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:122,l:"B"}], balls:[{from:[28,82],to:[72,118]}]},
+
+{id:"e9",imp:5,t:"Volée profonde : la zone interdite",th:"filet",n:[4,8],j:2,d:12,
+ o:"Une volée courte offre un lob au rival et coûte le filet. On travaille la profondeur.",
+ dr:"A au filet, B au fond. Toute volée de A qui retombe avant la ligne de service adverse compte comme une faute, même si le point continue. Séries de 15 volées, on compte les fautes de zone.",
+ k:["Viser à hauteur de la tête du rival, pas ses pieds, quand on est loin.","Accompagner vers l'avant, ne pas couper sec."],
+ ad:"Remplacer la zone par un simple objectif : la balle doit dépasser le milieu du terrain adverse.",
+ ae:"Le joueur au fond peut être plus faible : il n'a qu'à renvoyer, pas à attaquer. Rôle parfait pour Claire pendant que tu travailles la profondeur.",
+ r:"Moins de 3 volées courtes sur 15.",
+ pos:[{x:30,y:75,l:"A"},{x:70,y:160,l:"B"}], balls:[{from:[30,80],to:[70,155]}], zone:[100,130]},
+
+{id:"e10",imp:3,t:"Volée bloquée sur balle rapide",th:"filet",n:[5,8],j:2,d:8,
+ o:"Utiliser la vitesse du rival au lieu de la subir.",
+ dr:"B frappe fort depuis le fond, A au filet bloque sans armer, en absorbant. 10 balles, on change. Puis A doit bloquer dans les pieds de B.",
+ k:["Aucune préparation : la raquette part de devant.","Le corps encaisse, la main reste ferme.","Prise continentale, ouverte."],
+ ad:"Ne pas faire frapper fort : balles à vitesse moyenne, l'idée du blocage reste la même.",
+ ae:"Si l'écart est grand, le fort frappe et le moins fort bloque : c'est le sens facile.",
+ r:"7 blocages sur 10 dans le terrain.",
+ pos:[{x:30,y:80,l:"A"},{x:70,y:165,l:"B"}], balls:[{from:[70,160],to:[30,85]}]},
+
+{id:"e11",imp:5,t:"Bandeja et retour au filet",th:"attaque",n:[4,8],j:2,d:14,
+ o:"Le vrai but de la bandeja n'est pas de gagner le point, c'est de garder le filet.",
+ dr:"B lobe depuis le fond. A recule, joue la bandeja croisée vers la vitre latérale à 60 % de vitesse, puis revient au filet et joue la volée suivante. Cycle de 6, puis on change.",
+ k:["Frapper la balle devant soi, bras tendu, à hauteur d'épaule.","Le pas de côté d'abord, jamais le dos tourné.","Après la bandeja, deux pas en avant automatiques."],
+ ad:"Sans lob : envoyer la balle à la main en cloche, et travailler uniquement le geste de bandeja sur place.",
+ ae:"Le débutant tient le rôle de lobeur, ce qui est exactement son coup prioritaire. Les deux travaillent en même temps sur leur besoin réel.",
+ r:"5 bandejas sur 6 qui touchent la vitre latérale, et retour au filet à chaque fois.",
+ pos:[{x:35,y:60,l:"A"},{x:70,y:160,l:"B"}], balls:[{from:[70,155],to:[35,20],lob:true},{from:[35,55],to:[92,150]}]},
+
+{id:"e12",imp:4,t:"Bandeja de régularité, séries de 10",th:"attaque",n:[5,8],j:2,d:10,
+ o:"Tenir la bandeja quand les jambes commencent à brûler. Test physique et mental.",
+ dr:"Le partenaire envoie 10 lobs d'affilée sans pause. Le joueur bandeje les 10, croisé, en revenant à chaque fois vers le filet. 1 minute de repos. 3 séries.",
+ k:["Ne pas accélérer quand on fatigue, ralentir et viser.","Respirer à la frappe."],
+ ad:"Séries de 5 lobs, envoyés à la main.",
+ ae:"Le lobeur peut être de n'importe quel niveau : c'est le meilleur exercice mixte de la liste.",
+ r:"3 séries de 10 avec moins de 2 fautes par série.",
+ pos:[{x:50,y:55,l:"A"},{x:50,y:165,l:"B"}], balls:[{from:[50,160],to:[50,20],lob:true},{from:[50,50],to:[85,150]}]},
+
+{id:"e13",imp:3,t:"Bandeja, vibora ou smash : choisir",th:"attaque",n:[6,8],j:2,d:12,
+ o:"Lire la hauteur et la profondeur du lob pour choisir le bon coup.",
+ dr:"Le partenaire annonce rien et varie : lob court, lob profond, lob mou. Sur lob court → vibora ou smash. Lob profond → bandeja. Lob très profond → lob de retour. 20 balles.",
+ k:["Décider avant que la balle redescende.","Un smash sur un lob profond est presque toujours une erreur."],
+ ad:"Hors de portée à ce niveau.",
+ ae:"À réserver aux séances entre joueurs de niveau proche.",
+ r:"16 bons choix sur 20, jugés par le partenaire.",
+ pos:[{x:45,y:55,l:"A"},{x:55,y:165,l:"B"}], balls:[{from:[55,160],to:[45,35],lob:true},{from:[45,50],to:[80,140]}]},
+
+{id:"e14",imp:4,t:"Service et montée, dix croisés",th:"service",n:[2,8],j:2,d:8,
+ o:"Automatiser la montée après le service. Le service ne sert qu'à ça.",
+ dr:"10 services croisés, chacun suivi d'une montée jusqu'à la ligne de service et d'un arrêt. Le retourneur renvoie une balle, le serveur joue une volée. On change.",
+ k:["Balle frappée sous la taille, après un rebond au sol.","Servir vers la vitre latérale pour ouvrir le terrain.","Monter en marchant, pas en courant."],
+ ad:"Travailler d'abord 10 services sans montée, juste la régularité. Puis ajouter la montée.",
+ ae:"Aucun ajustement nécessaire : chacun sert au rythme qu'il maîtrise.",
+ r:"8 services sur 10 dans le carré, et arrêt avant chaque volée.",
+ pos:[{x:70,y:130,l:"S"},{x:30,y:55,l:"R"}], balls:[{from:[70,128],to:[22,72]}]},
+
+{id:"e15",imp:4,t:"Retour lobé systématique",th:"service",n:[3,8],j:2,d:8,
+ o:"Le retour lobé enlève le filet à l'adversaire dès la première balle. Sous-utilisé en amateur.",
+ dr:"Le serveur sert et monte. Le retourneur lobe systématiquement au-dessus de lui, puis monte à son tour. 10 retours, on change.",
+ k:["Lober au-dessus de l'épaule du revers du monteur.","Prendre la balle tôt, ne pas reculer."],
+ ad:"Renvoyer haut sans exigence de zone. Le seul objectif est que la balle passe au-dessus du serveur.",
+ ae:"Le serveur fort peut smasher les lobs trop courts, ce qui donne un retour d'information immédiat au retourneur.",
+ r:"7 lobs sur 10 non attaquables.",
+ pos:[{x:70,y:120,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,118],to:[25,72]},{from:[25,72],to:[75,180],lob:true}]},
+
+{id:"e16",imp:4,t:"Points : on ne gagne qu'au filet",th:"tactique",n:[3,8],j:4,d:15,
+ o:"Casser l'habitude de rester au fond. Le padel se gagne devant.",
+ dr:"Points normaux, mais un point ne compte que s'il est gagné par une paire ayant les deux joueurs devant la ligne de service. Sinon on rejoue le point.",
+ k:["Le lob devient l'outil principal pour monter.","Communiquer : « je monte » se dit à voix haute."],
+ ad:"Autoriser un seul joueur devant la ligne pour valider le point.",
+ ae:"Handicap au score : la paire la plus faible démarre chaque jeu à 15-0, ou à 30-0 si l'écart dépasse deux niveaux.",
+ r:"Jouer un jeu complet sans avoir à rejouer plus de 3 points.",
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+
+{id:"e17",imp:3,t:"Points : vitre du fond interdite",th:"tactique",n:[5,8],j:4,d:15,
+ o:"Arrêter d'offrir des balles faciles dans le coin où le défenseur est le plus à l'aise.",
+ dr:"Points normaux. Toute volée ou bandeja qui va chercher la vitre du fond côté défenseur est une faute directe. On joue au centre et sur les pieds.",
+ k:["Le centre crée l'hésitation entre les deux défenseurs.","Une balle au centre sans rebond de mur est presque indéfendable."],
+ ad:"Trop technique. Utiliser plutôt « le lob obligatoire ».",
+ ae:"N'appliquer la règle qu'aux joueurs forts. Les débutants jouent normalement.",
+ r:"Un jeu complet avec moins de 4 fautes de zone.",
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[50,80],to:[50,150]}]},
+
+{id:"e18",imp:5,t:"Points : lob obligatoire",th:"tactique",n:[2,8],j:4,d:12,
+ o:"Format idéal en niveaux mélangés : tout le monde peut jouer, personne ne peut écraser.",
+ dr:"Depuis le fond, toute balle doit être un lob. Les joueurs au filet jouent normalement mais sans smash gagnant : bandeja seulement.",
+ k:["Les échanges durent, tout le monde touche la balle.","Les débutants apprennent le déplacement sans subir."],
+ ad:"Autoriser deux rebonds pour les débutants.",
+ ae:"C'est le format qui absorbe le mieux les écarts. Paire mixte : un fort et un débutant de chaque côté.",
+ r:"Des échanges de plus de 8 balles la moitié du temps.",
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,30],lob:true}]},
+
+{id:"e19",imp:4,t:"Demi-terrain croisé, deux contre deux",th:"tactique",n:[2,8],j:4,d:12,
+ o:"Faire jouer quatre joueurs sur une seule piste avec deux niveaux différents en parallèle.",
+ dr:"On coupe la piste en deux diagonales. Deux joueurs jouent le croisé droite, les deux autres le croisé revers. Chaque paire joue son propre point, à son propre rythme.",
+ k:["Une balle qui sort de sa diagonale est morte, on repart.","Les deux paires peuvent avoir des consignes différentes."],
+ ad:"Donner la diagonale la plus courte aux débutants et autoriser deux rebonds.",
+ ae:"Exercice conçu pour ça : les forts d'un côté, les débutants de l'autre, même piste, même heure.",
+ r:"20 minutes sans collision et sans temps mort.",
+ pos:[{x:25,y:70,l:"A"},{x:75,y:70,l:"B"},{x:75,y:150,l:"C"},{x:25,y:150,l:"D"}], balls:[{from:[25,75],to:[75,145]},{from:[75,75],to:[25,145]}]},
+
+{id:"e20",imp:3,t:"Le roi du filet",th:"tactique",n:[1,6],j:3,d:12,
+ o:"Format à trois joueurs, ludique, qui fait travailler le filet à tout le monde.",
+ dr:"Un joueur au filet contre deux au fond. Le joueur au filet reste tant qu'il gagne le point. S'il perd, il va au fond et celui qui a gagné prend sa place.",
+ k:["Au filet : viser les pieds, ne pas chercher le coup gagnant.","Au fond : lober pour déloger le roi."],
+ ad:"Le débutant au filet démarre à un mètre du filet et n'a qu'à bloquer.",
+ ae:"Le joueur fort au filet joue en revers uniquement, ou sans smash. L'écart se régule par cette règle-là, pas par le score.",
+ r:"Chacun a tenu le filet au moins deux fois.",
+ pos:[{x:50,y:75,l:"Roi"},{x:25,y:160,l:"B"},{x:75,y:160,l:"C"}], balls:[{from:[25,155],to:[50,25],lob:true}]},
+
+{id:"e21",imp:4,t:"Mur extérieur : 20 droites, 20 revers",th:"maison",n:[1,8],j:1,d:15,
+ o:"Entretenir le contact de balle sans piste et sans partenaire.",
+ dr:"À trois mètres d'un mur plein. 20 coups droits contrôlés à hauteur de poitrine, 20 revers, puis 20 en alternance. Trois tours.",
+ k:["Préparation courte, comme une volée.","Compter à voix haute pour tenir le rythme."],
+ ad:"Se rapprocher à deux mètres et laisser rebondir une fois entre chaque frappe.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"20 frappes d'affilée sans perdre le contrôle.",
+ pos:[{x:50,y:150,l:"Toi"}], balls:[{from:[50,145],to:[50,15]}]},
+
+{id:"e22",imp:3,t:"Shadow bandeja et volée",th:"maison",n:[2,8],j:1,d:10,
+ o:"Graver le geste sans balle, là où le cerveau apprend le plus vite.",
+ dr:"Devant un miroir ou une vitre. 30 gestes de bandeja au ralenti avec pas de côté, 30 volées coup droit, 30 revers. Prise continentale tout du long.",
+ k:["Vérifier que le point de contact est devant, jamais à côté du corps.","Finir chaque geste en position d'attente."],
+ ad:"Faire 15 répétitions et se concentrer uniquement sur la prise de raquette.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"3 séances de 10 minutes dans la semaine.",
+ pos:[{x:50,y:100,l:"Toi"}], balls:[]},
+
+{id:"e23",imp:4,t:"Split-step et déplacements",th:"maison",n:[1,8],j:1,d:12,
+ o:"Le padel amateur se perd sur les jambes, pas sur la technique.",
+ dr:"4 séries de 30 secondes : petit saut d'appui (split-step) puis deux pas latéraux à droite, retour, deux pas à gauche. 30 secondes de repos entre les séries.",
+ k:["Le split-step se fait au moment où l'adversaire frappe, jamais après.","Rester sur l'avant du pied."],
+ ad:"2 séries de 20 secondes.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"4 séries tenues sans poser les talons.",
+ pos:[{x:50,y:100,l:"Toi"}], balls:[]},
+
+{id:"e24",imp:5,t:"Épaule et cheville : prévention",th:"maison",n:[1,8],j:1,d:10,
+ o:"À partir de la trentaine, c'est la blessure qui décide de la progression, pas le talent.",
+ dr:"Élastique : 3 × 15 rotations externes d'épaule, coude au corps. 3 × 15 tirages en L. Puis 2 × 30 secondes d'équilibre sur un pied, yeux fermés, par cheville. Mobilité de hanche 2 minutes.",
+ k:["Mouvement lent, l'élastique doit être facile.","À faire les jours sans padel."],
+ ad:"Sans élastique : mêmes mouvements à vide, en contrôlant la lenteur.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"Deux séances par semaine, toute l'année.",
+ pos:[], balls:[]}
+,
+
+/* ---------- échauffement ---------- */
+{id:"e25",imp:3,t:"Volées douces au filet, face à face",th:"echauffement",n:[1,8],j:2,d:8,
+ o:"Chauffer la main et l'œil avant de reculer au fond.",
+ dr:"Les deux joueurs à trois mètres du filet, volées lentes et continues. 2 minutes coup droit, 2 minutes revers, 2 minutes alterné, 2 minutes en reculant progressivement.",
+ k:["Aucune force, on cherche le centre du tamis.","La raquette reste devant le corps en permanence."],
+ ad:"Se placer plus près et laisser rebondir une fois si besoin.",
+ ae:"Le joueur fort ajuste la hauteur pour que l'échange dure. Un échange qui tombe toutes les trois balles ne chauffe personne.",
+ r:"40 volées d'affilée sans faute.",
+ pos:[{x:35,y:80,l:"A"},{x:65,y:120,l:"B"}], balls:[{from:[35,84],to:[65,116]}]},
+
+{id:"e26",imp:4,t:"Réveil articulaire avant de jouer",th:"echauffement",n:[1,8],j:2,d:8,
+ o:"Éviter la blessure des dix premières minutes, la plus fréquente de toutes.",
+ dr:"Ensemble sur la piste : 2 minutes de course lente autour du terrain, 20 cercles de bras avant et arrière, 15 fentes alternées, 20 rotations du buste, 10 sauts d'appui. Puis 10 services à vide, sans balle.",
+ k:["Chauffer l'épaule avant le premier smash, jamais après.","Chevilles et hanches d'abord : ce sont elles qui encaissent les changements de direction."],
+ ad:"Même protocole sans exception. C'est ce qui varie le moins d'un joueur à l'autre.",
+ ae:"À faire tous ensemble : c'est aussi le moment où le groupe se met en route.",
+ r:"Ne jamais commencer une séance sans l'avoir fait.",
+ pos:[{x:30,y:150,l:"A"},{x:70,y:150,l:"B"}], balls:[]},
+
+{id:"e27",imp:3,t:"Montée progressive du fond vers le filet",th:"echauffement",n:[2,8],j:2,d:8,
+ o:"Passer en revue tous les coups de la séance en huit minutes.",
+ dr:"2 minutes fond contre fond. 2 minutes fond contre mi-terrain. 2 minutes fond contre filet. 2 minutes de lobs et de bandejas lentes. On change de rôle à mi-parcours.",
+ k:["Chaque zone a sa hauteur de balle : haute au fond, basse au filet.","On ne cherche aucun point gagnant."],
+ ad:"Rester sur les deux premières phases, les zones avancées viendront plus tard.",
+ ae:"Le joueur fort commence au filet, le poste le plus exigeant en contrôle.",
+ r:"Passer les quatre phases sans interruption.",
+ pos:[{x:30,y:165,l:"A"},{x:70,y:75,l:"B"}], balls:[{from:[30,160],to:[70,80]}]},
+
+/* ---------- défense ---------- */
+{id:"e28",imp:4,t:"Sortie de mur en parallèle",th:"defense",n:[4,8],j:2,d:12,
+ o:"Le croisé est confortable, le parallèle est celui qu'on rate en match. On le travaille à part.",
+ dr:"A au filet envoie long dans la même diagonale. B sort la balle du mur et joue en parallèle, le long de la vitre latérale. Séries de 10, on change.",
+ k:["Ouvrir les épaules plus tôt que pour le croisé.","Viser à un mètre de la vitre latérale, pas la ligne.","Après un parallèle, se recentrer immédiatement."],
+ ad:"Envoyer les balles à la main et ne demander que la direction, sans exigence de profondeur.",
+ ae:"Le joueur au filet travaille sa volée de placement : il doit envoyer dix balles au même endroit.",
+ r:"7 sorties sur 10 qui passent à moins de deux mètres de la vitre latérale.",
+ pos:[{x:28,y:150,l:"B"},{x:28,y:70,l:"A"}], balls:[{from:[28,75],to:[25,192]},{from:[25,150],to:[25,60]}]},
+
+{id:"e29",imp:3,t:"Vitre latérale puis vitre du fond",th:"defense",n:[5,8],j:2,d:12,
+ o:"Gérer la balle qui touche le côté avant le fond, la plus déroutante du padel.",
+ dr:"A envoie des balles rapides vers la vitre latérale du côté de B. B laisse faire les deux vitres et rejoue en lob. Séries de 8 par côté.",
+ k:["Le premier pas est un pas en arrière, pas un pas de côté.","Laisser la balle passer devant soi avant de se retourner.","Elle ressort plus vite qu'après le mur du fond : partir plus tôt."],
+ ad:"Trop tôt à ce niveau. Utiliser plutôt la sortie de mur croisée.",
+ ae:"À réserver aux joueurs de niveau proche. Sinon le moins fort observe et compte les réussites à voix haute.",
+ r:"6 balles sur 8 remises en jeu.",
+ pos:[{x:22,y:155,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[70,80],to:[6,150]},{from:[22,152],to:[70,25],lob:true}]},
+
+{id:"e30",imp:2,t:"Le contre-mur : utiliser sa propre vitre",th:"defense",n:[6,8],j:2,d:10,
+ o:"Sortie de secours quand on est acculé. Spectaculaire mais rarement décisif : à travailler en dernier.",
+ dr:"B, dos au mur, joue volontairement dans sa propre vitre latérale pour que la balle repasse le filet. 10 tentatives par côté.",
+ k:["Viser haut sur la vitre, sinon la balle meurt au filet.","Coup d'assurance uniquement, jamais un choix par défaut."],
+ ad:"Hors de portée à ce niveau.",
+ ae:"À réserver aux séances entre joueurs de niveau proche.",
+ r:"4 réussites sur 10, ce qui est déjà bien.",
+ pos:[{x:18,y:170,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[18,168],to:[4,140]},{from:[4,140],to:[70,60]}]},
+
+{id:"e31",imp:4,t:"Défendre le smash : bloquer puis relober",th:"defense",n:[4,8],j:2,d:12,
+ o:"Un smash bien défendu casse le moral de l'attaquant. C'est un coup qui se travaille.",
+ dr:"A smashe à 70 % depuis le filet. B bloque sans armer et remet haut au centre. 10 balles, puis on change si les niveaux le permettent.",
+ k:["Reculer avant la frappe, pas après.","Raquette devant, poignet ferme, aucun geste.","La réponse idéale est un lob haut, même court : on gagne du temps."],
+ ad:"Remplacer le smash par une bandeja lente. L'objectif est de toucher la balle, pas de la placer.",
+ ae:"L'attaquant contrôle la vitesse : il cherche la répétition, pas le point gagnant.",
+ r:"6 blocages sur 10 qui repassent le filet.",
+ pos:[{x:50,y:65,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,70],to:[50,165]}]},
+
+{id:"e32",imp:4,t:"Trois lobs, une balle rasante",th:"defense",n:[3,8],j:2,d:10,
+ o:"Sortir du réflexe « je lobe toujours » sans perdre la sécurité du lob.",
+ dr:"Depuis le fond, B joue trois lobs puis une quatrième balle rasante qui passe bas au-dessus du filet. Cycle répété 8 fois. A au filet renvoie normalement.",
+ k:["La rasante se joue quand le rival recule après le lob.","Annoncer mentalement la quatrième avant de la jouer."],
+ ad:"Deux lobs, une rasante. Le rythme compte plus que le nombre.",
+ ae:"Le joueur fort tient le filet et doit rattraper la rasante : ça travaille son anticipation.",
+ r:"6 cycles complets sur 8 sans faute.",
+ pos:[{x:35,y:155,l:"B"},{x:65,y:75,l:"A"}], balls:[{from:[35,150],to:[65,25],lob:true},{from:[35,150],to:[65,95]}]},
+
+{id:"e33",imp:5,t:"Se replacer au centre après chaque défense",th:"defense",n:[2,8],j:2,d:10,
+ o:"La faute la plus coûteuse en amateur n'est pas technique : c'est de rester où l'on vient de frapper.",
+ dr:"A envoie des balles alternées dans les deux coins du fond. Après chaque frappe, B doit repasser par le centre avant la balle suivante. 20 balles, on change.",
+ k:["Le centre du fond, pas le centre du terrain.","Se replacer en pas chassés, face au filet.","Si le replacement est en retard, ralentir la balle envoyée, pas sauter l'étape."],
+ ad:"Balles envoyées à la main sur un rythme lent, avec une balle posée au centre comme repère.",
+ ae:"Idéal en niveaux mélangés : le fort envoie et travaille sa précision, l'autre travaille ses jambes.",
+ r:"18 replacements complets sur 20.",
+ pos:[{x:50,y:160,l:"B"},{x:50,y:70,l:"A"}], balls:[{from:[50,75],to:[15,175]},{from:[50,75],to:[85,175]}]},
+
+/* ---------- transition ---------- */
+{id:"e34",imp:5,t:"Monter après le retour de service",th:"transition",n:[3,8],j:2,d:12,
+ o:"Au padel, le retourneur doit prendre le filet. C'est la règle que les amateurs appliquent le moins.",
+ dr:"A sert et reste au fond. B retourne en lob ou croisé bas, puis monte jusqu'au filet. A joue une balle, B doit la volleyer. 10 retours, on change.",
+ k:["Décider de monter avant de frapper, pas après.","S'arrêter net à l'arrivée, même à mi-chemin.","Un retour croisé bas et lent vaut mieux qu'un retour fort mal placé."],
+ ad:"Travailler uniquement le déplacement : retourner, puis marcher jusqu'au filet sans jouer la balle suivante.",
+ ae:"Le serveur adapte la difficulté de son service au retourneur et travaille sa régularité.",
+ r:"8 montées sur 10 avec arrêt avant la volée.",
+ pos:[{x:70,y:150,l:"A"},{x:30,y:60,l:"B"}], balls:[{from:[70,148],to:[25,72]},{from:[25,72],to:[75,150]}]},
+
+{id:"e35",imp:4,t:"Volée de transition à mi-terrain",th:"transition",n:[4,8],j:2,d:10,
+ o:"La zone entre la ligne de service et le filet est celle où l'on perd le plus de points.",
+ dr:"B se place volontairement à mi-terrain. A envoie des balles basses dans ses pieds. B joue une volée haute et profonde, puis avance de deux pas. 12 balles, on change.",
+ k:["Depuis le milieu, la volée est haute et longue, jamais courte.","Fléchir les jambes plutôt que baisser la raquette."],
+ ad:"Balles envoyées à hauteur de poitrine, pour supprimer la difficulté du bas.",
+ ae:"Le lanceur ajuste la hauteur : poitrine pour le débutant, chevilles pour le confirmé.",
+ r:"9 volées sur 12 qui dépassent la ligne de service adverse.",
+ pos:[{x:35,y:118,l:"B"},{x:65,y:70,l:"A"}], balls:[{from:[65,75],to:[35,115]}]},
+
+{id:"e36",imp:4,t:"Reculer ensemble, perdre le filet proprement",th:"transition",n:[4,8],j:4,d:12,
+ o:"Quand le lob adverse est trop bon, il faut reculer à deux. Une paire qui se coupe en deux perd le point.",
+ dr:"Une paire au filet, l'autre au fond qui lobe très profond. Sur lob imparable, la paire au filet recule ensemble jusqu'au fond, sans jamais se retrouver l'une devant l'autre. On rejoue le point ensuite.",
+ k:["Le joueur qui recule le premier annonce à voix haute.","Reculer en diagonale, face au jeu.","Une paire alignée est une paire qui survit."],
+ ad:"Ralentir : lobs envoyés à la main, le déplacement est le seul objectif.",
+ ae:"Un joueur fort et un débutant dans chaque paire, le fort donne les annonces.",
+ r:"8 reculs sur 10 avec les deux joueurs alignés.",
+ pos:[{x:28,y:80,l:"A"},{x:72,y:80,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[50,20],lob:true}]},
+
+{id:"e37",imp:4,t:"Le pas de côté sous le lob",th:"transition",n:[3,8],j:2,d:10,
+ o:"Reculer dos au filet est la première cause de bandeja ratée et de chute.",
+ dr:"A lobe. B recule en pas chassés, épaules de profil, sans jamais tourner le dos, joue une bandeja et revient. 12 lobs, on change.",
+ k:["Premier appui : le pied du côté de la raquette part en arrière.","Le regard reste sur la balle en permanence.","Trois pas chassés valent mieux qu'un demi-tour."],
+ ad:"Sans balle : uniquement le déplacement, 12 fois. C'est un exercice de jambes avant d'être un exercice de raquette.",
+ ae:"Le lobeur peut être de n'importe quel niveau : c'est justement son coup prioritaire.",
+ r:"10 reculs sur 12 sans tourner le dos.",
+ pos:[{x:40,y:60,l:"B"},{x:60,y:165,l:"A"}], balls:[{from:[60,160],to:[40,20],lob:true}]},
+
+{id:"e38",imp:3,t:"Monter sur balle courte",th:"transition",n:[4,8],j:2,d:10,
+ o:"Reconnaître l'occasion de monter. Beaucoup de joueurs la laissent passer trois fois par jeu.",
+ dr:"A envoie des balles de profondeur variable. Dès qu'une balle tombe avant la ligne de service de B, B doit monter. Sur balle profonde, il reste au fond. 20 balles.",
+ k:["La décision se prend au rebond, pas à la frappe.","Sur balle courte, on attaque en avançant, jamais sur place."],
+ ad:"Annoncer à voix haute « courte » ou « longue » avant chaque balle, pour apprendre à lire la profondeur.",
+ ae:"Le lanceur varie honnêtement, sans piéger. L'objectif est la lecture, pas la surprise.",
+ r:"16 bonnes décisions sur 20.",
+ pos:[{x:40,y:150,l:"B"},{x:60,y:70,l:"A"}], balls:[{from:[60,75],to:[40,120]},{from:[60,75],to:[40,180]}]},
+
+/* ---------- volée ---------- */
+{id:"e39",imp:4,t:"Volée dans les pieds",th:"filet",n:[4,8],j:2,d:10,
+ o:"La balle dans les pieds du défenseur provoque plus de fautes que n'importe quel coup fort.",
+ dr:"A au filet, B au fond à la ligne de service. A doit faire rebondir chaque volée entre les pieds de B et la ligne de service. 15 volées, on compte.",
+ k:["Couper légèrement pour que la balle plonge.","Viser un point au sol, pas le corps du rival."],
+ ad:"Élargir la cible à toute la moitié avant du terrain adverse.",
+ ae:"Le joueur au fond n'a qu'à renvoyer : rôle accessible à tous les niveaux.",
+ r:"9 volées sur 15 dans la zone.",
+ pos:[{x:30,y:75,l:"A"},{x:70,y:135,l:"B"}], balls:[{from:[30,80],to:[70,128]}], zone:[100,132]},
+
+{id:"e40",imp:4,t:"Volée croisée ou parallèle sur annonce",th:"filet",n:[4,8],j:2,d:10,
+ o:"Savoir diriger la volée au dernier moment, au lieu de jouer toujours au même endroit.",
+ dr:"B au fond annonce « croisé » ou « parallèle » juste avant que A ne frappe. A doit exécuter. 20 volées, on change.",
+ k:["Changer de direction avec les épaules, pas avec le poignet.","L'annonce tardive oblige à garder une préparation neutre."],
+ ad:"Annoncer plus tôt, avant même que la balle parte.",
+ ae:"Le joueur fort annonce plus tard pour se compliquer la tâche, plus tôt pour aider l'autre.",
+ r:"16 bonnes directions sur 20.",
+ pos:[{x:30,y:75,l:"A"},{x:60,y:160,l:"B"}], balls:[{from:[30,80],to:[75,155]},{from:[30,80],to:[25,160]}]},
+
+{id:"e41",imp:3,t:"L'amortie de volée",th:"filet",n:[5,8],j:2,d:10,
+ o:"Rapporte beaucoup contre les défenseurs collés au fond, mais se rate vite.",
+ dr:"B lobe ou joue long depuis le fond. A joue une amortie de volée qui doit mourir avant la ligne de service. 12 tentatives, on change.",
+ k:["Main souple, la raquette recule légèrement au contact.","À jouer seulement quand le rival est derrière sa ligne de fond.","Après une amortie, avancer : la réponse sera courte."],
+ ad:"Trop tôt. Préférer la volée profonde, qui gagne davantage de points à ce niveau.",
+ ae:"Le défenseur essaie de courir chaque amortie, ce qui lui fait travailler son démarrage.",
+ r:"7 amorties sur 12 qui rebondissent deux fois avant la ligne de service.",
+ pos:[{x:40,y:78,l:"A"},{x:60,y:180,l:"B"}], balls:[{from:[60,175],to:[40,30],lob:true},{from:[40,82],to:[65,120]}]},
+
+{id:"e42",imp:3,t:"Volée haute de dégagement",th:"filet",n:[4,8],j:2,d:8,
+ o:"Sortir d'une situation difficile au filet sans perdre la position.",
+ dr:"B frappe fort et bas. A ne cherche pas à gagner : il renvoie haut et profond pour se donner le temps de se replacer. 15 balles.",
+ k:["Ouvrir la raquette et accompagner vers le haut.","Se replacer pendant que la balle est en l'air."],
+ ad:"Balles envoyées plus lentement, l'idée de dégagement reste la même.",
+ ae:"Le frappeur module sa puissance selon celui qui volleye.",
+ r:"11 dégagements sur 15 derrière la ligne de service adverse.",
+ pos:[{x:35,y:80,l:"A"},{x:65,y:165,l:"B"}], balls:[{from:[65,160],to:[35,85]},{from:[35,85],to:[65,185]}]},
+
+{id:"e43",imp:3,t:"Réflexes à trois mètres",th:"filet",n:[3,8],j:2,d:8,
+ o:"Vitesse de main dans les échanges rapprochés, fréquents quand les quatre joueurs sont au filet.",
+ dr:"Les deux joueurs à trois mètres l'un de l'autre, de part et d'autre du filet. Volées rapides et continues pendant 30 secondes, 20 secondes de repos. 6 séries.",
+ k:["Raquette toujours devant, jamais sur le côté.","Prise continentale, on ne change jamais.","Réduire l'amplitude quand ça va trop vite."],
+ ad:"Reculer à quatre mètres et ralentir le rythme.",
+ ae:"Le joueur fort réduit sa puissance mais garde le rythme : c'est la fréquence qui fait l'exercice.",
+ r:"Tenir les 6 séries sans échange qui tombe avant 10 balles.",
+ pos:[{x:50,y:88,l:"A"},{x:50,y:112,l:"B"}], balls:[{from:[50,90],to:[50,110]}]},
+
+{id:"e44",imp:5,t:"Couvrir le filet à deux",th:"filet",n:[3,8],j:4,d:12,
+ o:"Deux joueurs au filet doivent bouger comme reliés par une corde. C'est la base du jeu en double.",
+ dr:"Une paire au filet, l'autre au fond qui joue normalement. La paire au filet se déplace ensemble : quand la balle va à gauche, les deux glissent à gauche. Points joués normalement.",
+ k:["Le joueur du côté de la balle avance, l'autre se recentre.","Le milieu appartient au coup droit du joueur le mieux placé.","Se parler à chaque balle."],
+ ad:"Ralentir le jeu au fond et n'utiliser que des balles lentes.",
+ ae:"Un fort et un débutant par paire, le fort annonce les déplacements à voix haute.",
+ r:"Aucun trou au centre pendant un jeu complet.",
+ pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:25,y:165,l:"C"},{x:70,y:165,l:"D"}], balls:[{from:[25,160],to:[30,60]}]},
+
+/* ---------- attaque ---------- */
+{id:"e45",imp:3,t:"Smash par la vitre latérale",th:"attaque",n:[6,8],j:2,d:12,
+ o:"Le smash qui sort du terrain par le côté : le coup gagnant le plus fiable du padel.",
+ dr:"Le partenaire lobe court sur le côté. Le joueur smashe vers l'angle formé par la vitre latérale et le fond, pour que la balle ressorte. 12 tentatives par côté.",
+ k:["Viser le tiers supérieur de la vitre latérale, près du coin.","Frapper avec de l'effet, pas seulement de la force.","Sur lob profond, ne jamais tenter ce coup."],
+ ad:"Hors de portée à ce niveau.",
+ ae:"À réserver aux séances entre joueurs de niveau proche.",
+ r:"4 sorties de terrain sur 12, ce qui est un bon taux.",
+ pos:[{x:35,y:55,l:"A"},{x:60,y:165,l:"B"}], balls:[{from:[60,160],to:[35,30],lob:true},{from:[35,50],to:[6,25]}]},
+
+{id:"e46",imp:3,t:"Vibora croisée",th:"attaque",n:[6,8],j:2,d:12,
+ o:"Coup coupé et rapide qui garde le filet tout en mettant la pression. Entre la bandeja et le smash.",
+ dr:"Sur lob moyen, le joueur frappe une vibora croisée vers la vitre latérale opposée, avec un effet latéral marqué. 12 balles, on change.",
+ k:["Point de contact plus haut que la bandeja, plus bas que le smash.","Le geste coupe la balle de l'extérieur vers l'intérieur.","On reste au filet après, comme pour la bandeja."],
+ ad:"Hors de portée. Travailler la bandeja d'abord, c'est le même déplacement.",
+ ae:"Le lobeur travaille sa profondeur pendant ce temps, ce qui convient à tous les niveaux.",
+ r:"8 viboras sur 12 qui touchent la vitre latérale.",
+ pos:[{x:35,y:58,l:"A"},{x:65,y:165,l:"B"}], balls:[{from:[65,160],to:[35,25],lob:true},{from:[35,55],to:[94,140]}]},
+
+{id:"e47",imp:3,t:"Smash à plat sur balle courte",th:"attaque",n:[5,8],j:2,d:10,
+ o:"Conclure quand le lob est vraiment mauvais, sans se précipiter sur les autres.",
+ dr:"Le partenaire envoie volontairement des lobs courts. Le joueur smashe à plat au centre du terrain, entre les deux défenseurs imaginaires. 12 balles.",
+ k:["Se placer sous la balle et frapper devant soi.","Le centre est plus sûr que les lignes.","Un smash sur un lob profond est presque toujours une erreur."],
+ ad:"Remplacer le smash par une bandeja : le geste utile viendra plus tard.",
+ ae:"Le lobeur envoie à la main s'il n'a pas encore le lob fiable.",
+ r:"9 smashes sur 12 dans le terrain.",
+ pos:[{x:50,y:70,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,165],to:[50,45],lob:true},{from:[50,65],to:[50,175]}]},
+
+{id:"e48",imp:4,t:"Bandeja parallèle ou croisée",th:"attaque",n:[5,8],j:2,d:12,
+ o:"Choisir la direction selon la position du rival, au lieu de toujours jouer au même endroit.",
+ dr:"Le partenaire lobe puis se déplace immédiatement d'un côté. Le joueur doit bandejer de l'autre côté. 15 balles.",
+ k:["Regarder le rival pendant que la balle monte.","La parallèle est plus sûre, la croisée ouvre plus de terrain."],
+ ad:"Ne travailler que la bandeja croisée, sans choix à faire.",
+ ae:"Le lobeur travaille en même temps son lob et son déplacement : utile aux deux.",
+ r:"12 bonnes directions sur 15.",
+ pos:[{x:45,y:58,l:"A"},{x:70,y:165,l:"B"}], balls:[{from:[70,160],to:[45,22],lob:true},{from:[45,55],to:[12,150]}]},
+
+{id:"e49",imp:5,t:"Recul en pas chassés sous le lob",th:"attaque",n:[3,8],j:2,d:10,
+ o:"Le déplacement décide de la qualité de la bandeja bien plus que le geste de bras.",
+ dr:"Le partenaire lobe à des profondeurs variables. Le joueur recule uniquement en pas chassés, se place sous la balle, frappe, et revient au filet. 15 lobs.",
+ k:["Se placer légèrement derrière la balle, jamais dessous exactement.","Trois pas chassés, la frappe, puis deux pas en avant.","Si on court, c'est qu'on est parti trop tard."],
+ ad:"Sans raquette : uniquement le déplacement, attraper la balle à la main au-dessus de la tête.",
+ ae:"Exercice mixte idéal : le lobeur progresse sur son coup prioritaire, l'autre sur ses appuis.",
+ r:"13 replacements sur 15 sans courir en avant.",
+ pos:[{x:50,y:60,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,165],to:[50,25],lob:true}]},
+
+{id:"e50",imp:3,t:"Enchaîner bandeja, bandeja, vibora",th:"attaque",n:[6,8],j:2,d:12,
+ o:"Tenir le filet sur une série de lobs, ce qui arrive dans tous les points longs.",
+ dr:"Le partenaire lobe trois fois de suite sans pause. Deux bandejas croisées puis une vibora sur la troisième. 6 cycles.",
+ k:["Revenir au filet entre chaque frappe, même sur deux pas.","Ne pas accélérer quand la fatigue arrive."],
+ ad:"Hors de portée. Rester sur la bandeja seule.",
+ ae:"Le lobeur adapte la profondeur pour que la série soit tenable.",
+ r:"5 cycles complets sur 6.",
+ pos:[{x:48,y:58,l:"A"},{x:52,y:168,l:"B"}], balls:[{from:[52,163],to:[48,22],lob:true},{from:[48,55],to:[92,145]}]},
+
+/* ---------- service et retour ---------- */
+{id:"e51",imp:4,t:"Régularité du service, vingt balles",th:"service",n:[1,8],j:2,d:8,
+ o:"Une double faute au padel est un point offert sans avoir joué. Aucune excuse.",
+ dr:"20 services d'affilée dans le carré, sans montée, en comptant à voix haute. Puis 20 de l'autre côté. On change.",
+ k:["Le rebond au sol avant la frappe doit être identique à chaque fois.","Frapper sous la taille, sans forcer.","Un service lent et sûr vaut mieux qu'un service raté."],
+ ad:"Commencer avec dix balles et un objectif de carré, sans direction imposée.",
+ ae:"Chacun sert à son rythme, aucune adaptation nécessaire. Peut se faire des deux côtés en même temps.",
+ r:"18 services sur 20 dans le carré.",
+ pos:[{x:70,y:135,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,133],to:[25,68]}]},
+
+{id:"e52",imp:3,t:"Service au corps ou vers l'extérieur",th:"service",n:[4,8],j:2,d:10,
+ o:"Varier la direction du service pour empêcher le retourneur de s'installer.",
+ dr:"Alterner : cinq services vers la vitre latérale, cinq dans le corps du retourneur, cinq au choix annoncé après le rebond de la balle. On change.",
+ k:["Le service extérieur ouvre le terrain, celui au corps bloque le geste.","Même préparation pour les deux, sinon le rival lit tout."],
+ ad:"Travailler d'abord la régularité seule, la direction viendra ensuite.",
+ ae:"Le retourneur peut être de n'importe quel niveau : il n'a qu'à renvoyer.",
+ r:"12 services bien dirigés sur 15.",
+ pos:[{x:70,y:132,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,130],to:[8,72]},{from:[70,130],to:[30,66]}]},
+
+{id:"e53",imp:4,t:"Retour croisé bas puis montée",th:"service",n:[4,8],j:2,d:10,
+ o:"Le retour bas et croisé oblige le serveur à jouer une volée difficile pendant qu'on monte.",
+ dr:"Le serveur sert et monte. Le retourneur joue un retour croisé rasant dans les pieds du monteur, puis monte lui aussi. 12 retours, on change.",
+ k:["Prendre la balle tôt, avant qu'elle ne descende trop.","Viser le sol entre le filet et la ligne de service adverse.","Alterner avec le retour lobé pour rester imprévisible."],
+ ad:"Renvoyer simplement croisé sans exigence de hauteur, puis marcher vers le filet.",
+ ae:"Le serveur travaille sa volée basse en montant, ce qui est exigeant : bon rôle pour le joueur fort.",
+ r:"8 retours sur 12 qui rebondissent avant la ligne de service.",
+ pos:[{x:70,y:118,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,116],to:[25,70]},{from:[25,70],to:[68,122]}]},
+
+{id:"e54",imp:5,t:"Premier contact sur le retour",th:"service",n:[1,4],j:2,d:10,
+ o:"Pour un débutant, remettre le service en jeu est ce qui change le plus vite le plaisir de jouer.",
+ dr:"Le partenaire sert doucement, toujours au même endroit. Le débutant renvoie n'importe où dans le terrain adverse. 20 services, sans changer de côté.",
+ k:["Se placer de profil avant le service.","Ne pas frapper fort, juste accompagner la balle.","Un retour haut est un bon retour."],
+ ad:"Servir à la main plutôt qu'à la raquette pour garantir la régularité.",
+ ae:"Rôle de serveur pour le joueur fort : il travaille sa précision, l'autre son contact.",
+ r:"15 retours sur 20 dans le terrain.",
+ pos:[{x:70,y:130,l:"S"},{x:30,y:58,l:"R"}], balls:[{from:[70,128],to:[28,66]}]},
+
+/* ---------- tactique ---------- */
+{id:"e55",imp:4,t:"Points avec lob obligatoire au retour",th:"tactique",n:[3,8],j:4,d:12,
+ o:"Installer l'habitude de reprendre le filet dès la première balle du point.",
+ dr:"Points normaux, mais tout retour de service doit être un lob. Le reste du point est libre.",
+ k:["Le lob de retour change complètement la physionomie du point.","Après le lob, la paire monte ensemble."],
+ ad:"Autoriser un renvoi haut sans exigence de profondeur.",
+ ae:"Handicap au score pour la paire la plus forte si l'écart dépasse deux niveaux.",
+ r:"Un jeu complet en respectant la règle.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,25],lob:true}]},
+
+{id:"e56",imp:4,t:"Interdiction des parallèles",th:"tactique",n:[4,8],j:4,d:12,
+ o:"Le parallèle perd beaucoup de points en amateur, parce qu'il est joué trop tôt dans le point.",
+ dr:"Points normaux. Toute balle jouée en parallèle est une faute directe. Tout doit passer par le croisé ou le centre.",
+ k:["Le croisé passe au-dessus de la partie basse du filet et laisse moins d'ouverture.","Le parallèle se joue en finition, pas en construction."],
+ ad:"Appliquer la règle uniquement aux joueurs confirmés.",
+ ae:"Les débutants jouent librement, les forts sont contraints : un handicap élégant.",
+ r:"Un jeu complet avec moins de 4 fautes de règle.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,82]}]},
+
+{id:"e57",imp:5,t:"Match à handicap",th:"tactique",n:[1,8],j:4,d:15,
+ o:"Rendre un match serré entre joueurs de niveaux différents : la seule façon que tout le monde progresse.",
+ dr:"Match normal, mais la paire la plus forte démarre chaque jeu à 0-15 par niveau d'écart. Écart de trois niveaux : départ à 0-40. On réajuste après deux jeux si le score reste déséquilibré.",
+ k:["Régler le handicap jusqu'à ce que les jeux se jouent à trois ou quatre points d'écart maximum.","Un match serré fait progresser les deux paires, un match à sens unique n'apprend rien à personne."],
+ ad:"Ajouter le droit à deux rebonds pour les débutants si le handicap au score ne suffit pas.",
+ ae:"Format conçu exactement pour les écarts importants. À utiliser dès que le groupe est mélangé.",
+ r:"Des jeux qui se terminent régulièrement à 40-30 ou en avantage.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+
+{id:"e58",imp:3,t:"Le point se construit en trois balles",th:"tactique",n:[4,8],j:4,d:12,
+ o:"Sortir de l'idée que le point se gagne d'un coup. On prépare, on déplace, on conclut.",
+ dr:"Points normaux, mais interdiction de tenter un coup gagnant avant la troisième balle de chaque paire. Avant ça, uniquement des balles de construction.",
+ k:["Balle 1 : se placer. Balle 2 : déplacer le rival. Balle 3 : conclure.","La patience gagne plus de points que la puissance."],
+ ad:"Ramener la règle à deux balles.",
+ ae:"N'appliquer la contrainte qu'aux joueurs confirmés.",
+ r:"Un jeu complet sans tentative prématurée.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[50,85],to:[20,150]},{from:[50,85],to:[80,150]}]},
+
+{id:"e59",imp:3,t:"Annoncer avant de frapper",th:"tactique",n:[3,8],j:4,d:12,
+ o:"Faire de la communication un réflexe. Une paire qui se parle gagne des points sans mieux jouer.",
+ dr:"Points normaux, mais chaque joueur annonce à voix haute avant chaque balle : « à moi », « laisse », « je monte », « je recule ». Un silence sur une balle vaut point perdu.",
+ k:["L'annonce se fait avant le rebond, pas pendant la frappe.","Un mot suffit, il doit être toujours le même."],
+ ad:"Réduire aux deux annonces essentielles : « à moi » et « laisse ».",
+ ae:"Le joueur fort ne peut annoncer qu'après son partenaire, ce qui oblige le débutant à décider en premier.",
+ r:"Un jeu complet sans balle silencieuse.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+
+{id:"e60",imp:4,t:"Rotation américaine",th:"tactique",n:[1,8],j:4,d:15,
+ o:"Faire jouer tout le monde avec tout le monde. Format idéal pour finir une séance à quatre.",
+ dr:"Trois manches de six jeux. À chaque manche on change de partenaire, pour que chaque paire se soit formée une fois. On compte les jeux gagnés individuellement.",
+ k:["S'adapter à un partenaire différent est une compétence à part entière.","Le classement individuel neutralise l'écart de niveau."],
+ ad:"Manches plus courtes, quatre jeux, pour garder le rythme.",
+ ae:"Format conçu pour ça : chaque joueur fort se retrouve une fois avec chaque débutant.",
+ r:"Trois manches terminées, moins de trois jeux d'écart entre le premier et le dernier.",
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+
+/* ---------- à la maison ---------- */
+{id:"e61",imp:3,t:"Corde à sauter et appuis",th:"maison",n:[1,8],j:1,d:12,
+ o:"Le padel se joue sur l'avant du pied. La corde installe cet appui mieux que n'importe quoi.",
+ dr:"3 séries : 1 minute de saut à deux pieds, 30 secondes pied droit, 30 secondes pied gauche, 1 minute de pas alternés. 1 minute de repos entre les séries.",
+ k:["Talons qui ne touchent jamais le sol.","Sauts bas et rapides plutôt que hauts."],
+ ad:"Séries de 30 secondes, sans variation.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"3 séries complètes, deux fois par semaine.",
+ pos:[{x:50,y:100,l:"Toi"}], balls:[]},
+
+{id:"e62",imp:4,t:"Gainage et rotation du buste",th:"maison",n:[1,8],j:1,d:12,
+ o:"La puissance de la bandeja et du smash vient du tronc, pas du bras.",
+ dr:"3 tours : 40 secondes de gainage face, 30 secondes de chaque côté, 15 rotations du buste avec un poids léger ou une bouteille d'eau. 20 secondes de repos entre chaque.",
+ k:["Le bassin ne descend jamais pendant le gainage.","Rotations lentes, on contrôle le retour."],
+ ad:"Gainage sur les genoux, séries de 20 secondes.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"3 tours complets, deux fois par semaine.",
+ pos:[{x:50,y:100,l:"Toi"}], balls:[]},
+
+{id:"e63",imp:5,t:"La prise continentale : exercice de la poêle",th:"maison",n:[1,4],j:1,d:8,
+ o:"Une mauvaise prise bloque tout : volée, bandeja, smash. À corriger avant tout le reste.",
+ dr:"Tenir la raquette comme une poêle, à plat devant soi. Poser une balle sur le tamis et marcher dans la pièce sans la faire tomber, 2 minutes. Puis 30 petits rebonds sur le tamis : face avant, face arrière, alterné.",
+ k:["Le V formé par le pouce et l'index se place sur l'arête supérieure du manche.","Cette prise ne change jamais, pour aucun coup du padel.","Vérifier sa prise avant chaque séance pendant un mois."],
+ ad:"Commencer par la balle posée à l'arrêt avant de marcher.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"30 rebonds alternés sans faire tomber la balle.",
+ pos:[{x:50,y:100,l:"Toi"}], balls:[]},
+
+{id:"e64",imp:3,t:"Visionnage actif d'un match professionnel",th:"maison",n:[3,8],j:1,d:20,
+ o:"Comprendre où se placent les joueurs vaut autant qu'une heure de piste, et ne coûte rien.",
+ dr:"20 minutes de match, mais sans regarder la balle : suivre uniquement un joueur et noter ses déplacements. Compter combien de fois il lobe et combien de fois il smashe. Le rapport surprend toujours.",
+ k:["Les professionnels lobent beaucoup plus qu'on ne l'imagine.","Repérer le moment exact où la paire décide de monter."],
+ ad:"Regarder des matchs amateurs plutôt que professionnels, plus proches de ce qu'on vit sur la piste.",
+ ae:"Exercice individuel, aucun ajustement.",
+ r:"Une observation notée par semaine, appliquée au match suivant.",
+ pos:[], balls:[]}
+
+];
+
+const VIDEOS = [
+ {g:"Chaînes en espagnol — le contenu technique le plus solide", items:[
+  {t:"Mejora Tu Padel — Manu Martín", d:"Entraîneur de joueurs professionnels. Technique, tactique, physique, conception d'exercices. La référence.", u:"https://www.youtube.com/channel/UCyJ89bNIXthD-Uy_0DUCcrg", f:"ES"},
+  {t:"Aprende Pádel con Hugo Cases", d:"Tutoriels de technique et de tactique, très pédagogiques, format court.", u:"https://www.youtube.com/channel/UClx9gLfTq0gX8oC0j_nkAGw", f:"ES"},
+  {t:"Potencia Tu Padel — Mario Lozano", d:"Conseils hebdomadaires de technique, tactique et condition physique.", u:"https://www.youtube.com/c/PotenciaTuPadel", f:"ES"},
+  {t:"Rodrigo Ovide", d:"Entraîneur reconnu, approche très analytique du jeu.", u:"https://www.youtube.com/c/RodrigoOvide", f:"ES"},
+  {t:"padel-ejercicios.com", d:"Base de données d'exercices filtrables, beaucoup pour deux joueurs. Utile pour renouveler les séances.", u:"https://padel-ejercicios.com/todos-los-ejercicios/", f:"ES"}
+ ]},
+ {g:"Chaînes et sites en français", items:[
+  {t:"Padelonomics", d:"Une des premières chaînes francophones, tenue par un professeur de padel exerçant en Espagne.", u:"https://www.youtube.com/channel/UCKBzUGd5iZ8Gj2LB9JodlpQ", f:"FR"},
+  {t:"Padel Magazine", d:"La référence média en France : tutoriels, analyses de matchs, interviews.", u:"https://padelmagazine.fr/", f:"FR"},
+  {t:"Passion Padel", d:"Conseils et analyses pour joueurs amateurs, ton accessible.", u:"https://passion-padel.com/chaines-youtube-padel/", f:"FR"},
+  {t:"Padel Speak", d:"Classement à jour des meilleures chaînes YouTube padel, mis à jour régulièrement.", u:"https://padelspeak.com/chaine-youtube-padel/", f:"FR"},
+  {t:"AFPadel — Association Francophone de Padel", d:"Contenu pédagogique francophone.", u:"https://www.youtube.com/channel/UCsF64QWAINBQyidA25AWr6w", f:"FR"}
+ ]},
+ {g:"Recherches directes par coup", items:[
+  {t:"La bandeja", d:"Recherche YouTube en français.", u:"https://www.youtube.com/results?search_query=padel+bandeja+technique+tutoriel", f:"FR"},
+  {t:"La sortie de mur", d:"Recherche YouTube en français.", u:"https://www.youtube.com/results?search_query=padel+sortie+de+mur+technique", f:"FR"},
+  {t:"Salida de pared", d:"Le même coup, expliqué en espagnol, souvent plus en détail.", u:"https://www.youtube.com/results?search_query=padel+salida+de+pared+tutorial", f:"ES"},
+  {t:"El globo (le lob)", d:"Recherche YouTube en espagnol.", u:"https://www.youtube.com/results?search_query=padel+globo+tecnica+tutorial", f:"ES"},
+  {t:"Débuter le padel", d:"Pour Claire et les débutants : les bases en français.", u:"https://www.youtube.com/results?search_query=padel+d%C3%A9butant+bases+cours", f:"FR"}
+ ]}
+];
+
+/* =========================================================
+   ÉTAT + STOCKAGE
+   ========================================================= */
+let joueurs = [], seances = [], selection = [], seanceCourante = null, role = 'joueur', filtreJoueur = null;
+let sha = null, jeton = "", etat = "chargement", messageErreur = "";
+
+/* ---- jeton : uniquement sur ton appareil, jamais dans le code publié ---- */
+function lireJeton(){ try{ return localStorage.getItem('carnet:jeton') || ""; }catch(e){ return ""; } }
+function ecrireJeton(t){ try{ t ? localStorage.setItem('carnet:jeton', t) : localStorage.removeItem('carnet:jeton'); }catch(e){} }
+
+const apiUrl = () => `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.chemin}`;
+const enteteAuth = () => jeton ? {Authorization:'Bearer '+jeton} : {};
+
+function versBase64(txt){ return btoa(String.fromCharCode(...new TextEncoder().encode(txt))); }
+function depuisBase64(b64){ return new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g,"")), c=>c.charCodeAt(0))); }
+
+async function chargerDepuisGitHub(){
+  if(CONFIG.owner === "TON-COMPTE"){ etat = "non-configure"; return; }
+  try{
+    const r = await fetch(`${apiUrl()}?ref=${CONFIG.branche}&t=${Date.now()}`,
+      {headers:{...enteteAuth(), Accept:'application/vnd.github+json', 'Cache-Control':'no-cache'}});
+    if(r.status === 404){ sha = null; joueurs = []; seances = []; etat = "vide"; return; }
+    if(!r.ok) throw new Error("HTTP " + r.status);
+    const d = await r.json();
+    sha = d.sha;
+    const data = JSON.parse(depuisBase64(d.content));
+    joueurs = data.joueurs || [];
+    seances = data.seances || [];
+    etat = "ok";
+  }catch(e){
+    etat = "erreur"; messageErreur = e.message;
+  }
+}
+
+let minuteur = null;
+function enregistrer(){
+  if(!jeton){ toast("Lecture seule : aucun jeton enregistré"); return Promise.resolve(); }
+  etat = "en-attente"; majEtat();
+  clearTimeout(minuteur);
+  return new Promise(res=>{ minuteur = setTimeout(async ()=>{ await publier(); res(); }, 1200); });
+}
+
+async function publier(reessai=false){
+  const corps = JSON.stringify({
+    version: 1, misAJour: new Date().toISOString(), joueurs, seances
+  }, null, 2);
+  try{
+    etat = "envoi"; majEtat();
+    const r = await fetch(apiUrl(), {
+      method:'PUT',
+      headers:{...enteteAuth(), Accept:'application/vnd.github+json', 'Content-Type':'application/json'},
+      body: JSON.stringify({
+        message: "Carnet de piste — mise à jour du " + new Date().toLocaleString('fr-FR'),
+        content: versBase64(corps), branch: CONFIG.branche, ...(sha ? {sha} : {})
+      })
+    });
+    if(r.status === 409 && !reessai){          // quelqu'un a écrit entre-temps
+      const v = await fetch(`${apiUrl()}?ref=${CONFIG.branche}&t=${Date.now()}`, {headers:{...enteteAuth()}});
+      if(v.ok){ sha = (await v.json()).sha; return publier(true); }
+    }
+    if(!r.ok){
+      const d = await r.json().catch(()=>({}));
+      throw new Error(d.message || ("HTTP " + r.status));
+    }
+    sha = (await r.json()).content.sha;
+    etat = "ok"; majEtat();
+    toast("Publié en ligne");
+  }catch(e){
+    etat = "erreur"; messageErreur = e.message; majEtat();
+    toast("Publication impossible : " + e.message);
+  }
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('on'), 2200);
+}
+const uid = () => Math.random().toString(36).slice(2,9);
+
+function axeDe(niv){
+  if(niv<=2) return "Tenue de raquette, service, renvoyer après le mur";
+  if(niv<=4) return "Sortie de mur, lob profond, volée croisée";
+  if(niv<=6) return "Bandeja et retour au filet, volée profonde, montée";
+  return "Vibora et smash choisis, jeu des zones, construction du point";
+}
+function themePrioritaire(niv){
+  if(niv<=2) return "service";
+  if(niv<=4) return "defense";
+  if(niv<=6) return "attaque";
+  return "tactique";
+}
+
+/* =========================================================
+   TERRAIN SVG — l'élément signature
+   ========================================================= */
+function terrain(exo){
+  if(!exo.pos || !exo.pos.length) return "";
+  const P = exo.pos.map(p=>`
+    <circle cx="${p.x}" cy="${p.y}" r="7.5" fill="#EAEEE9" stroke="#0F3A4A" stroke-width="1.5"/>
+    <text x="${p.x}" y="${p.y+2.8}" font-size="7" font-family="JetBrains Mono, monospace"
+          fill="#0F3A4A" text-anchor="middle">${p.l}</text>`).join("");
+  const B = (exo.balls||[]).map(b=>{
+    const [x1,y1]=b.from, [x2,y2]=b.to;
+    if(b.lob){
+      const mx=(x1+x2)/2 + (x2>x1?18:-18), my=(y1+y2)/2;
+      return `<path d="M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}" stroke="#D9E84A" stroke-width="1.6"
+              fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>`;
+    }
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D9E84A" stroke-width="1.6" marker-end="url(#ar)"/>`;
+  }).join("");
+  const Z = exo.zone ? `<rect x="2" y="${exo.zone[0]}" width="96" height="${exo.zone[1]-exo.zone[0]}"
+        fill="#D9E84A" opacity="0.13"/>` : "";
+  const lob = (exo.balls||[]).some(b=>b.lob);
+  return `
+  <div class="terrain-wrap">
+    <svg class="terrain" viewBox="-4 -4 108 208" role="img" aria-label="Schéma du placement sur la piste">
+      <defs><marker id="ar" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+        <path d="M0,0 L5,2.5 L0,5 z" fill="#D9E84A"/></marker></defs>
+      <rect x="0" y="0" width="100" height="200" fill="#0F3A4A" stroke="#EAEEE9" stroke-width="1.6"/>
+      ${Z}
+      <line x1="0" y1="100" x2="100" y2="100" stroke="#EAEEE9" stroke-width="2.2"/>
+      <line x1="0" y1="70" x2="100" y2="70" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
+      <line x1="0" y1="130" x2="100" y2="130" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
+      <line x1="50" y1="0" x2="50" y2="70" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
+      <line x1="50" y1="130" x2="50" y2="200" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
+      ${B}${P}
+    </svg>
+    <div class="terrain-legend">${lob ? "trait plein : balle frappée · pointillé : lob" : "flèche : trajectoire de la balle"}</div>
+  </div>`;
+}
+
+/* =========================================================
+   RENDU D'UN EXERCICE
+   ========================================================= */
+function carteExo(exo, opts={}){
+  const {ecart=0, minNiv=null, showAdapt=true} = opts;
+  const besoinDeb = minNiv !== null && minNiv < exo.n[0];
+  return `
+  <div class="card exo">
+    <div class="exo-head">
+      <h3 class="exo">${exo.t}</h3>
+      <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+        <span class="tag niv">niv ${exo.n[0]}–${exo.n[1]}</span>
+        <span class="tag duree">${exo.d} min</span>
+        <span class="tag imp" title="Importance ${exo.imp} sur 5">${"●".repeat(exo.imp)}${"○".repeat(5-exo.imp)}</span>
+      </div>
+    </div>
+    <p style="color:var(--gris);font-size:14px;margin-top:6px">${exo.o}</p>
+    ${terrain(exo)}
+    <span class="label">Déroulé</span>
+    <p style="margin-top:4px">${exo.dr}</p>
+    <span class="label">Points clés</span>
+    <ul>${exo.k.map(x=>`<li>${x}</li>`).join("")}</ul>
+    ${showAdapt && besoinDeb ? `<div class="adapt"><b>Version débutant</b>${exo.ad}</div>`:""}
+    ${showAdapt && ecart>=2 ? `<div class="adapt gap"><b>Écart de ${ecart} niveaux sur la piste</b>${exo.ae}</div>`:""}
+    <div class="reussite"><b>Réussi si :</b> ${exo.r}</div>
+  </div>`;
+}
+
+/* =========================================================
+   GÉNÉRATEUR DE SÉANCE
+   ========================================================= */
+function compatible(exo, nb, minN, maxN){
+  if(exo.th==="maison") return false;
+  if(exo.j===4 && nb<4) return false;
+  if(exo.j===3 && nb<3) return false;
+  if(exo.j===1) return false;
+  if(maxN < exo.n[0]) return false;              // trop dur pour tout le monde
+  if(minN < exo.n[0] && exo.ad.startsWith("Trop") ) return false; // pas d'adaptation viable
+  if(minN < exo.n[0] && exo.ad.startsWith("Hors")) return false;
+  return true;
+}
+
+function genererSeance(){
+  if(!selection.length){ toast("Choisis au moins un joueur"); return; }
+  const sel = joueurs.filter(j=>selection.includes(j.id));
+  const nb = sel.length;
+  const niveaux = sel.map(j=>j.niveau);
+  const minN = Math.min(...niveaux), maxN = Math.max(...niveaux), ecart = maxN-minN;
+  const duree = +document.getElementById('duree').value;
+  let theme = document.getElementById('theme').value;
+
+  if(theme==="auto"){
+    const compte = {};
+    Object.keys(THEMES).forEach(t=>compte[t]=0);
+    seances.forEach(s=> (s.themes||[]).forEach(t=>{ if(t in compte) compte[t]++; }));
+    const cands = ["defense","transition","filet","attaque","service","tactique"]
+      .filter(t=> EXOS.some(e=>e.th===t && compatible(e,nb,minN,maxN)));
+    const prio = themePrioritaire(minN===maxN ? maxN : Math.round((minN+maxN)/2));
+    cands.sort((a,b)=> (compte[a]-compte[b]) || (a===prio?-1:1));
+    theme = cands[0] || "defense";
+  }
+
+  const pool = EXOS.filter(e=>compatible(e,nb,minN,maxN));
+  const principal = pool.filter(e=>e.th===theme);
+  const secondaire = pool.filter(e=>e.th!==theme && e.th!=="echauffement" && e.th!=="tactique");
+  const points = pool.filter(e=>e.th==="tactique");
+  const chauffe = pool.find(e=>e.th==="echauffement");
+
+  // exercices vus lors des deux dernières séances : évités sans être interdits
+  const recents = new Set(seances.slice(0,2).flatMap(s=>(s.exos||[]).map(x=>x.id)));
+  const poids = e => Math.pow(e.imp||3, 2) * (recents.has(e.id) ? 0.3 : 1);
+
+  // tirage pondéré : les exercices importants reviennent souvent, c'est voulu
+  const pick = (arr,k)=>{
+    const c=[...arr], out=[];
+    while(c.length && out.length<k){
+      const total = c.reduce((s,e)=>s+poids(e),0);
+      let r = Math.random()*total, i = 0;
+      while(i<c.length-1 && (r-=poids(c[i]))>0) i++;
+      out.push(c.splice(i,1)[0]);
+    }
+    return out;
+  };
+  const blocs = [
+    ...(chauffe?[chauffe]:[]),
+    ...pick(principal, duree>=75?2:1),
+    ...pick(secondaire, duree>=90?2:1),
+    ...pick(points, nb>=3?1:0)
+  ].filter(Boolean);
+
+  // ajustement du temps
+  const total = blocs.reduce((s,e)=>s+e.d,0);
+  const facteur = (duree-8)/Math.max(total,1);
+
+  const dateChoisie = document.getElementById('dateSeance').value || aujourdhui();
+  seanceCourante = {
+    id: uid(), date: new Date().toISOString(), dateSeance: dateChoisie, duree, theme, ecart, minN, nb,
+    joueurs: sel.map(j=>({id:j.id,nom:j.nom,niveau:j.niveau})),
+    exos: blocs.map(e=>({id:e.id, min:Math.max(6,Math.round(e.d*facteur/2)*2)})),
+    fait: [], notes:{}, commentaire:""
+  };
+  afficherSeance();
+  window.scrollTo({top:document.getElementById('seanceOut').offsetTop-70, behavior:'smooth'});
+}
+
+const byId = id => EXOS.find(e=>e.id===id);
+const estLibre = x => x.id === "libre";
+
+function afficherSeance(){
+  const s = seanceCourante;
+  const {ecart, minN} = s;
+
+  let t0 = 0;
+  const steps = s.exos.map((x,i)=>{
+    const libre = estLibre(x);
+    const e = libre ? null : byId(x.id);
+    const start = t0; t0 += x.min;
+    return `<div class="step${libre?" libre":""}">
+      <span class="time mono">${String(start).padStart(2,'0')}'</span>
+      <div class="body">
+        <strong>${libre ? "Match libre" : e.t}</strong>
+        <span>${libre ? "Points normaux, sans consigne" : THEMES[e.th]}</span>
+      </div>
+      <div class="mins">
+        <button data-moins-min="${i}" ${x.min<=6?"disabled":""} aria-label="Réduire de 5 minutes">−</button>
+        <span class="v">${x.min} min</span>
+        <button data-plus-min="${i}" aria-label="Ajouter 5 minutes">+</button>
+      </div>
+      <button class="kill" data-retirer="${i}" aria-label="Retirer ce bloc">×</button>
+    </div>
+    ${libre ? "" : `<div style="display:flex;justify-content:flex-end;margin:-6px 0 4px">
+      <button class="swap" data-remplacer="${i}">↻ Remplacer par un exercice similaire</button></div>`}`;
+  }).join("");
+
+  const total = t0;
+  const ecartTemps = total - s.duree;
+
+  // exercices restants qu'on peut encore ajouter
+  const dejaLa = s.exos.map(x=>x.id);
+  const dispo = EXOS.filter(e=>
+    compatible(e, s.nb, minN, Math.max(...s.joueurs.map(j=>j.niveau))) && !dejaLa.includes(e.id)
+  );
+
+  const notes = s.joueurs.map(j=>`
+    <label class="field" for="n-${j.id}">${j.nom} — sensation du jour</label>
+    <div class="range-row">
+      <input type="range" id="n-${j.id}" min="1" max="5" value="${s.notes[j.id]||3}" data-note="${j.id}">
+      <span class="range-val mono" id="nv-${j.id}">${s.notes[j.id]||3}</span>
+    </div>`).join("");
+
+  document.getElementById('seanceOut').innerHTML = `
+    <div class="card">
+      <div class="eyebrow">Programme du jour · axe ${THEMES[s.theme].toLowerCase()}</div>
+      <h3 class="exo" style="margin-bottom:6px">${s.joueurs.map(j=>j.nom).join(" · ")}</h3>
+      <p class="lede">Retire ce que tu ne veux pas, ajuste les minutes, ajoute du match libre.${
+        ecart>=2?` Écart de ${ecart} niveaux : les adaptations sont sous chaque exercice.`:""}</p>
+      <div style="height:8px"></div>
+      ${steps || `<p class="lede" style="padding:14px 0">Plus aucun bloc. Ajoute un exercice ou du match libre ci-dessous.</p>`}
+      <div class="total-row">
+        <span>Total</span>
+        <span class="${Math.abs(ecartTemps)>10?"over":""}">${total} min sur ${s.duree} ${
+          ecartTemps>10 ? "· trop long" : ecartTemps<-10 ? "· il reste du temps" : ""}</span>
+      </div>
+      <div style="height:14px"></div>
+      <div class="row">
+        <button class="btn ghost mini" id="addLibre">+ Match libre</button>
+        ${dispo.length?`<button class="btn ghost mini" id="addExoBtn">+ Un exercice</button>`:""}
+      </div>
+      <div id="addExoBox" hidden>
+        <label class="field" for="addExoSel">Choisir un exercice</label>
+        <select id="addExoSel">
+          ${dispo.map(e=>`<option value="${e.id}">${e.t} — ${THEMES[e.th]} (niv ${e.n[0]}–${e.n[1]})</option>`).join("")}
+        </select>
+        <div style="height:10px"></div>
+        <button class="btn mini" id="addExoOk">Ajouter à la séance</button>
+      </div>
+    </div>
+
+    ${s.exos.filter(x=>!estLibre(x)).map(x=>carteExo(byId(x.id), {ecart, minNiv:minN})).join("")}
+
+    <div class="card">
+      <div class="eyebrow">Pendant la séance</div>
+      ${s.exos.map((x,i)=>`
+        <div class="step">
+          <div class="body"><strong style="font-size:15px">${estLibre(x)?"Match libre":byId(x.id).t}</strong></div>
+          <input type="checkbox" data-exo="${x.id}-${i}" aria-label="Fait" ${s.fait.includes(x.id+"-"+i)?"checked":""}>
+        </div>`).join("")}
+      <div class="step">
+        <div class="body"><strong style="font-size:15px">Bilan à trois phrases</strong>
+        <span>Ce qui a marché · ce qui a raté · l'objectif du prochain match</span></div>
+        <input type="checkbox" data-exo="bilan" aria-label="Fait">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Clôturer la séance</div>
+      ${notes}
+      <label class="field" for="comm">Note libre</label>
+      <textarea id="comm" placeholder="Ex. lobs trop courts en fin de séance, Claire commence à sortir le mur toute seule">${s.commentaire||""}</textarea>
+      <div style="height:14px"></div>
+      <button class="btn accent" id="saveSeance">${s.dateSeance > aujourdhui() ? "Publier la séance pour le groupe" : "Enregistrer la séance"}</button>
+    </div>`;
+
+  // — édition des blocs —
+  const memoriser = ()=>{
+    document.querySelectorAll('[data-note]').forEach(r=> s.notes[r.dataset.note] = +r.value);
+    const c = document.getElementById('comm'); if(c) s.commentaire = c.value;
+    s.fait = [...document.querySelectorAll('[data-exo]:checked')].map(el=>el.dataset.exo);
+  };
+  document.querySelectorAll('[data-retirer]').forEach(b=>b.addEventListener('click',()=>{
+    memoriser(); s.exos.splice(+b.dataset.retirer,1); afficherSeance();
+  }));
+  document.querySelectorAll('[data-plus-min]').forEach(b=>b.addEventListener('click',()=>{
+    memoriser(); s.exos[+b.dataset.plusMin].min += 5; afficherSeance();
+  }));
+  document.querySelectorAll('[data-moins-min]').forEach(b=>b.addEventListener('click',()=>{
+    memoriser(); const x = s.exos[+b.dataset.moinsMin]; x.min = Math.max(6, x.min-5); afficherSeance();
+  }));
+  document.querySelectorAll('[data-remplacer]').forEach(b=>b.addEventListener('click',()=>{
+    memoriser();
+    const i = +b.dataset.remplacer, actuel = byId(s.exos[i].id);
+    const maxN = Math.max(...s.joueurs.map(j=>j.niveau));
+    const utilises = s.exos.map(x=>x.id);
+    let cands = EXOS.filter(e=> e.th===actuel.th && e.id!==actuel.id
+      && !utilises.includes(e.id) && compatible(e, s.nb, minN, maxN));
+    if(!cands.length){
+      cands = EXOS.filter(e=> e.th===actuel.th && e.id!==actuel.id && !utilises.includes(e.id));
+    }
+    if(!cands.length){ toast("Aucun autre exercice sur ce thème"); return; }
+    const total = cands.reduce((t,e)=>t+Math.pow(e.imp||3,2),0);
+    let r = Math.random()*total, k = 0;
+    while(k<cands.length-1 && (r-=Math.pow(cands[k].imp||3,2))>0) k++;
+    s.exos[i] = {id:cands[k].id, min:s.exos[i].min};
+    afficherSeance();
+    toast("Remplacé par : " + cands[k].t);
+  }));
+  document.getElementById('addLibre').addEventListener('click',()=>{
+    memoriser(); s.exos.push({id:"libre", min:20}); afficherSeance();
+  });
+  const aeb = document.getElementById('addExoBtn');
+  if(aeb) aeb.addEventListener('click',()=>{
+    const box = document.getElementById('addExoBox'); box.hidden = !box.hidden;
+  });
+  const aok = document.getElementById('addExoOk');
+  if(aok) aok.addEventListener('click',()=>{
+    memoriser();
+    const id = document.getElementById('addExoSel').value;
+    s.exos.push({id, min: byId(id).d}); afficherSeance();
+  });
+
+  document.querySelectorAll('[data-note]').forEach(r=>{
+    r.addEventListener('input', ()=> document.getElementById('nv-'+r.dataset.note).textContent = r.value);
+  });
+  document.getElementById('saveSeance').addEventListener('click', enregistrerSeance);
+}
+
+async function enregistrerSeance(){
+  const s = seanceCourante;
+  s.fait = [...document.querySelectorAll('[data-exo]:checked')].map(c=>c.dataset.exo);
+  document.querySelectorAll('[data-note]').forEach(r=> s.notes[r.dataset.note] = +r.value);
+  s.commentaire = document.getElementById('comm').value.trim();
+  s.dureeReelle = s.exos.reduce((t,x)=>t+x.min,0);
+  s.matchLibre = s.exos.filter(estLibre).reduce((t,x)=>t+x.min,0);
+  s.themes = [...new Set(s.exos.filter(x=>!estLibre(x)).map(x=>byId(x.id).th))];
+  seances.unshift(s);
+  await enregistrer();
+  toast(s.dateSeance > aujourdhui() ? "Séance publiée dans l\'agenda" : "Séance enregistrée");
+  renderAgenda();
+  document.getElementById('seanceOut').innerHTML = `
+    <div class="card"><div class="eyebrow">C'est noté</div>
+    <p style="margin-top:4px">La séance est visible par tout le groupe dans l'agenda. La prochaine composition automatique choisira un autre axe.</p></div>`;
+  seanceCourante = null;
+}
+
+/* =========================================================
+   RENDUS
+   ========================================================= */
+function renderPickers(){
+  const box = document.getElementById('pickPlayers');
+  if(!joueurs.length){
+    box.innerHTML = `<p class="lede" style="margin:0">Ajoute d'abord des joueurs dans l'onglet Joueurs.</p>`;
+    document.getElementById('spreadNote').textContent = "";
+    return;
+  }
+  box.innerHTML = joueurs.map(j=>`
+    <button class="chip" data-pid="${j.id}" aria-pressed="${selection.includes(j.id)}">
+      ${j.nom}<span class="lvl">niv ${j.niveau}</span></button>`).join("");
+  box.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+    const id = c.dataset.pid;
+    selection = selection.includes(id) ? selection.filter(x=>x!==id) : [...selection, id];
+    renderPickers(); renderCtx();
+  }));
+  const sel = joueurs.filter(j=>selection.includes(j.id));
+  const note = document.getElementById('spreadNote');
+  if(sel.length<2){ note.textContent = sel.length===1 ? "Un seul joueur : ajoute un partenaire pour les exercices à deux." : ""; return; }
+  const nv = sel.map(j=>j.niveau), ec = Math.max(...nv)-Math.min(...nv);
+  note.textContent = ec===0 ? "Même niveau : séance classique, on peut charger."
+    : ec===1 ? "Écart d'un niveau : rien à changer, le plus fort donne le rythme."
+    : ec<=3 ? `Écart de ${ec} niveaux : rôles asymétriques, le plus fort lance et travaille son placement.`
+    : `Écart de ${ec} niveaux : privilégier le lob obligatoire et le demi-terrain croisé, sinon personne ne progresse.`;
+}
+
+function renderCtx(){
+  const sel = joueurs.filter(j=>selection.includes(j.id));
+  document.getElementById('ctx').textContent = sel.length
+    ? `Sur la piste : ${sel.map(j=>j.nom).join(", ")}`
+    : "Aucun joueur sur la piste";
+}
+
+function renderPlayers(){
+  const c = document.getElementById('playersCard');
+  if(!joueurs.length){
+    c.innerHTML = `<div class="empty"><b>Personne pour l'instant</b>Ajoute-toi, puis Claire, puis les amis débutants. Les exercices s'adaptent ensuite tout seuls.</div>`;
+    return;
+  }
+  c.innerHTML = joueurs.map(j=>`
+    <div class="player">
+      <div style="flex:1;min-width:0">
+        <div class="name">${j.nom}</div>
+        <div class="axe">${axeDe(j.niveau)}</div>
+        ${j.depart && j.niveau > j.depart
+          ? `<div class="progress-note">+${j.niveau-j.depart} depuis le début (départ niveau ${j.depart})</div>` : ""}
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <div class="stepper">
+          <button data-moins="${j.id}" ${j.niveau<=1?"disabled":""} aria-label="Baisser le niveau de ${j.nom}">−</button>
+          <span class="badge-lvl">niv ${j.niveau}</span>
+          <button data-plus="${j.id}" ${j.niveau>=8?"disabled":""} aria-label="Monter ${j.nom} d'un niveau">+</button>
+        </div>
+        <button class="link-del" data-del="${j.id}" aria-label="Retirer ${j.nom}">Retirer</button>
+      </div>
+    </div>`).join("");
+
+  const changeNiveau = async (id, delta)=>{
+    const j = joueurs.find(x=>x.id===id); if(!j) return;
+    const nv = Math.min(8, Math.max(1, j.niveau + delta));
+    if(nv === j.niveau) return;
+    if(j.depart === undefined) j.depart = j.niveau;
+    j.niveau = nv;
+    j.historique = j.historique || [];
+    j.historique.push({date:new Date().toISOString(), niveau:nv});
+    await enregistrer();
+    renderPlayers(); renderPickers();
+    toast(`${j.nom} passe au niveau ${nv}`);
+  };
+  c.querySelectorAll('[data-plus]').forEach(b=>b.addEventListener('click',()=>changeNiveau(b.dataset.plus, 1)));
+  c.querySelectorAll('[data-moins]').forEach(b=>b.addEventListener('click',()=>changeNiveau(b.dataset.moins, -1)));
+  c.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click', async ()=>{
+    const j = joueurs.find(x=>x.id===b.dataset.del);
+    if(!confirm(`Retirer ${j?j.nom:"ce joueur"} ? Son historique sera perdu.`)) return;
+    joueurs = joueurs.filter(x=>x.id!==b.dataset.del);
+    selection = selection.filter(x=>x!==b.dataset.del);
+    await enregistrer();
+    renderPlayers(); renderPickers(); renderCtx();
+  }));
+}
+
+const sansAccents = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+
+function renderExos(){
+  const th = document.getElementById('fTheme').value;
+  const nv = +document.getElementById('fNiv').value;
+  const nj = +document.getElementById('fJoueurs').value;
+  const im = +document.getElementById('fImp').value;
+  const q  = sansAccents(document.getElementById('fQ').value.trim());
+
+  const list = EXOS.filter(e=>{
+    if(th!=="tous" && e.th!==th) return false;
+    if((e.imp||3) < im) return false;
+    if(!(nj===0 || e.j===nj || (nj>=e.j && e.j!==1) || (nj===1 && e.j===1))) return false;
+    if(!(nv >= e.n[0]-1 && nv <= e.n[1]+1)) return false;
+    if(q){
+      const texte = sansAccents([e.t, e.o, e.dr, e.k.join(" "), THEMES[e.th]].join(" "));
+      if(!q.split(/\s+/).every(mot=>texte.includes(mot))) return false;
+    }
+    return true;
+  }).sort((a,b)=> (b.imp||3)-(a.imp||3) || a.t.localeCompare(b.t,'fr'));
+
+  document.getElementById('exosCount').textContent =
+    `${list.length} exercice${list.length>1?"s":""} sur ${EXOS.length} · triés par importance`;
+  document.getElementById('exosOut').innerHTML = list.length
+    ? list.map(e=>carteExo(e,{minNiv:nv, ecart:0})).join("")
+    : `<div class="empty"><b>Rien avec ces filtres</b>Élargis le niveau, baisse l'importance minimum ou vide la recherche.</div>`;
+}
+
+/* ---------- dates ---------- */
+const iso = d => d.toISOString().slice(0,10);
+const aujourdhui = () => iso(new Date());
+const fmtLong = s => new Date(s+"T12:00:00").toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const fmtCourt = s => new Date(s+"T12:00:00").toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'});
+const dateDe = s => s.dateSeance || (s.date||"").slice(0,10);
+const titreBloc = x => x.id==="libre" ? "Match libre" : (byId(x.id)?byId(x.id).t : "Exercice");
+
+function majEtat(){
+  const p = document.getElementById('etatPill');
+  if(!p) return;
+  const libelles = {
+    "chargement":["Chargement…","gris"], "ok":[jeton?"En ligne · entraîneur":"En ligne · lecture seule","vert"],
+    "en-attente":["Modification en attente","jaune"], "envoi":["Publication…","jaune"],
+    "erreur":["Hors ligne","rouge"], "vide":["Carnet vide","gris"], "non-configure":["Non configuré","rouge"]
+  };
+  const [txt,c] = libelles[etat] || ["","gris"];
+  p.className = "pill " + c; p.textContent = txt;
+}
+
+function renderRole(){
+  role = jeton ? 'coach' : 'joueur';
+  document.body.classList.toggle('joueur', role !== 'coach');
+  majEtat();
+
+  const c = document.getElementById('roleCard');
+  if(!c) return;
+
+  if(etat === "non-configure"){
+    c.innerHTML = `<div class="card"><div class="eyebrow">À configurer</div>
+      <p style="margin-top:4px">Ouvre le fichier <b>index.html</b> et remplis le bloc CONFIG en haut du script :
+      ton compte GitHub et le nom du dépôt. Tant que ce n'est pas fait, l'application ne peut rien lire ni écrire.</p></div>`;
+    return;
+  }
+
+  if(role === 'coach'){
+    c.innerHTML = `<div class="role-bar">
+      <span class="who">Mode <b>entraîneur</b> · tes modifications sont publiées</span>
+      <button id="gererJeton">Déconnecter</button></div>`;
+    document.getElementById('gererJeton').addEventListener('click', ()=>{
+      if(!confirm("Retirer le jeton de cet appareil ? Tu repasseras en lecture seule.")) return;
+      jeton = ""; ecrireJeton(""); renderRole(); renderAgenda(); renderPlayers();
+      toast("Jeton retiré");
+    });
+  } else {
+    c.innerHTML = `<div class="card"><div class="eyebrow">Lecture seule</div>
+      <p class="lede" style="margin:4px 0 0">Tu consultes l'agenda du groupe. Seul l'entraîneur peut modifier les séances.</p>
+      <details style="margin-top:12px">
+        <summary style="font-size:14px;color:var(--verre);cursor:pointer">C'est toi l'entraîneur ?</summary>
+        <label class="field" for="champJeton">Jeton GitHub</label>
+        <input type="password" id="champJeton" placeholder="github_pat_…" autocomplete="off">
+        <p class="lede">Il reste sur cet appareil uniquement. Ne le colle jamais sur un téléphone qui n'est pas le tien.</p>
+        <div style="height:10px"></div>
+        <button class="btn mini" id="validerJeton">Se connecter</button>
+      </details></div>`;
+    document.getElementById('validerJeton').addEventListener('click', async ()=>{
+      const v = document.getElementById('champJeton').value.trim();
+      if(!v){ toast("Colle d'abord le jeton"); return; }
+      jeton = v; ecrireJeton(v);
+      await chargerDepuisGitHub();
+      renderRole(); renderPlayers(); renderPickers(); renderAgenda(); renderCtx();
+      toast(etat === "erreur" ? "Jeton refusé : " + messageErreur : "Connecté en entraîneur");
+      if(etat === "erreur"){ jeton = ""; ecrireJeton(""); renderRole(); }
+    });
+  }
+
+  const b = document.getElementById('builderCard');
+  const g = document.getElementById('genBtn');
+  if(b) b.style.display = role === 'coach' ? '' : 'none';
+  if(g) g.style.display = role === 'coach' ? '' : 'none';
+}
+
+function renderAgenda(){
+  const today = aujourdhui();
+
+  // — filtre par joueur —
+  const af = document.getElementById('agFilter');
+  if(joueurs.length){
+    af.innerHTML = `<div class="chips" style="margin-bottom:12px">
+      <button class="chip" data-fj="" aria-pressed="${!filtreJoueur}">Tout le groupe</button>
+      ${joueurs.map(j=>`<button class="chip" data-fj="${j.id}" aria-pressed="${filtreJoueur===j.id}">${j.nom}</button>`).join("")}
+    </div>`;
+    af.querySelectorAll('[data-fj]').forEach(b=>b.addEventListener('click',()=>{
+      filtreJoueur = b.dataset.fj || null; renderAgenda();
+    }));
+  } else af.innerHTML = "";
+
+  const dansSeance = s => (s.joueurs||[]).some(j=>j.id===filtreJoueur);
+  const base = filtreJoueur ? seances.filter(dansSeance) : seances;
+
+  // — synthèse du joueur sélectionné —
+  const jSel = filtreJoueur ? joueurs.find(j=>j.id===filtreJoueur) : null;
+  const synthHtml = ()=>{
+    if(!jSel) return "";
+    const faites = base.filter(s=>dateDe(s)<=today);
+    const minutes = faites.reduce((t,s)=>t+(s.dureeReelle||s.duree||0),0);
+    const derniere = faites.map(dateDe).sort().pop();
+    const notes = faites.map(s=>(s.notes||{})[jSel.id]).filter(Boolean);
+    const moy = notes.length ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(1) : "—";
+    const aVenirN = base.filter(s=>dateDe(s)>today).length;
+    return `<div class="synth">
+      <h3>${jSel.nom}</h3>
+      <div class="sub">Niveau ${jSel.niveau}${
+        jSel.depart && jSel.niveau>jSel.depart ? ` · parti de ${jSel.depart}` : ""} · ${axeDe(jSel.niveau).toLowerCase()}</div>
+      <div class="kpis">
+        <div class="kpi"><div class="v">${faites.length}</div><div class="l">séances faites</div></div>
+        <div class="kpi"><div class="v">${Math.round(minutes/60)}h</div><div class="l">sur la piste</div></div>
+        <div class="kpi"><div class="v">${moy}</div><div class="l">sensation moy.</div></div>
+        <div class="kpi"><div class="v">${aVenirN}</div><div class="l">à venir</div></div>
+      </div>
+      <div style="font-size:14px;color:var(--gris)">${
+        derniere ? `Dernière séance : ${fmtCourt(derniere)}.` : "Aucune séance enregistrée pour l'instant."}</div>
+    </div>`;
+  };
+
+  // — programme du jour —
+  const duJour = seances.filter(s=>dateDe(s)===today);
+  const tc = document.getElementById('todayCard');
+  const bandeau = duJour.length
+    ? duJour.map(s=>`
+      <div class="today">
+        <div class="eyebrow">Aujourd'hui · ${fmtLong(today)}</div>
+        <h3>${THEMES[s.theme]||"Séance"}</h3>
+        <div class="meta">${(s.joueurs||[]).map(j=>j.nom).join(" · ")} · ${s.dureeReelle||s.duree} min</div>
+        <ol>${(s.exos||[]).map(x=>`<li>${titreBloc(x)} — ${x.min} min</li>`).join("")}</ol>
+      </div>`).join("")
+    : (()=>{
+        const prochaine = seances.filter(s=>dateDe(s)>today).sort((a,b)=>dateDe(a)<dateDe(b)?-1:1)[0];
+        return `<div class="today"><div class="eyebrow">Aujourd'hui</div>
+          <div class="rien">${prochaine
+            ? `Pas de séance prévue. La prochaine est ${fmtLong(dateDe(prochaine))}.`
+            : `Pas de séance prévue.`}</div></div>`;
+      })();
+  tc.innerHTML = synthHtml() + bandeau;
+
+  // — bande de la semaine —
+  const d0 = new Date(); const jour = (d0.getDay()+6)%7;
+  const lundi = new Date(d0); lundi.setDate(d0.getDate()-jour);
+  const noms = ["lun","mar","mer","jeu","ven","sam","dim"];
+  document.getElementById('weekStrip').innerHTML = `<div class="week">` +
+    noms.map((n,i)=>{
+      const d = new Date(lundi); d.setDate(lundi.getDate()+i);
+      const k = iso(d), a = base.some(s=>dateDe(s)===k);
+      return `<div class="d${k===today?' today':''}">
+        <div class="j">${n}</div><div class="n">${d.getDate()}</div>
+        <div class="dot${a?'':' vide'}"></div></div>`;
+    }).join("") + `</div>`;
+
+  // — listes —
+  const ac = document.getElementById('agendaCard');
+  if(!base.length){
+    ac.innerHTML = `<div class="empty"><b>${filtreJoueur ? "Aucune séance pour "+jSel.nom : "Agenda vide"}</b>${
+      filtreJoueur ? "Il n'a encore participé à aucune séance enregistrée."
+      : role==='coach' ? "Compose une séance et enregistre-la : elle apparaîtra ici pour tout le groupe."
+      : "L'entraîneur n'a pas encore publié de séance."}</div>`;
+  } else {
+    const tri = [...base].sort((a,b)=>dateDe(b)<dateDe(a)?-1:1);
+    const aVenir = tri.filter(s=>dateDe(s)>today).reverse();
+    const passees = tri.filter(s=>dateDe(s)<today);
+    const bloc = (titre, list, cls) => !list.length ? "" : `
+      <div class="ag-sec"><div class="eyebrow">${titre}</div>
+      ${list.map(s=>`
+        <div class="ag-item ${cls}">
+          <div class="top">
+            <span class="dt">${fmtCourt(dateDe(s))}</span>
+            <span class="st">${cls==='prevue'?'prévue':'faite'}</span>
+          </div>
+          <div class="nm">${THEMES[s.theme]||"Séance"} · ${s.dureeReelle||s.duree} min</div>
+          <div style="font-size:13px;color:var(--gris)">${(s.joueurs||[]).map(j=>j.nom).join(" · ")}</div>
+          <ol>${(s.exos||[]).map(x=>`<li>${titreBloc(x)} — ${x.min} min</li>`).join("")}</ol>
+          ${s.commentaire?`<div class="note">${s.commentaire}</div>`:""}
+          ${role==='coach'?`<div style="text-align:right"><button class="link-del" data-delsea="${s.id}">Supprimer</button></div>`:""}
+        </div>`).join("")}</div>`;
+    ac.innerHTML = bloc("À venir", aVenir, "prevue") + bloc("Passées", passees, "faite");
+    ac.querySelectorAll('[data-delsea]').forEach(b=>b.addEventListener('click', async ()=>{
+      if(!confirm("Supprimer cette séance de l'agenda du groupe ?")) return;
+      seances = seances.filter(s=>s.id!==b.dataset.delsea);
+      await enregistrer();
+      renderAgenda();
+    }));
+  }
+
+  // — thèmes travaillés —
+  const st = document.getElementById('statsCard');
+  const faites = base.filter(s=>dateDe(s)<=today);
+  if(!faites.length){ st.innerHTML = ""; return; }
+  const compte = {};
+  faites.forEach(s=> (s.themes||[]).forEach(t=>{ if(t!=="echauffement") compte[t]=(compte[t]||0)+1; }));
+  const max = Math.max(...Object.values(compte), 1);
+  const ordre = ["defense","transition","filet","attaque","service","tactique"];
+  st.innerHTML = `
+    <div class="eyebrow">${jSel ? `Thèmes travaillés par ${jSel.nom}` : "Thèmes travaillés par le groupe"} · ${faites.length} séance${faites.length>1?"s":""}</div>
+    ${ordre.map(t=>`
+      <div class="bar-row"><span class="cat">${THEMES[t]}</span>
+      <span class="bar"><i style="width:${(compte[t]||0)/max*100}%"></i></span>
+      <span class="n">${compte[t]||0}</span></div>`).join("")}
+    <p class="lede">${jSel ? "La barre la plus courte indique ce qu'il faut lui faire travailler." : "La composition automatique pioche en priorité dans la barre la plus courte."}</p>`;
+}
+
+function renderVideos(){
+  document.getElementById('videosOut').innerHTML = VIDEOS.map(g=>`
+    <div class="card">
+      <div class="eyebrow">${g.g}</div>
+      ${g.items.map(v=>`<a class="vid" href="${v.u}" target="_blank" rel="noopener">
+        <div class="t"><span class="flag mono">${v.f}</span>${v.t}</div>
+        <div class="d">${v.d}</div></a>`).join("")}
+    </div>`).join("");
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-current','false'));
+  b.setAttribute('aria-current','true');
+  ['seance','exos','joueurs','agenda','videos'].forEach(v=>{
+    document.getElementById('v-'+v).hidden = (v !== b.dataset.view);
+  });
+  window.scrollTo({top:0});
+}));
+
+const fT = document.getElementById('fTheme');
+fT.innerHTML = `<option value="tous">Tous les thèmes</option>` +
+  Object.entries(THEMES).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+['fTheme','fNiv','fJoueurs','fImp','fQ'].forEach(id=>document.getElementById(id).addEventListener('input', renderExos));
+document.getElementById('fNiv').addEventListener('input', e=> document.getElementById('fNivVal').textContent = e.target.value);
+
+const pLvl = document.getElementById('pLvl');
+const majLvlDesc = ()=>{
+  document.getElementById('pLvlVal').textContent = pLvl.value;
+  document.getElementById('pLvlDesc').textContent = axeDe(+pLvl.value);
+};
+pLvl.addEventListener('input', majLvlDesc);
+
+document.getElementById('addPlayer').addEventListener('click', async ()=>{
+  const nom = document.getElementById('pName').value.trim();
+  if(!nom){ toast("Il manque le prénom"); return; }
+  joueurs.push({id:uid(), nom, niveau:+pLvl.value, depart:+pLvl.value, historique:[]});
+  await enregistrer();
+  document.getElementById('pName').value = "";
+  renderPlayers(); renderPickers();
+  toast(nom + " ajouté");
+});
+document.getElementById('genBtn').addEventListener('click', genererSeance);
+
+const champDate = document.getElementById('dateSeance');
+champDate.value = aujourdhui();
+const majDateNote = ()=>{
+  const v = champDate.value, t = aujourdhui();
+  document.getElementById('dateNote').textContent =
+    v > t ? "Séance à venir : elle apparaîtra dans l'agenda du groupe avant d'avoir lieu."
+    : v < t ? "Séance passée : elle ira directement dans l'historique."
+    : "Aujourd'hui.";
+};
+champDate.addEventListener('input', majDateNote);
+
+document.getElementById('refreshBtn').addEventListener('click', async ()=>{
+  toast("Actualisation…");
+  await chargerDepuisGitHub();
+  renderRole(); renderPlayers(); renderPickers(); renderCtx(); renderAgenda();
+  if(etat === "erreur") toast("Échec : " + messageErreur);
+});
+
+(async function init(){
+  jeton = lireJeton();
+  majDateNote(); majLvlDesc();
+  await chargerDepuisGitHub();
+  renderRole();
+  renderPlayers(); renderPickers(); renderCtx();
+  renderExos(); renderAgenda(); renderVideos();
+  if(role !== 'coach') document.querySelector('nav button[data-view="agenda"]').click();
+})();
+</script>
+</body>
+</html>
