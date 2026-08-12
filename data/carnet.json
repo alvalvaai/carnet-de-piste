@@ -1,6 +1,14 @@
 {
   "version": 1,
-  "misAJour": null,
-  "joueurs": [],
+  "misAJour": "2026-08-12T22:03:11.914Z",
+  "joueurs": [
+    {
+      "id": "6urj3lp",
+      "nom": "Alva",
+      "niveau": 5,
+      "depart": 5,
+      "historique": []
+    }
+  ],
   "seances": []
 }
