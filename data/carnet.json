@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "misAJour": "2026-08-12T22:04:03.788Z",
+  "misAJour": "2026-08-12T22:04:18.832Z",
   "joueurs": [
     {
       "id": "6urj3lp",
@@ -28,6 +28,13 @@
       "nom": "Cedric",
       "niveau": 1,
       "depart": 1,
+      "historique": []
+    },
+    {
+      "id": "bzzsxur",
+      "nom": "Erwann",
+      "niveau": 3,
+      "depart": 3,
       "historique": []
     }
   ],
