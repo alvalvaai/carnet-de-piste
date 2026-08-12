@@ -1,12 +1,19 @@
 {
   "version": 1,
-  "misAJour": "2026-08-12T22:03:11.914Z",
+  "misAJour": "2026-08-12T22:03:25.244Z",
   "joueurs": [
     {
       "id": "6urj3lp",
       "nom": "Alva",
       "niveau": 5,
       "depart": 5,
+      "historique": []
+    },
+    {
+      "id": "1i9ozdp",
+      "nom": "Emilie",
+      "niveau": 3,
+      "depart": 3,
       "historique": []
     }
   ],
