@@ -1048,7 +1048,7 @@ async function chargerDepuisGitHub(){
   if(CONFIG.owner === "TON-COMPTE"){ etat = "non-configure"; return; }
   try{
     const r = await fetch(`${apiUrl()}?ref=${CONFIG.branche}&t=${Date.now()}`,
-      {headers:{...enteteAuth(), Accept:'application/vnd.github+json', 'Cache-Control':'no-cache'}});
+      {headers:{...enteteAuth(), Accept:'application/vnd.github+json'}});
     if(r.status === 404){ sha = null; joueurs = []; seances = []; etat = "vide"; return; }
     if(!r.ok) throw new Error("HTTP " + r.status);
     const d = await r.json();
@@ -1058,7 +1058,10 @@ async function chargerDepuisGitHub(){
     seances = data.seances || [];
     etat = "ok";
   }catch(e){
-    etat = "erreur"; messageErreur = e.message;
+    etat = "erreur";
+    messageErreur = (e.message||"").includes("Failed to fetch")
+      ? "connexion bloquée (réseau, extension de navigateur, ou page ouverte hors ligne)"
+      : e.message;
   }
 }
 
