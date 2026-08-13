@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "misAJour": "2026-08-12T22:04:18.832Z",
+  "misAJour": "2026-08-13T06:31:53.061Z",
   "joueurs": [
     {
       "id": "6urj3lp",
@@ -35,6 +35,13 @@
       "nom": "Erwann",
       "niveau": 3,
       "depart": 3,
+      "historique": []
+    },
+    {
+      "id": "8mxsfml",
+      "nom": "Boby",
+      "niveau": 4,
+      "depart": 4,
       "historique": []
     }
   ],
