@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "misAJour": "2026-08-13T06:32:18.108Z",
+  "misAJour": "2026-08-13T06:32:25.084Z",
   "joueurs": [
     {
       "id": "6urj3lp",
@@ -47,9 +47,14 @@
     {
       "id": "n9g9r0r",
       "nom": "Co",
-      "niveau": 6,
+      "niveau": 7,
       "depart": 6,
-      "historique": []
+      "historique": [
+        {
+          "date": "2026-08-13T06:32:23.882Z",
+          "niveau": 7
+        }
+      ]
     },
     {
       "id": "9pr9ren",
