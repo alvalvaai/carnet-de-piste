@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "misAJour": "2026-08-13T06:32:34.743Z",
+  "misAJour": "2026-08-13T06:32:54.998Z",
   "joueurs": [
     {
       "id": "6urj3lp",
@@ -71,6 +71,13 @@
           "niveau": 7
         }
       ]
+    },
+    {
+      "id": "s1x2cnu",
+      "nom": "Miguel",
+      "niveau": 5,
+      "depart": 5,
+      "historique": []
     }
   ],
   "seances": []
