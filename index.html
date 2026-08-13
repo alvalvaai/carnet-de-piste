@@ -109,6 +109,9 @@ button{font-family:inherit;font-size:15px;cursor:pointer;border-radius:var(--r)}
 .adapt b{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;font-weight:600}
 .reussite{margin-top:12px;font-size:14px;background:var(--craie);padding:10px 12px;border-radius:var(--r)}
 .reussite b{font-weight:600}
+.vid-links{display:flex;gap:8px;margin-top:10px}
+.vid-links a{flex:1;text-align:center;text-decoration:none;border:1px solid var(--trait);border-radius:var(--r);
+  padding:9px 6px;font-size:13px;font-weight:600;color:var(--verre);background:#fff}
 
 /* ---------- séance ---------- */
 .step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--trait)}
@@ -176,6 +179,22 @@ input[type=range]{flex:1;accent-color:var(--gazon)}
 .vid .d{font-size:13px;color:var(--gris);margin-top:2px}
 .flag{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;background:var(--craie);border-radius:2px;padding:2px 5px;margin-right:6px;vertical-align:1px}
 
+/* ---------- glossaire ---------- */
+.coup .exo-head{align-items:center}
+.coup-fig{display:flex;gap:10px;align-items:stretch;margin:12px 0}
+.coup-fig .terrain-wrap{flex:0 0 auto;margin:0}
+.hauteur-wrap{flex:1;background:var(--verre);border-radius:var(--r);padding:10px 6px;display:flex;align-items:center}
+.hauteur-wrap svg{width:100%}
+.duo{display:flex;gap:10px;margin-bottom:2px}
+.duo > div{flex:1;background:var(--craie);border-radius:var(--r);padding:9px 11px}
+.duo .label{margin-top:0}
+.duo .val{font-size:14px;font-weight:600;margin-top:3px}
+.coup ul.err li{color:var(--alerte)}
+.coup .label{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gris);margin-top:14px}
+.coup ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.coup li{margin-bottom:5px}
+
 /* ---------- nav ---------- */
 nav{
   position:fixed;bottom:0;left:0;right:0;background:var(--verre);
@@ -183,8 +202,8 @@ nav{
 }
 nav button{
   flex:1;background:none;border:0;color:var(--craie);opacity:.6;
-  padding:11px 2px 13px;font-family:"JetBrains Mono",monospace;
-  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 1px 12px;font-family:"JetBrains Mono",monospace;
+  font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;
   display:flex;flex-direction:column;align-items:center;gap:5px;border-radius:0
 }
 nav button svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
@@ -371,6 +390,14 @@ body.joueur .nav-coach{display:none}
     <div class="card" id="statsCard"></div>
   </section>
 
+  <!-- ============ COUPS ============ -->
+  <section id="v-coups" hidden>
+    <h2 class="title">Les coups du padel</h2>
+    <p class="lede" style="margin-bottom:14px">Quatorze gestes et principes, du plus fondamental au plus avancé. Chaque fiche indique la hauteur du point de contact, l'intensité de frappe, l'effet à donner et les situations de jeu.</p>
+    <div class="card"><input type="text" id="cQ" placeholder="Rechercher un coup…" autocomplete="off"></div>
+    <div id="coupsOut"></div>
+  </section>
+
   <!-- ============ VIDÉOS ============ -->
   <section id="v-videos" hidden>
     <h2 class="title">Vidéos</h2>
@@ -384,6 +411,7 @@ body.joueur .nav-coach{display:none}
   <button data-view="exos"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Exos</button>
   <button data-view="joueurs" class="nav-coach"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9.5" r="2.2"/><path d="M15.5 20c0-2.5 1.6-4.5 4-4.5"/></svg>Joueurs</button>
   <button data-view="agenda"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Agenda</button>
+  <button data-view="coups"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Coups</button>
   <button data-view="videos"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Vidéos</button>
 </nav>
 
@@ -1004,6 +1032,55 @@ const EXOS = [
 
 ];
 
+
+/* =========================================================
+   VIDÉOS PAR EXERCICE — recherches ciblées, jamais de liens morts
+   ========================================================= */
+const VIDEO_THEME = {
+  echauffement:{fr:"padel échauffement avant match",       es:"padel calentamiento antes de jugar"},
+  defense:     {fr:"padel sortie de mur technique",         es:"padel salida de pared tecnica"},
+  transition:  {fr:"padel montée au filet transition",      es:"padel subida a la red transicion"},
+  filet:       {fr:"padel volée technique",                 es:"padel volea tecnica"},
+  attaque:     {fr:"padel bandeja technique",               es:"padel bandeja tecnica"},
+  service:     {fr:"padel service et retour technique",     es:"padel saque y resto tecnica"},
+  tactique:    {fr:"padel tactique placement double",       es:"padel tactica posicionamiento"},
+  maison:      {fr:"padel exercices maison sans terrain",   es:"padel ejercicios en casa"}
+};
+const VIDEO_EXO = {
+  e3:{fr:"padel débutant sortie de mur",            es:"padel principiantes salida de pared"},
+  e4:{fr:"padel lob technique profondeur",          es:"padel globo tecnica profundidad"},
+  e5:{fr:"padel double mur défense coin",           es:"padel doble pared defensa esquina"},
+  e6:{fr:"padel lob puis montée au filet",          es:"padel globo y subida a la red"},
+  e9:{fr:"padel volée profonde placement",          es:"padel volea profunda colocacion"},
+  e10:{fr:"padel volée bloquée balle rapide",       es:"padel volea bloqueada bola rapida"},
+  e11:{fr:"padel bandeja retour au filet",          es:"padel bandeja volver a la red"},
+  e13:{fr:"padel choix bandeja vibora smash",       es:"padel cuando bandeja vibora remate"},
+  e15:{fr:"padel retour lobé service",              es:"padel resto globo saque"},
+  e20:{fr:"padel jeu roi du filet exercice",        es:"padel rey de la red ejercicio"},
+  e23:{fr:"padel split step déplacement",           es:"padel split step desplazamiento"},
+  e24:{fr:"padel prévention blessure épaule",       es:"padel prevencion lesiones hombro"},
+  e28:{fr:"padel sortie de mur parallèle",          es:"padel salida de pared paralela"},
+  e29:{fr:"padel défense vitre latérale",           es:"padel defensa pared lateral"},
+  e30:{fr:"padel contre-mur technique",             es:"padel contrapared tecnica"},
+  e31:{fr:"padel défendre le smash bloquer",        es:"padel defender remate bloquear"},
+  e33:{fr:"padel replacement position fond",        es:"padel colocacion pista fondo"},
+  e34:{fr:"padel montée après le retour",           es:"padel subida despues del resto"},
+  e37:{fr:"padel pas chassés recul bandeja",        es:"padel pasos laterales atras bandeja"},
+  e39:{fr:"padel volée dans les pieds",             es:"padel volea a los pies"},
+  e41:{fr:"padel amortie de volée",                 es:"padel dejada de volea"},
+  e44:{fr:"padel couvrir le filet à deux",          es:"padel cubrir la red en pareja"},
+  e45:{fr:"padel smash par 3 sortie",               es:"padel remate por 3 salida"},
+  e46:{fr:"padel vibora technique",                 es:"padel vibora tecnica"},
+  e47:{fr:"padel smash plat technique",             es:"padel remate plano tecnica"},
+  e49:{fr:"padel déplacement sous le lob",          es:"padel desplazamiento bajo el globo"},
+  e51:{fr:"padel service régularité technique",     es:"padel saque regularidad tecnica"},
+  e53:{fr:"padel retour croisé bas chiquita",       es:"padel resto cruzado bajo chiquita"},
+  e57:{fr:"padel jouer avec niveaux différents",    es:"padel jugar con distinto nivel"},
+  e63:{fr:"padel prise continentale raquette",      es:"padel empunadura continental"}
+};
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const videoExo = e => VIDEO_EXO[e.id] || VIDEO_THEME[e.th] || VIDEO_THEME.filet;
+
 const VIDEOS = [
  {g:"Chaînes en espagnol — le contenu technique le plus solide", items:[
   {t:"Mejora Tu Padel — Manu Martín", d:"Entraîneur de joueurs professionnels. Technique, tactique, physique, conception d'exercices. La référence.", u:"https://www.youtube.com/channel/UCyJ89bNIXthD-Uy_0DUCcrg", f:"ES"},
@@ -1031,6 +1108,183 @@ const VIDEOS = [
 /* =========================================================
    ÉTAT + STOCKAGE
    ========================================================= */
+
+/* =========================================================
+   GLOSSAIRE DES COUPS
+   h = hauteur du point de contact : 1 genoux · 2 hanche · 3 poitrine
+       4 épaule · 5 au-dessus de la tête
+   ========================================================= */
+const COUPS = [
+{id:"c1",nom:"La prise continentale",aussi:"empuñadura continental · prise marteau",niv:"Dès la première séance",
+ h:3,int:"—",eff:"Aucun effet propre : c'est la base de tous les autres",
+ quand:["Tout le temps. C'est la seule prise du padel.","Elle ne change ni pour la volée, ni pour la bandeja, ni pour le smash.","Seuls quelques joueurs confirmés la modifient légèrement au fond de court."],
+ tech:["Tiens la raquette comme un marteau avec lequel tu planterais un clou dans le mur latéral.","Le V formé par le pouce et l'index se pose sur l'arête supérieure du manche.","La main reste souple sur les échanges, ferme au moment du contact seulement."],
+ err:["Prendre une prise de coup droit de tennis : la volée de revers devient impossible.","Changer de prise entre les coups : on n'a pas le temps au filet.","Serrer en permanence : le bras fatigue et le geste se raidit."],
+ pos:[],balls:[],q:{fr:"padel prise continentale raquette",es:"padel empuñadura continental"}},
+
+{id:"c2",nom:"Le service",aussi:"saque",niv:"Dès le début",
+ h:2,int:"40 à 60 %",eff:"Léger effet coupé ou latéral chez les confirmés",
+ quand:["Au début de chaque point.","Un seul objectif : mettre la balle en jeu et monter au filet.","Le service ne se gagne pas au padel, il se sécurise."],
+ tech:["Laisse rebondir la balle au sol, puis frappe sous le niveau de la taille. C'est obligatoire.","Frappe en diagonale vers le carré adverse, de préférence vers la vitre latérale.","Monte immédiatement après, sans regarder le résultat de ton service.","Le rebond préalable doit être identique à chaque fois : c'est ce qui donne la régularité."],
+ err:["Frapper trop fort : le gain est nul et le risque énorme.","Rester au fond après avoir servi : on offre le filet à l'adversaire.","Servir au centre systématiquement : le retourneur s'installe."],
+ pos:[{x:70,y:135,l:"S"},{x:30,y:60,l:"R"}],balls:[{from:[70,133],to:[10,70]}],
+ q:{fr:"padel service technique montée",es:"padel saque tecnica subida"}},
+
+{id:"c3",nom:"La sortie de mur",aussi:"salida de pared",niv:"Niveau 3 et plus",
+ h:2,int:"50 à 70 %",eff:"À plat ou légèrement lifté",
+ quand:["Chaque fois qu'une balle profonde touche la vitre du fond.","C'est le coup le plus fréquent du padel amateur, et celui qui coûte le plus de points quand il est raté.","La réponse par défaut est un lob ou un croisé profond, jamais une accélération."],
+ tech:["Recule avec la balle dès qu'elle passe : ne l'attends pas sur place.","Garde un bras d'écart avec la vitre, sinon tu seras bloqué.","Mets-toi de profil avant que la balle ne ressorte, épaules fermées.","Frappe quand la balle redescend, à hauteur de hanche, et accompagne vers l'avant."],
+ err:["Coller la vitre et se retrouver sans espace pour armer.","Frapper la balle trop haut, quand elle est encore montante.","Finir le geste vers le haut : la balle part dans le filet ou en cloche molle."],
+ pos:[{x:30,y:150,l:"Toi"}],balls:[{from:[70,60],to:[30,192]},{from:[30,190],to:[72,55],lob:true}],
+ q:{fr:"padel sortie de mur technique",es:"padel salida de pared tecnica"}},
+
+{id:"c4",nom:"Le lob",aussi:"globo · la cloche",niv:"Dès le niveau 2",
+ h:2,int:"40 à 55 %",eff:"Légèrement lifté pour faire retomber la balle",
+ quand:["Dès que l'adversaire tient le filet et que tu es au fond.","C'est un coup offensif : un bon lob reprend le filet, il ne subit pas.","Sur défense difficile, c'est aussi la sortie de secours qui donne du temps."],
+ tech:["Ouvre la face de la raquette et accompagne du bas vers le haut, épaule finissant vers le ciel.","Vise à un mètre du mur du fond adverse, pas au milieu du terrain.","Passe au-dessus de la raquette levée du joueur au filet, avec une marge nette.","Après un bon lob, avance de deux pas immédiatement."],
+ err:["Lober trop court : c'est offrir un smash.","Lober au centre quand les deux adversaires sont au filet : ils choisissent tranquillement.","Rester au fond après un lob réussi, et perdre le bénéfice du coup."],
+ pos:[{x:30,y:150,l:"Toi"},{x:70,y:70,l:"Rival"}],balls:[{from:[30,145],to:[72,25],lob:true}],
+ q:{fr:"padel lob globo technique profondeur",es:"padel globo tecnica profundidad"}},
+
+{id:"c5",nom:"La chiquita",aussi:"balle basse dans les pieds",niv:"Niveau 4 et plus",
+ h:2,int:"30 à 40 %",eff:"Coupé léger pour que la balle reste basse",
+ quand:["Quand l'adversaire est au filet et que tu ne peux pas lober.","Pour l'obliger à jouer une volée basse et difficile, et créer une balle attaquable ensuite.","Alterne-la avec le lob pour rester imprévisible."],
+ tech:["Balle lente et rasante, qui passe juste au-dessus du filet et retombe dans ses pieds.","Prépare comme un coup normal pour ne pas annoncer l'intention.","Joue-la de préférence en croisé : le filet est plus bas au centre.","Avance d'un pas après, la réponse sera souvent courte."],
+ err:["La jouer trop fort : elle devient une balle facile à volleyer.","La jouer trop haut : c'est un cadeau au filet.","N'utiliser qu'elle : sans lob en alternance, elle devient prévisible."],
+ pos:[{x:30,y:155,l:"Toi"},{x:65,y:72,l:"Rival"}],balls:[{from:[30,150],to:[68,88]}],
+ q:{fr:"padel chiquita balle basse technique",es:"padel chiquita tecnica"}},
+
+{id:"c6",nom:"La volée",aussi:"volea",niv:"Dès le niveau 2",
+ h:3,int:"40 à 60 %",eff:"Coupé léger, jamais lifté",
+ quand:["Chaque fois que tu tiens le filet, ce qui devrait être la moitié du temps.","L'objectif n'est presque jamais de gagner : c'est de garder la position et de faire reculer l'adversaire.","Profonde quand tu es loin du filet, courte et croisée quand tu es près."],
+ tech:["Préparation très courte : la raquette ne dépasse jamais l'épaule.","Bloque la balle, ne la frappe pas. Le poignet reste ferme, le bras pousse vers l'avant.","Fléchis les jambes pour descendre sur les balles basses, ne baisse pas la raquette.","Sur balle lointaine, vise la tête de l'adversaire ; sur balle proche, vise ses pieds."],
+ err:["Armer comme un coup de fond : on est toujours en retard.","Volleyer court quand on est à mi-terrain : on offre le lob.","Reculer la raquette au lieu d'avancer le corps."],
+ pos:[{x:32,y:78,l:"Toi"},{x:68,y:150,l:"Rival"}],balls:[{from:[68,145],to:[32,84]},{from:[32,84],to:[70,160]}],
+ q:{fr:"padel volée technique placement",es:"padel volea tecnica colocacion"}},
+
+{id:"c7",nom:"La bandeja",aussi:"le plateau",niv:"Niveau 4 et plus",
+ h:4,int:"50 à 65 %",eff:"Coupé, la balle doit mourir après la vitre",
+ quand:["Sur lob profond, quand tu tiens le filet et que tu ne peux pas smasher.","Son but n'est pas de gagner le point : c'est de garder le filet.","C'est le coup qui sépare le niveau 4 du niveau 6."],
+ tech:["Recule en pas chassés, épaules de profil, sans jamais tourner le dos au filet.","Point de contact à hauteur d'épaule, devant toi, bras tendu.","Le geste part de l'extérieur vers l'intérieur et coupe la balle.","Vise la vitre latérale adverse, en croisé, à mi-hauteur.","Reviens au filet dès la frappe terminée : deux pas en avant, automatiquement."],
+ err:["Frapper trop fort : la balle rebondit haut et revient attaquable.","Se placer sous la balle au lieu de rester légèrement derrière.","Rester au fond après la bandeja, ce qui annule tout l'intérêt du coup."],
+ pos:[{x:45,y:60,l:"Toi"},{x:65,y:165,l:"Rival"}],balls:[{from:[65,160],to:[45,25],lob:true},{from:[45,55],to:[93,145]}],
+ q:{fr:"padel bandeja technique geste",es:"padel bandeja tecnica"}},
+
+{id:"c8",nom:"La vibora",aussi:"la vipère",niv:"Niveau 6 et plus",
+ h:4,int:"65 à 80 %",eff:"Coupé latéral marqué, la balle fuit après le rebond",
+ quand:["Sur lob moyen, un peu plus court que celui de la bandeja.","Quand tu veux mettre la pression sans prendre le risque du smash.","Souvent vers le coin où le rival est le plus faible."],
+ tech:["Point de contact plus haut que la bandeja, plus bas que le smash, sur le côté de la tête.","Le geste coupe la balle de l'extérieur vers l'intérieur, poignet très actif.","Vise la vitre latérale : l'effet fait fuir la balle après le rebond.","Comme la bandeja, tu restes au filet après."],
+ err:["La tenter sur lob profond : c'est une bandeja qu'il fallait jouer.","Chercher la puissance au lieu de l'effet : la vibora vit de son rebond, pas de sa vitesse.","Négliger le retour au filet."],
+ pos:[{x:42,y:58,l:"Toi"},{x:62,y:160,l:"Rival"}],balls:[{from:[62,155],to:[42,28],lob:true},{from:[42,55],to:[94,132]}],
+ q:{fr:"padel vibora technique effet",es:"padel vibora tecnica efecto"}},
+
+{id:"c9",nom:"Le smash",aussi:"remate",niv:"Niveau 5 et plus",
+ h:5,int:"85 à 100 %",eff:"À plat, ou lifté pour le smash par 3",
+ quand:["Uniquement sur lob court, jamais sur lob profond.","Version simple : à plat, au centre du terrain, entre les deux adversaires.","Version par 3 : vers l'angle de la vitre latérale et du fond, pour que la balle sorte du terrain."],
+ tech:["Place-toi sous la balle, légèrement derrière, et frappe devant toi bras tendu.","Le corps entier participe : les jambes poussent, le buste tourne.","Pour le smash par 3, vise le tiers supérieur de la vitre latérale près du coin, avec du lift.","Attention : un smash raté te fait perdre le filet et le point."],
+ err:["Smasher un lob profond : la faute la plus fréquente et la plus coûteuse.","Viser les lignes au lieu du centre quand on débute le coup.","Se jeter en arrière au lieu de reculer en pas chassés."],
+ pos:[{x:50,y:62,l:"Toi"},{x:50,y:170,l:"Rival"}],balls:[{from:[50,165],to:[50,42],lob:true},{from:[50,58],to:[52,178]}],
+ q:{fr:"padel smash remate technique",es:"padel remate tecnica"}},
+
+{id:"c10",nom:"L'amortie",aussi:"dejada · la petite balle",niv:"Niveau 5 et plus",
+ h:3,int:"15 à 25 %",eff:"Coupé, pour que la balle meure au rebond",
+ quand:["Quand tu es au filet et que les deux adversaires sont collés au fond.","Idéalement après plusieurs balles profondes, pour créer la surprise.","Jamais si un adversaire est déjà à mi-terrain."],
+ tech:["Main très souple, la raquette recule légèrement au moment du contact pour absorber la vitesse.","Vise le coin le plus éloigné du rival, juste après le filet.","Prépare exactement comme une volée normale pour ne rien annoncer.","Avance juste après : la réponse, si elle arrive, sera courte et haute."],
+ err:["La jouer trop haut : le rival arrive et frappe une balle facile.","La jouer trop souvent : elle ne vaut que par la surprise.","Rester immobile après, alors que le point est encore ouvert."],
+ pos:[{x:40,y:78,l:"Toi"},{x:60,y:185,l:"Rival"}],balls:[{from:[40,82],to:[68,118]}],
+ q:{fr:"padel amortie dejada technique",es:"padel dejada tecnica"}},
+
+{id:"c11",nom:"La défense du smash",aussi:"bloc · contra",niv:"Niveau 4 et plus",
+ h:2,int:"20 à 30 %",eff:"Aucun, on absorbe",
+ quand:["Quand l'adversaire smashe et que tu es au fond.","Bien défendu, un smash ne gagne pas : il fatigue celui qui l'a frappé.","La bonne réponse est presque toujours un lob, même court."],
+ tech:["Recule avant la frappe adverse, pas après : tu n'auras pas le temps sinon.","Raquette devant le corps, aucune préparation, poignet ferme.","Absorbe et remets haut au centre : gagner du temps est le seul objectif.","Si la balle sort par la vitre, tu as le droit de sortir la chercher hors du terrain."],
+ err:["Vouloir contre-attaquer : la balle part n'importe où.","Armer un geste : trop lent, on est débordé.","Rester debout et raide au lieu de fléchir les jambes."],
+ pos:[{x:50,y:170,l:"Toi"},{x:50,y:65,l:"Rival"}],balls:[{from:[50,70],to:[50,165]},{from:[50,168],to:[50,30],lob:true}],
+ q:{fr:"padel défendre le smash bloquer",es:"padel defender remate bloqueo"}},
+
+{id:"c12",nom:"Le contre-mur",aussi:"contrapared",niv:"Niveau 6 et plus",
+ h:2,int:"55 à 70 %",eff:"À plat, vers le haut de la vitre",
+ quand:["Quand tu es acculé dans un coin et qu'aucun autre coup n'est possible.","C'est une sortie de secours, pas un choix tactique.","Souvent après une balle très rapide qui te dépasse."],
+ tech:["Joue volontairement dans ta propre vitre latérale, en visant haut.","La balle rebondit sur ta vitre et repasse le filet.","Frappe ferme : une balle molle meurt avant le filet.","Prépare-toi à courir : la réponse adverse sera facile pour eux."],
+ err:["Le tenter alors qu'un lob était encore jouable.","Viser trop bas sur la vitre.","Le chercher pour le spectacle : le taux de réussite reste faible."],
+ pos:[{x:18,y:172,l:"Toi"}],balls:[{from:[18,170],to:[4,138]},{from:[4,138],to:[70,60]}],
+ q:{fr:"padel contre-mur contrapared technique",es:"padel contrapared tecnica"}},
+
+{id:"c13",nom:"Le placement en double",aussi:"la corde invisible",niv:"Dès le niveau 2",
+ h:3,int:"—",eff:"—",
+ quand:["En permanence. C'est ce qui fait gagner le plus de points sans améliorer un seul geste.","Les deux joueurs d'une paire sont toujours côte à côte, jamais l'un devant l'autre.","Soit les deux au filet, soit les deux au fond : jamais un de chaque."],
+ tech:["Imagine une corde de trois mètres reliant les deux partenaires : elle ne doit jamais se tendre.","Quand la balle va à gauche, les deux glissent à gauche.","Le joueur du côté de la balle avance, l'autre se recentre pour couvrir le milieu.","Le centre appartient au coup droit du joueur le mieux placé. Décidez-le une fois pour toutes."],
+ err:["Un joueur au filet, l'autre au fond : le trou du milieu est indéfendable.","Reculer seul quand le partenaire tient encore le filet.","Ne pas se parler : la moitié des points perdus au centre viennent d'un silence."],
+ pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:28,y:160,l:"C"},{x:70,y:160,l:"D"}],balls:[{from:[28,155],to:[35,62]}],
+ q:{fr:"padel placement double positionnement",es:"padel posicionamiento pareja pista"}},
+
+{id:"c14",nom:"Le split-step",aussi:"le petit saut d'appui",niv:"Dès le début",
+ h:3,int:"—",eff:"—",
+ quand:["Avant chaque frappe de l'adversaire, sans exception.","C'est le geste invisible qui rend tous les autres possibles.","Encore plus important au filet, où le temps de réaction est minimal."],
+ tech:["Petit saut sur place au moment exact où l'adversaire frappe.","Retombe sur l'avant des pieds, jambes fléchies, prêt à partir dans les deux sens.","Le corps doit être en mouvement à l'instant du contact adverse, jamais figé.","Enchaîne immédiatement le premier pas dans la direction de la balle."],
+ err:["Sauter après la frappe adverse : c'est trop tard, on perd le bénéfice.","Rester talons au sol entre les coups.","L'oublier au filet, là où il compte le plus."],
+ pos:[{x:50,y:110,l:"Toi"}],balls:[],
+ q:{fr:"padel split step déplacement appuis",es:"padel split step desplazamiento"}}
+];
+
+const NIVEAUX_H = ["","genoux","hanche","poitrine","épaule","au-dessus de la tête"];
+
+function hauteurSvg(h){
+  if(!h) return "";
+  const lignes = [5,4,3,2,1].map((n,i)=>{
+    const y = 12 + i*17, actif = n===h;
+    return `<line x1="8" y1="${y}" x2="${actif?52:30}" y2="${y}"
+              stroke="${actif?'var(--balle)':'#7C8C88'}" stroke-width="${actif?3:1}"/>
+            <text x="${actif?58:36}" y="${y+3.5}" font-size="9"
+              font-family="JetBrains Mono, monospace"
+              fill="${actif?'#EAEEE9':'#7C8C88'}">${NIVEAUX_H[n]}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 190 105" role="img" aria-label="Hauteur du point de contact">
+    <text x="8" y="6" font-size="8" font-family="JetBrains Mono, monospace"
+      fill="#7C8C88" letter-spacing="1">POINT DE CONTACT</text>${lignes}</svg>`;
+}
+
+function carteCoup(c){
+  const fig = c.pos && c.pos.length ? terrain(c) : "";
+  return `<div class="card coup">
+    <div class="exo-head">
+      <h3 class="exo">${c.nom}</h3>
+      <span class="tag niv">${c.niv}</span>
+    </div>
+    <p style="color:var(--gris);font-size:14px;margin-top:4px">${c.aussi}</p>
+    <div class="coup-fig">
+      ${fig}
+      ${c.h ? `<div class="hauteur-wrap">${hauteurSvg(c.h)}</div>` : ""}
+    </div>
+    <div class="duo">
+      <div><span class="label">Intensité</span><div class="val">${c.int}</div></div>
+      <div><span class="label">Effet</span><div class="val">${c.eff}</div></div>
+    </div>
+    <span class="label">Quand le jouer</span>
+    <ul>${c.quand.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <span class="label">Technique</span>
+    <ul>${c.tech.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <span class="label">Erreurs fréquentes</span>
+    <ul class="err">${c.err.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="vid-links">
+      <a href="${yt(c.q.fr)}" target="_blank" rel="noopener">▶ Vidéos FR</a>
+      <a href="${yt(c.q.es)}" target="_blank" rel="noopener">▶ Vidéos ES</a>
+    </div>
+  </div>`;
+}
+
+function renderCoups(){
+  const q = sansAccents(document.getElementById('cQ').value.trim());
+  const list = COUPS.filter(c=>{
+    if(!q) return true;
+    const t = sansAccents([c.nom,c.aussi,c.quand.join(" "),c.tech.join(" ")].join(" "));
+    return q.split(/\s+/).every(m=>t.includes(m));
+  });
+  document.getElementById('coupsOut').innerHTML = list.length
+    ? list.map(carteCoup).join("")
+    : `<div class="empty"><b>Aucun coup trouvé</b>Essaie « bandeja », « lob », « volée » ou « mur ».</div>`;
+}
+
 let joueurs = [], seances = [], selection = [], seanceCourante = null, role = 'joueur', filtreJoueur = null;
 let sha = null, jeton = "", etat = "chargement", messageErreur = "";
 
@@ -1188,6 +1442,10 @@ function carteExo(exo, opts={}){
     ${showAdapt && besoinDeb ? `<div class="adapt"><b>Version débutant</b>${exo.ad}</div>`:""}
     ${showAdapt && ecart>=2 ? `<div class="adapt gap"><b>Écart de ${ecart} niveaux sur la piste</b>${exo.ae}</div>`:""}
     <div class="reussite"><b>Réussi si :</b> ${exo.r}</div>
+    <div class="vid-links">
+      <a href="${yt(videoExo(exo).fr)}" target="_blank" rel="noopener">▶ Vidéos FR</a>
+      <a href="${yt(videoExo(exo).es)}" target="_blank" rel="noopener">▶ Vidéos ES</a>
+    </div>
   </div>`;
 }
 
@@ -1763,7 +2021,7 @@ function renderVideos(){
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-current','false'));
   b.setAttribute('aria-current','true');
-  ['seance','exos','joueurs','agenda','videos'].forEach(v=>{
+  ['seance','exos','joueurs','agenda','coups','videos'].forEach(v=>{
     document.getElementById('v-'+v).hidden = (v !== b.dataset.view);
   });
   window.scrollTo({top:0});
@@ -1804,6 +2062,7 @@ const majDateNote = ()=>{
 };
 champDate.addEventListener('input', majDateNote);
 
+document.getElementById('cQ').addEventListener('input', renderCoups);
 document.getElementById('refreshBtn').addEventListener('click', async ()=>{
   toast("Actualisation…");
   await chargerDepuisGitHub();
@@ -1817,7 +2076,7 @@ document.getElementById('refreshBtn').addEventListener('click', async ()=>{
   await chargerDepuisGitHub();
   renderRole();
   renderPlayers(); renderPickers(); renderCtx();
-  renderExos(); renderAgenda(); renderVideos();
+  renderExos(); renderCoups(); renderAgenda(); renderVideos();
   if(role !== 'coach') document.querySelector('nav button[data-view="agenda"]').click();
 })();
 </script>
