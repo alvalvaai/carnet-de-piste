@@ -452,7 +452,7 @@ const EXOS = [
  ad:"Rester sans mur tout l'échauffement, la balle rebondit une fois et on renvoie.",
  ae:"Le plus fort joue à 60 % et vise le milieu du corps de l'autre, pas les coins.",
  r:"20 balles d'affilée sans faute avant de passer à la suite.",
- pos:[{x:25,y:170,l:"A"},{x:75,y:30,l:"B"}], balls:[{from:[25,165],to:[75,35]}]},
+ pos:[{x:25,y:178,l:"A"},{x:75,y:22,l:"B"}], balls:[{from:[25,176],to:[75,26]}]},
 
 {id:"e2",imp:5,t:"Sortie de mur croisée",th:"defense",n:[3,8],j:2,d:12,
  o:"Le coup qui décide le plus de points en amateur : sortir la balle du mur du fond.",
@@ -461,7 +461,8 @@ const EXOS = [
  ad:"Sans raquette d'abord : poser la main sur la vitre, laisser passer la balle, attraper le rebond. 10 fois. Ensuite avec raquette et balle envoyée à la main.",
  ae:"Le joueur fort tient le rôle de lanceur (au filet) plus longtemps : il travaille sa volée de placement pendant que l'autre travaille son mur.",
  r:"8 sorties de mur sur 10 qui repassent la ligne de service adverse.",
- pos:[{x:30,y:150,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,192]},{from:[30,192],to:[75,60],lob:true}]},
+ eff:"à plat ou léger lift",
+ pos:[{x:30,y:182,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,192]},{from:[30,192],to:[75,60],lob:true}]},
 
 {id:"e3",imp:5,t:"Sortie de mur, version découverte",th:"defense",n:[1,3],j:2,d:10,
  o:"Comprendre que le mur est un ami, pas un piège.",
@@ -470,7 +471,8 @@ const EXOS = [
  ad:"Commencer sans raquette, juste attraper la balle après le mur, pour apprendre le timing.",
  ae:"Le joueur fort ne frappe pas : il lance à la main. C'est un temps donné, pas un entraînement partagé — l'inverse est vrai à l'exercice suivant.",
  r:"10 balles sur 15 renvoyées par-dessus le filet.",
- pos:[{x:30,y:160,l:"Déb"},{x:60,y:110,l:"Lanceur"}], balls:[{from:[60,115],to:[30,195]}]},
+ eff:"à plat",
+ pos:[{x:30,y:182,l:"Déb"},{x:60,y:110,l:"Lanceur"}], balls:[{from:[60,115],to:[30,195]}]},
 
 {id:"e4",imp:5,t:"Lob croisé de régularité",th:"defense",n:[2,8],j:2,d:10,
  o:"Le lob est un coup offensif : il reprend le filet. C'est le meilleur rapport effort/points du padel.",
@@ -479,7 +481,8 @@ const EXOS = [
  ad:"Autoriser deux rebonds côté fond. Objectif : que la balle passe au-dessus de la raquette levée du joueur au filet, la profondeur viendra après.",
  ae:"Le joueur fort au filet n'a pas le droit de smasher : il ne fait que volée, ce qui l'oblige à un placement propre.",
  r:"7 lobs sur 10 qui retombent derrière la ligne de service.",
- pos:[{x:30,y:150,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[30,145],to:[70,25],lob:true},{from:[70,65],to:[30,145]}]},
+ eff:"lob légèrement lifté",
+ pos:[{x:30,y:182,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[30,182],to:[70,18],lob:true},{from:[70,65],to:[30,182]}]},
 
 {id:"e5",imp:3,t:"Double mur : fond puis latéral",th:"defense",n:[5,8],j:2,d:12,
  o:"Survivre aux balles qui partent dans le coin, là où on perd les points serrés.",
@@ -488,7 +491,8 @@ const EXOS = [
  ad:"Trop tôt à ce niveau. Remplacer par l'exercice « Sortie de mur croisée ».",
  ae:"À faire uniquement entre joueurs de niveau proche. Sinon le débutant observe depuis l'extérieur et compte les réussites à voix haute.",
  r:"6 balles sur 8 remises en jeu, peu importe la qualité.",
- pos:[{x:22,y:158,l:"B"},{x:72,y:70,l:"A"}], balls:[{from:[72,75],to:[10,190]},{from:[22,155],to:[70,25],lob:true}]},
+ eff:"lob de sécurité",
+ pos:[{x:22,y:182,l:"B"},{x:72,y:70,l:"A"}], balls:[{from:[72,75],to:[10,190]},{from:[22,182],to:[70,18],lob:true}]},
 
 {id:"e6",imp:5,t:"Lob puis montée au filet",th:"transition",n:[3,8],j:2,d:12,
  o:"Relier le bon lob à la prise du filet. Beaucoup de joueurs lobent bien et restent au fond.",
@@ -497,7 +501,7 @@ const EXOS = [
  ad:"Version marche : lober, puis simplement marcher jusqu'au filet sans jouer la balle suivante. Répéter le déplacement 10 fois.",
  ae:"Le joueur fort renvoie toujours au même endroit pour que l'autre n'ait qu'à gérer son déplacement.",
  r:"Arriver à l'arrêt avant la volée sur 8 montées sur 10.",
- pos:[{x:30,y:150,l:"B"},{x:70,y:60,l:"A"}], balls:[{from:[30,145],to:[70,20],lob:true},{from:[30,145],to:[35,115]}]},
+ pos:[{x:30,y:182,l:"B"},{x:70,y:60,l:"A"}], balls:[{from:[30,182],to:[70,20],lob:true},{from:[30,182],to:[35,115]}]},
 
 {id:"e7",imp:4,t:"Le rectangle : trois volées en montant",th:"transition",n:[2,6],j:2,d:10,
  o:"Traverser la zone du milieu sans se faire passer.",
@@ -506,7 +510,7 @@ const EXOS = [
  ad:"Deux volées au lieu de trois, balles envoyées à la main.",
  ae:"Le lanceur ajuste la hauteur selon celui qui travaille : haute et lente pour le débutant, aux pieds pour le joueur confirmé.",
  r:"Les trois volées passent le filet sur 5 tours sur 6.",
- pos:[{x:30,y:160,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,150]},{from:[70,75],to:[30,120]},{from:[70,75],to:[30,95]}]},
+ pos:[{x:30,y:182,l:"B"},{x:70,y:70,l:"A"}], balls:[{from:[70,75],to:[30,182]},{from:[70,75],to:[30,120]},{from:[70,75],to:[30,95]}]},
 
 {id:"e8",imp:5,t:"Volée croisée de régularité",th:"filet",n:[2,8],j:2,d:10,
  o:"Ne pas rater la balle facile. C'est 80 % de la volée en amateur.",
@@ -515,6 +519,7 @@ const EXOS = [
  ad:"Se rapprocher à trois mètres l'un de l'autre et volleyer doucement. Le but est de toucher la balle proprement, pas de la placer.",
  ae:"Le joueur fort recule d'un mètre : il joue ses volées plus bas et plus difficiles, l'autre garde une balle facile.",
  r:"30 volées d'affilée sans faute.",
+ eff:"volée coupée",
  pos:[{x:28,y:78,l:"A"},{x:72,y:122,l:"B"}], balls:[{from:[28,82],to:[72,118]}]},
 
 {id:"e9",imp:5,t:"Volée profonde : la zone interdite",th:"filet",n:[4,8],j:2,d:12,
@@ -524,7 +529,8 @@ const EXOS = [
  ad:"Remplacer la zone par un simple objectif : la balle doit dépasser le milieu du terrain adverse.",
  ae:"Le joueur au fond peut être plus faible : il n'a qu'à renvoyer, pas à attaquer. Rôle parfait pour Claire pendant que tu travailles la profondeur.",
  r:"Moins de 3 volées courtes sur 15.",
- pos:[{x:30,y:75,l:"A"},{x:70,y:160,l:"B"}], balls:[{from:[30,80],to:[70,155]}], zone:[100,130]},
+ eff:"volée coupée",
+ pos:[{x:30,y:75,l:"A"},{x:70,y:182,l:"B"}], balls:[{from:[30,80],to:[70,178]}], zone:[100,170], zoneType:"interdite"},
 
 {id:"e10",imp:3,t:"Volée bloquée sur balle rapide",th:"filet",n:[5,8],j:2,d:8,
  o:"Utiliser la vitesse du rival au lieu de la subir.",
@@ -533,7 +539,7 @@ const EXOS = [
  ad:"Ne pas faire frapper fort : balles à vitesse moyenne, l'idée du blocage reste la même.",
  ae:"Si l'écart est grand, le fort frappe et le moins fort bloque : c'est le sens facile.",
  r:"7 blocages sur 10 dans le terrain.",
- pos:[{x:30,y:80,l:"A"},{x:70,y:165,l:"B"}], balls:[{from:[70,160],to:[30,85]}]},
+ pos:[{x:30,y:80,l:"A"},{x:70,y:182,l:"B"}], balls:[{from:[70,182],to:[30,85]}]},
 
 {id:"e11",imp:5,t:"Bandeja et retour au filet",th:"attaque",n:[4,8],j:2,d:14,
  o:"Le vrai but de la bandeja n'est pas de gagner le point, c'est de garder le filet.",
@@ -542,7 +548,8 @@ const EXOS = [
  ad:"Sans lob : envoyer la balle à la main en cloche, et travailler uniquement le geste de bandeja sur place.",
  ae:"Le débutant tient le rôle de lobeur, ce qui est exactement son coup prioritaire. Les deux travaillent en même temps sur leur besoin réel.",
  r:"5 bandejas sur 6 qui touchent la vitre latérale, et retour au filet à chaque fois.",
- pos:[{x:35,y:60,l:"A"},{x:70,y:160,l:"B"}], balls:[{from:[70,155],to:[35,20],lob:true},{from:[35,55],to:[92,150]}]},
+ eff:"bandeja coupée",
+ pos:[{x:35,y:62,l:"A"},{x:70,y:182,l:"B"}], balls:[{from:[70,180],to:[35,32],lob:true},{from:[35,50],to:[94,168]}]},
 
 {id:"e12",imp:4,t:"Bandeja de régularité, séries de 10",th:"attaque",n:[5,8],j:2,d:10,
  o:"Tenir la bandeja quand les jambes commencent à brûler. Test physique et mental.",
@@ -551,7 +558,8 @@ const EXOS = [
  ad:"Séries de 5 lobs, envoyés à la main.",
  ae:"Le lobeur peut être de n'importe quel niveau : c'est le meilleur exercice mixte de la liste.",
  r:"3 séries de 10 avec moins de 2 fautes par série.",
- pos:[{x:50,y:55,l:"A"},{x:50,y:165,l:"B"}], balls:[{from:[50,160],to:[50,20],lob:true},{from:[50,50],to:[85,150]}]},
+ eff:"bandeja coupée",
+ pos:[{x:50,y:62,l:"A"},{x:50,y:182,l:"B"}], balls:[{from:[50,180],to:[50,34],lob:true},{from:[50,50],to:[94,160]}]},
 
 {id:"e13",imp:3,t:"Bandeja, vibora ou smash : choisir",th:"attaque",n:[6,8],j:2,d:12,
  o:"Lire la hauteur et la profondeur du lob pour choisir le bon coup.",
@@ -560,7 +568,8 @@ const EXOS = [
  ad:"Hors de portée à ce niveau.",
  ae:"À réserver aux séances entre joueurs de niveau proche.",
  r:"16 bons choix sur 20, jugés par le partenaire.",
- pos:[{x:45,y:55,l:"A"},{x:55,y:165,l:"B"}], balls:[{from:[55,160],to:[45,35],lob:true},{from:[45,50],to:[80,140]}]},
+ eff:"coupé ou lift selon le coup choisi",
+ pos:[{x:45,y:62,l:"A"},{x:55,y:182,l:"B"}], balls:[{from:[55,180],to:[45,40],lob:true},{from:[45,52],to:[82,150]}]},
 
 {id:"e14",imp:4,t:"Service et montée, dix croisés",th:"service",n:[2,8],j:2,d:8,
  o:"Automatiser la montée après le service. Le service ne sert qu'à ça.",
@@ -569,7 +578,7 @@ const EXOS = [
  ad:"Travailler d'abord 10 services sans montée, juste la régularité. Puis ajouter la montée.",
  ae:"Aucun ajustement nécessaire : chacun sert au rythme qu'il maîtrise.",
  r:"8 services sur 10 dans le carré, et arrêt avant chaque volée.",
- pos:[{x:70,y:130,l:"S"},{x:30,y:55,l:"R"}], balls:[{from:[70,128],to:[22,72]}]},
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[22,52]}]},
 
 {id:"e15",imp:4,t:"Retour lobé systématique",th:"service",n:[3,8],j:2,d:8,
  o:"Le retour lobé enlève le filet à l'adversaire dès la première balle. Sous-utilisé en amateur.",
@@ -578,7 +587,7 @@ const EXOS = [
  ad:"Renvoyer haut sans exigence de zone. Le seul objectif est que la balle passe au-dessus du serveur.",
  ae:"Le serveur fort peut smasher les lobs trop courts, ce qui donne un retour d'information immédiat au retourneur.",
  r:"7 lobs sur 10 non attaquables.",
- pos:[{x:70,y:120,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,118],to:[25,72]},{from:[25,72],to:[75,180],lob:true}]},
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[25,52]},{from:[25,26],to:[75,182],lob:true}]},
 
 {id:"e16",imp:4,t:"Points : on ne gagne qu'au filet",th:"tactique",n:[3,8],j:4,d:15,
  o:"Casser l'habitude de rester au fond. Le padel se gagne devant.",
@@ -587,7 +596,7 @@ const EXOS = [
  ad:"Autoriser un seul joueur devant la ligne pour valider le point.",
  ae:"Handicap au score : la paire la plus faible démarre chaque jeu à 15-0, ou à 30-0 si l'écart dépasse deux niveaux.",
  r:"Jouer un jeu complet sans avoir à rejouer plus de 3 points.",
- pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[]},
 
 {id:"e17",imp:3,t:"Points : vitre du fond interdite",th:"tactique",n:[5,8],j:4,d:15,
  o:"Arrêter d'offrir des balles faciles dans le coin où le défenseur est le plus à l'aise.",
@@ -596,7 +605,7 @@ const EXOS = [
  ad:"Trop technique. Utiliser plutôt « le lob obligatoire ».",
  ae:"N'appliquer la règle qu'aux joueurs forts. Les débutants jouent normalement.",
  r:"Un jeu complet avec moins de 4 fautes de zone.",
- pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[50,80],to:[50,150]}]},
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[50,80],to:[50,182]}]},
 
 {id:"e18",imp:5,t:"Points : lob obligatoire",th:"tactique",n:[2,8],j:4,d:12,
  o:"Format idéal en niveaux mélangés : tout le monde peut jouer, personne ne peut écraser.",
@@ -605,7 +614,7 @@ const EXOS = [
  ad:"Autoriser deux rebonds pour les débutants.",
  ae:"C'est le format qui absorbe le mieux les écarts. Paire mixte : un fort et un débutant de chaque côté.",
  r:"Des échanges de plus de 8 balles la moitié du temps.",
- pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,30],lob:true}]},
+ pos:[{x:28,y:75,l:"A"},{x:72,y:75,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[28,182],to:[72,18],lob:true}]},
 
 {id:"e19",imp:4,t:"Demi-terrain croisé, deux contre deux",th:"tactique",n:[2,8],j:4,d:12,
  o:"Faire jouer quatre joueurs sur une seule piste avec deux niveaux différents en parallèle.",
@@ -614,7 +623,7 @@ const EXOS = [
  ad:"Donner la diagonale la plus courte aux débutants et autoriser deux rebonds.",
  ae:"Exercice conçu pour ça : les forts d'un côté, les débutants de l'autre, même piste, même heure.",
  r:"20 minutes sans collision et sans temps mort.",
- pos:[{x:25,y:70,l:"A"},{x:75,y:70,l:"B"},{x:75,y:150,l:"C"},{x:25,y:150,l:"D"}], balls:[{from:[25,75],to:[75,145]},{from:[75,75],to:[25,145]}]},
+ pos:[{x:25,y:70,l:"A"},{x:75,y:70,l:"B"},{x:75,y:182,l:"C"},{x:25,y:182,l:"D"}], balls:[{from:[25,75],to:[75,182]},{from:[75,75],to:[25,182]}]},
 
 {id:"e20",imp:3,t:"Le roi du filet",th:"tactique",n:[1,6],j:3,d:12,
  o:"Format à trois joueurs, ludique, qui fait travailler le filet à tout le monde.",
@@ -623,7 +632,7 @@ const EXOS = [
  ad:"Le débutant au filet démarre à un mètre du filet et n'a qu'à bloquer.",
  ae:"Le joueur fort au filet joue en revers uniquement, ou sans smash. L'écart se régule par cette règle-là, pas par le score.",
  r:"Chacun a tenu le filet au moins deux fois.",
- pos:[{x:50,y:75,l:"Roi"},{x:25,y:160,l:"B"},{x:75,y:160,l:"C"}], balls:[{from:[25,155],to:[50,25],lob:true}]},
+ pos:[{x:50,y:75,l:"Roi"},{x:25,y:182,l:"B"},{x:75,y:182,l:"C"}], balls:[{from:[25,182],to:[50,18],lob:true}]},
 
 {id:"e21",imp:4,t:"Mur extérieur : 20 droites, 20 revers",th:"maison",n:[1,8],j:1,d:15,
  o:"Entretenir le contact de balle sans piste et sans partenaire.",
@@ -632,7 +641,7 @@ const EXOS = [
  ad:"Se rapprocher à deux mètres et laisser rebondir une fois entre chaque frappe.",
  ae:"Exercice individuel, aucun ajustement.",
  r:"20 frappes d'affilée sans perdre le contrôle.",
- pos:[{x:50,y:150,l:"Toi"}], balls:[{from:[50,145],to:[50,15]}]},
+ pos:[{x:50,y:182,l:"Toi"}], balls:[{from:[50,182],to:[50,15]}]},
 
 {id:"e22",imp:3,t:"Shadow bandeja et volée",th:"maison",n:[2,8],j:1,d:10,
  o:"Graver le geste sans balle, là où le cerveau apprend le plus vite.",
@@ -679,7 +688,7 @@ const EXOS = [
  ad:"Même protocole sans exception. C'est ce qui varie le moins d'un joueur à l'autre.",
  ae:"À faire tous ensemble : c'est aussi le moment où le groupe se met en route.",
  r:"Ne jamais commencer une séance sans l'avoir fait.",
- pos:[{x:30,y:150,l:"A"},{x:70,y:150,l:"B"}], balls:[]},
+ pos:[{x:30,y:182,l:"A"},{x:70,y:182,l:"B"}], balls:[]},
 
 {id:"e27",imp:3,t:"Montée progressive du fond vers le filet",th:"echauffement",n:[2,8],j:2,d:8,
  o:"Passer en revue tous les coups de la séance en huit minutes.",
@@ -688,7 +697,7 @@ const EXOS = [
  ad:"Rester sur les deux premières phases, les zones avancées viendront plus tard.",
  ae:"Le joueur fort commence au filet, le poste le plus exigeant en contrôle.",
  r:"Passer les quatre phases sans interruption.",
- pos:[{x:30,y:165,l:"A"},{x:70,y:75,l:"B"}], balls:[{from:[30,160],to:[70,80]}]},
+ pos:[{x:30,y:182,l:"A"},{x:70,y:75,l:"B"}], balls:[{from:[30,182],to:[70,80]}]},
 
 /* ---------- défense ---------- */
 {id:"e28",imp:4,t:"Sortie de mur en parallèle",th:"defense",n:[4,8],j:2,d:12,
@@ -698,7 +707,8 @@ const EXOS = [
  ad:"Envoyer les balles à la main et ne demander que la direction, sans exigence de profondeur.",
  ae:"Le joueur au filet travaille sa volée de placement : il doit envoyer dix balles au même endroit.",
  r:"7 sorties sur 10 qui passent à moins de deux mètres de la vitre latérale.",
- pos:[{x:28,y:150,l:"B"},{x:28,y:70,l:"A"}], balls:[{from:[28,75],to:[25,192]},{from:[25,150],to:[25,60]}]},
+ eff:"à plat",
+ pos:[{x:28,y:182,l:"B"},{x:28,y:70,l:"A"}], balls:[{from:[28,75],to:[25,192]},{from:[25,182],to:[25,60]}]},
 
 {id:"e29",imp:3,t:"Vitre latérale puis vitre du fond",th:"defense",n:[5,8],j:2,d:12,
  o:"Gérer la balle qui touche le côté avant le fond, la plus déroutante du padel.",
@@ -707,7 +717,8 @@ const EXOS = [
  ad:"Trop tôt à ce niveau. Utiliser plutôt la sortie de mur croisée.",
  ae:"À réserver aux joueurs de niveau proche. Sinon le moins fort observe et compte les réussites à voix haute.",
  r:"6 balles sur 8 remises en jeu.",
- pos:[{x:22,y:155,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[70,80],to:[6,150]},{from:[22,152],to:[70,25],lob:true}]},
+ eff:"lob de sécurité",
+ pos:[{x:22,y:182,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[70,80],to:[6,182]},{from:[22,182],to:[70,18],lob:true}]},
 
 {id:"e30",imp:2,t:"Le contre-mur : utiliser sa propre vitre",th:"defense",n:[6,8],j:2,d:10,
  o:"Sortie de secours quand on est acculé. Spectaculaire mais rarement décisif : à travailler en dernier.",
@@ -716,7 +727,7 @@ const EXOS = [
  ad:"Hors de portée à ce niveau.",
  ae:"À réserver aux séances entre joueurs de niveau proche.",
  r:"4 réussites sur 10, ce qui est déjà bien.",
- pos:[{x:18,y:170,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[18,168],to:[4,140]},{from:[4,140],to:[70,60]}]},
+ pos:[{x:18,y:182,l:"B"},{x:70,y:75,l:"A"}], balls:[{from:[18,182],to:[4,140]},{from:[4,140],to:[70,60]}]},
 
 {id:"e31",imp:4,t:"Défendre le smash : bloquer puis relober",th:"defense",n:[4,8],j:2,d:12,
  o:"Un smash bien défendu casse le moral de l'attaquant. C'est un coup qui se travaille.",
@@ -725,7 +736,8 @@ const EXOS = [
  ad:"Remplacer le smash par une bandeja lente. L'objectif est de toucher la balle, pas de la placer.",
  ae:"L'attaquant contrôle la vitesse : il cherche la répétition, pas le point gagnant.",
  r:"6 blocages sur 10 qui repassent le filet.",
- pos:[{x:50,y:65,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,70],to:[50,165]}]},
+ eff:"aucun effet, on absorbe",
+ pos:[{x:50,y:65,l:"A"},{x:50,y:182,l:"B"}], balls:[{from:[50,70],to:[50,182]}]},
 
 {id:"e32",imp:4,t:"Trois lobs, une balle rasante",th:"defense",n:[3,8],j:2,d:10,
  o:"Sortir du réflexe « je lobe toujours » sans perdre la sécurité du lob.",
@@ -734,7 +746,8 @@ const EXOS = [
  ad:"Deux lobs, une rasante. Le rythme compte plus que le nombre.",
  ae:"Le joueur fort tient le filet et doit rattraper la rasante : ça travaille son anticipation.",
  r:"6 cycles complets sur 8 sans faute.",
- pos:[{x:35,y:155,l:"B"},{x:65,y:75,l:"A"}], balls:[{from:[35,150],to:[65,25],lob:true},{from:[35,150],to:[65,95]}]},
+ eff:"lob lifté puis balle à plat",
+ pos:[{x:35,y:182,l:"B"},{x:65,y:75,l:"A"}], balls:[{from:[35,182],to:[65,18],lob:true},{from:[35,182],to:[65,95]}]},
 
 {id:"e33",imp:5,t:"Se replacer au centre après chaque défense",th:"defense",n:[2,8],j:2,d:10,
  o:"La faute la plus coûteuse en amateur n'est pas technique : c'est de rester où l'on vient de frapper.",
@@ -743,7 +756,7 @@ const EXOS = [
  ad:"Balles envoyées à la main sur un rythme lent, avec une balle posée au centre comme repère.",
  ae:"Idéal en niveaux mélangés : le fort envoie et travaille sa précision, l'autre travaille ses jambes.",
  r:"18 replacements complets sur 20.",
- pos:[{x:50,y:160,l:"B"},{x:50,y:70,l:"A"}], balls:[{from:[50,75],to:[15,175]},{from:[50,75],to:[85,175]}]},
+ pos:[{x:50,y:182,l:"B"},{x:50,y:70,l:"A"}], balls:[{from:[50,75],to:[15,182]},{from:[50,75],to:[85,182]}]},
 
 /* ---------- transition ---------- */
 {id:"e34",imp:5,t:"Monter après le retour de service",th:"transition",n:[3,8],j:2,d:12,
@@ -753,7 +766,7 @@ const EXOS = [
  ad:"Travailler uniquement le déplacement : retourner, puis marcher jusqu'au filet sans jouer la balle suivante.",
  ae:"Le serveur adapte la difficulté de son service au retourneur et travaille sa régularité.",
  r:"8 montées sur 10 avec arrêt avant la volée.",
- pos:[{x:70,y:150,l:"A"},{x:30,y:60,l:"B"}], balls:[{from:[70,148],to:[25,72]},{from:[25,72],to:[75,150]}]},
+ pos:[{x:70,y:182,l:"A"},{x:30,y:60,l:"B"}], balls:[{from:[70,182],to:[25,52]},{from:[25,26],to:[75,182]}]},
 
 {id:"e35",imp:4,t:"Volée de transition à mi-terrain",th:"transition",n:[4,8],j:2,d:10,
  o:"La zone entre la ligne de service et le filet est celle où l'on perd le plus de points.",
@@ -771,7 +784,7 @@ const EXOS = [
  ad:"Ralentir : lobs envoyés à la main, le déplacement est le seul objectif.",
  ae:"Un joueur fort et un débutant dans chaque paire, le fort donne les annonces.",
  r:"8 reculs sur 10 avec les deux joueurs alignés.",
- pos:[{x:28,y:80,l:"A"},{x:72,y:80,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[50,20],lob:true}]},
+ pos:[{x:28,y:80,l:"A"},{x:72,y:80,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[28,182],to:[50,20],lob:true}]},
 
 {id:"e37",imp:4,t:"Le pas de côté sous le lob",th:"transition",n:[3,8],j:2,d:10,
  o:"Reculer dos au filet est la première cause de bandeja ratée et de chute.",
@@ -780,7 +793,7 @@ const EXOS = [
  ad:"Sans balle : uniquement le déplacement, 12 fois. C'est un exercice de jambes avant d'être un exercice de raquette.",
  ae:"Le lobeur peut être de n'importe quel niveau : c'est justement son coup prioritaire.",
  r:"10 reculs sur 12 sans tourner le dos.",
- pos:[{x:40,y:60,l:"B"},{x:60,y:165,l:"A"}], balls:[{from:[60,160],to:[40,20],lob:true}]},
+ pos:[{x:40,y:60,l:"B"},{x:60,y:182,l:"A"}], balls:[{from:[60,182],to:[40,20],lob:true}]},
 
 {id:"e38",imp:3,t:"Monter sur balle courte",th:"transition",n:[4,8],j:2,d:10,
  o:"Reconnaître l'occasion de monter. Beaucoup de joueurs la laissent passer trois fois par jeu.",
@@ -789,7 +802,7 @@ const EXOS = [
  ad:"Annoncer à voix haute « courte » ou « longue » avant chaque balle, pour apprendre à lire la profondeur.",
  ae:"Le lanceur varie honnêtement, sans piéger. L'objectif est la lecture, pas la surprise.",
  r:"16 bonnes décisions sur 20.",
- pos:[{x:40,y:150,l:"B"},{x:60,y:70,l:"A"}], balls:[{from:[60,75],to:[40,120]},{from:[60,75],to:[40,180]}]},
+ pos:[{x:40,y:182,l:"B"},{x:60,y:70,l:"A"}], balls:[{from:[60,75],to:[40,120]},{from:[60,75],to:[40,180]}]},
 
 /* ---------- volée ---------- */
 {id:"e39",imp:4,t:"Volée dans les pieds",th:"filet",n:[4,8],j:2,d:10,
@@ -799,7 +812,8 @@ const EXOS = [
  ad:"Élargir la cible à toute la moitié avant du terrain adverse.",
  ae:"Le joueur au fond n'a qu'à renvoyer : rôle accessible à tous les niveaux.",
  r:"9 volées sur 15 dans la zone.",
- pos:[{x:30,y:75,l:"A"},{x:70,y:135,l:"B"}], balls:[{from:[30,80],to:[70,128]}], zone:[100,132]},
+ eff:"volée coupée qui plonge",
+ pos:[{x:30,y:75,l:"A"},{x:70,y:172,l:"B"}], balls:[{from:[30,80],to:[70,160]}], zone:[138,172]},
 
 {id:"e40",imp:4,t:"Volée croisée ou parallèle sur annonce",th:"filet",n:[4,8],j:2,d:10,
  o:"Savoir diriger la volée au dernier moment, au lieu de jouer toujours au même endroit.",
@@ -808,7 +822,7 @@ const EXOS = [
  ad:"Annoncer plus tôt, avant même que la balle parte.",
  ae:"Le joueur fort annonce plus tard pour se compliquer la tâche, plus tôt pour aider l'autre.",
  r:"16 bonnes directions sur 20.",
- pos:[{x:30,y:75,l:"A"},{x:60,y:160,l:"B"}], balls:[{from:[30,80],to:[75,155]},{from:[30,80],to:[25,160]}]},
+ pos:[{x:30,y:75,l:"A"},{x:60,y:182,l:"B"}], balls:[{from:[30,80],to:[75,182]},{from:[30,80],to:[25,182]}]},
 
 {id:"e41",imp:3,t:"L'amortie de volée",th:"filet",n:[5,8],j:2,d:10,
  o:"Rapporte beaucoup contre les défenseurs collés au fond, mais se rate vite.",
@@ -817,7 +831,8 @@ const EXOS = [
  ad:"Trop tôt. Préférer la volée profonde, qui gagne davantage de points à ce niveau.",
  ae:"Le défenseur essaie de courir chaque amortie, ce qui lui fait travailler son démarrage.",
  r:"7 amorties sur 12 qui rebondissent deux fois avant la ligne de service.",
- pos:[{x:40,y:78,l:"A"},{x:60,y:180,l:"B"}], balls:[{from:[60,175],to:[40,30],lob:true},{from:[40,82],to:[65,120]}]},
+ eff:"amortie coupée",
+ pos:[{x:40,y:78,l:"A"},{x:60,y:180,l:"B"}], balls:[{from:[60,182],to:[40,18],lob:true},{from:[40,82],to:[65,120]}]},
 
 {id:"e42",imp:3,t:"Volée haute de dégagement",th:"filet",n:[4,8],j:2,d:8,
  o:"Sortir d'une situation difficile au filet sans perdre la position.",
@@ -826,7 +841,7 @@ const EXOS = [
  ad:"Balles envoyées plus lentement, l'idée de dégagement reste la même.",
  ae:"Le frappeur module sa puissance selon celui qui volleye.",
  r:"11 dégagements sur 15 derrière la ligne de service adverse.",
- pos:[{x:35,y:80,l:"A"},{x:65,y:165,l:"B"}], balls:[{from:[65,160],to:[35,85]},{from:[35,85],to:[65,185]}]},
+ pos:[{x:35,y:80,l:"A"},{x:65,y:182,l:"B"}], balls:[{from:[65,182],to:[35,85]},{from:[35,85],to:[65,185]}]},
 
 {id:"e43",imp:3,t:"Réflexes à trois mètres",th:"filet",n:[3,8],j:2,d:8,
  o:"Vitesse de main dans les échanges rapprochés, fréquents quand les quatre joueurs sont au filet.",
@@ -844,7 +859,7 @@ const EXOS = [
  ad:"Ralentir le jeu au fond et n'utiliser que des balles lentes.",
  ae:"Un fort et un débutant par paire, le fort annonce les déplacements à voix haute.",
  r:"Aucun trou au centre pendant un jeu complet.",
- pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:25,y:165,l:"C"},{x:70,y:165,l:"D"}], balls:[{from:[25,160],to:[30,60]}]},
+ pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:25,y:182,l:"C"},{x:70,y:182,l:"D"}], balls:[{from:[25,182],to:[30,60]}]},
 
 /* ---------- attaque ---------- */
 {id:"e45",imp:3,t:"Smash par la vitre latérale",th:"attaque",n:[6,8],j:2,d:12,
@@ -854,7 +869,8 @@ const EXOS = [
  ad:"Hors de portée à ce niveau.",
  ae:"À réserver aux séances entre joueurs de niveau proche.",
  r:"4 sorties de terrain sur 12, ce qui est un bon taux.",
- pos:[{x:35,y:55,l:"A"},{x:60,y:165,l:"B"}], balls:[{from:[60,160],to:[35,30],lob:true},{from:[35,50],to:[6,25]}]},
+ eff:"smash lifté pour sortir par la vitre",
+ pos:[{x:35,y:58,l:"A"},{x:60,y:182,l:"B"}], balls:[{from:[60,180],to:[35,44],lob:true},{from:[35,48],to:[5,150]}]},
 
 {id:"e46",imp:3,t:"Vibora croisée",th:"attaque",n:[6,8],j:2,d:12,
  o:"Coup coupé et rapide qui garde le filet tout en mettant la pression. Entre la bandeja et le smash.",
@@ -863,7 +879,8 @@ const EXOS = [
  ad:"Hors de portée. Travailler la bandeja d'abord, c'est le même déplacement.",
  ae:"Le lobeur travaille sa profondeur pendant ce temps, ce qui convient à tous les niveaux.",
  r:"8 viboras sur 12 qui touchent la vitre latérale.",
- pos:[{x:35,y:58,l:"A"},{x:65,y:165,l:"B"}], balls:[{from:[65,160],to:[35,25],lob:true},{from:[35,55],to:[94,140]}]},
+ eff:"vibora très coupée, effet latéral",
+ pos:[{x:35,y:60,l:"A"},{x:65,y:182,l:"B"}], balls:[{from:[65,180],to:[35,38],lob:true},{from:[35,50],to:[95,152]}]},
 
 {id:"e47",imp:3,t:"Smash à plat sur balle courte",th:"attaque",n:[5,8],j:2,d:10,
  o:"Conclure quand le lob est vraiment mauvais, sans se précipiter sur les autres.",
@@ -872,7 +889,8 @@ const EXOS = [
  ad:"Remplacer le smash par une bandeja : le geste utile viendra plus tard.",
  ae:"Le lobeur envoie à la main s'il n'a pas encore le lob fiable.",
  r:"9 smashes sur 12 dans le terrain.",
- pos:[{x:50,y:70,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,165],to:[50,45],lob:true},{from:[50,65],to:[50,175]}]},
+ eff:"smash à plat",
+ pos:[{x:50,y:72,l:"A"},{x:50,y:182,l:"B"}], balls:[{from:[50,180],to:[50,56],lob:true},{from:[50,66],to:[52,178]}]},
 
 {id:"e48",imp:4,t:"Bandeja parallèle ou croisée",th:"attaque",n:[5,8],j:2,d:12,
  o:"Choisir la direction selon la position du rival, au lieu de toujours jouer au même endroit.",
@@ -881,7 +899,8 @@ const EXOS = [
  ad:"Ne travailler que la bandeja croisée, sans choix à faire.",
  ae:"Le lobeur travaille en même temps son lob et son déplacement : utile aux deux.",
  r:"12 bonnes directions sur 15.",
- pos:[{x:45,y:58,l:"A"},{x:70,y:165,l:"B"}], balls:[{from:[70,160],to:[45,22],lob:true},{from:[45,55],to:[12,150]}]},
+ eff:"bandeja coupée",
+ pos:[{x:45,y:62,l:"A"},{x:70,y:182,l:"B"}], balls:[{from:[70,180],to:[45,34],lob:true},{from:[45,50],to:[6,164]}]},
 
 {id:"e49",imp:5,t:"Recul en pas chassés sous le lob",th:"attaque",n:[3,8],j:2,d:10,
  o:"Le déplacement décide de la qualité de la bandeja bien plus que le geste de bras.",
@@ -890,7 +909,7 @@ const EXOS = [
  ad:"Sans raquette : uniquement le déplacement, attraper la balle à la main au-dessus de la tête.",
  ae:"Exercice mixte idéal : le lobeur progresse sur son coup prioritaire, l'autre sur ses appuis.",
  r:"13 replacements sur 15 sans courir en avant.",
- pos:[{x:50,y:60,l:"A"},{x:50,y:170,l:"B"}], balls:[{from:[50,165],to:[50,25],lob:true}]},
+ pos:[{x:50,y:64,l:"A"},{x:50,y:182,l:"B"}], balls:[{from:[50,180],to:[50,30],lob:true}]},
 
 {id:"e50",imp:3,t:"Enchaîner bandeja, bandeja, vibora",th:"attaque",n:[6,8],j:2,d:12,
  o:"Tenir le filet sur une série de lobs, ce qui arrive dans tous les points longs.",
@@ -899,7 +918,8 @@ const EXOS = [
  ad:"Hors de portée. Rester sur la bandeja seule.",
  ae:"Le lobeur adapte la profondeur pour que la série soit tenable.",
  r:"5 cycles complets sur 6.",
- pos:[{x:48,y:58,l:"A"},{x:52,y:168,l:"B"}], balls:[{from:[52,163],to:[48,22],lob:true},{from:[48,55],to:[92,145]}]},
+ eff:"coupé sur les trois frappes",
+ pos:[{x:48,y:62,l:"A"},{x:52,y:182,l:"B"}], balls:[{from:[52,180],to:[48,34],lob:true},{from:[48,50],to:[95,158]}]},
 
 /* ---------- service et retour ---------- */
 {id:"e51",imp:4,t:"Régularité du service, vingt balles",th:"service",n:[1,8],j:2,d:8,
@@ -909,7 +929,7 @@ const EXOS = [
  ad:"Commencer avec dix balles et un objectif de carré, sans direction imposée.",
  ae:"Chacun sert à son rythme, aucune adaptation nécessaire. Peut se faire des deux côtés en même temps.",
  r:"18 services sur 20 dans le carré.",
- pos:[{x:70,y:135,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,133],to:[25,68]}]},
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[25,50]}]},
 
 {id:"e52",imp:3,t:"Service au corps ou vers l'extérieur",th:"service",n:[4,8],j:2,d:10,
  o:"Varier la direction du service pour empêcher le retourneur de s'installer.",
@@ -918,7 +938,7 @@ const EXOS = [
  ad:"Travailler d'abord la régularité seule, la direction viendra ensuite.",
  ae:"Le retourneur peut être de n'importe quel niveau : il n'a qu'à renvoyer.",
  r:"12 services bien dirigés sur 15.",
- pos:[{x:70,y:132,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,130],to:[8,72]},{from:[70,130],to:[30,66]}]},
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[8,58]},{from:[70,182],to:[30,44]}]},
 
 {id:"e53",imp:4,t:"Retour croisé bas puis montée",th:"service",n:[4,8],j:2,d:10,
  o:"Le retour bas et croisé oblige le serveur à jouer une volée difficile pendant qu'on monte.",
@@ -927,7 +947,8 @@ const EXOS = [
  ad:"Renvoyer simplement croisé sans exigence de hauteur, puis marcher vers le filet.",
  ae:"Le serveur travaille sa volée basse en montant, ce qui est exigeant : bon rôle pour le joueur fort.",
  r:"8 retours sur 12 qui rebondissent avant la ligne de service.",
- pos:[{x:70,y:118,l:"S"},{x:30,y:60,l:"R"}], balls:[{from:[70,116],to:[25,70]},{from:[25,70],to:[68,122]}]},
+ eff:"retour légèrement coupé pour rester bas",
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[25,52]},{from:[25,26],to:[68,128]}]},
 
 {id:"e54",imp:5,t:"Premier contact sur le retour",th:"service",n:[1,4],j:2,d:10,
  o:"Pour un débutant, remettre le service en jeu est ce qui change le plus vite le plaisir de jouer.",
@@ -936,7 +957,7 @@ const EXOS = [
  ad:"Servir à la main plutôt qu'à la raquette pour garantir la régularité.",
  ae:"Rôle de serveur pour le joueur fort : il travaille sa précision, l'autre son contact.",
  r:"15 retours sur 20 dans le terrain.",
- pos:[{x:70,y:130,l:"S"},{x:30,y:58,l:"R"}], balls:[{from:[70,128],to:[28,66]}]},
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}], balls:[{from:[70,182],to:[28,48]}]},
 
 /* ---------- tactique ---------- */
 {id:"e55",imp:4,t:"Points avec lob obligatoire au retour",th:"tactique",n:[3,8],j:4,d:12,
@@ -946,7 +967,7 @@ const EXOS = [
  ad:"Autoriser un renvoi haut sans exigence de profondeur.",
  ae:"Handicap au score pour la paire la plus forte si l'écart dépasse deux niveaux.",
  r:"Un jeu complet en respectant la règle.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,25],lob:true}]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[28,182],to:[72,18],lob:true}]},
 
 {id:"e56",imp:4,t:"Interdiction des parallèles",th:"tactique",n:[4,8],j:4,d:12,
  o:"Le parallèle perd beaucoup de points en amateur, parce qu'il est joué trop tôt dans le point.",
@@ -955,7 +976,7 @@ const EXOS = [
  ad:"Appliquer la règle uniquement aux joueurs confirmés.",
  ae:"Les débutants jouent librement, les forts sont contraints : un handicap élégant.",
  r:"Un jeu complet avec moins de 4 fautes de règle.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[28,155],to:[72,82]}]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[28,182],to:[72,82]}]},
 
 {id:"e57",imp:5,t:"Match à handicap",th:"tactique",n:[1,8],j:4,d:15,
  o:"Rendre un match serré entre joueurs de niveaux différents : la seule façon que tout le monde progresse.",
@@ -964,7 +985,7 @@ const EXOS = [
  ad:"Ajouter le droit à deux rebonds pour les débutants si le handicap au score ne suffit pas.",
  ae:"Format conçu exactement pour les écarts importants. À utiliser dès que le groupe est mélangé.",
  r:"Des jeux qui se terminent régulièrement à 40-30 ou en avantage.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[]},
 
 {id:"e58",imp:3,t:"Le point se construit en trois balles",th:"tactique",n:[4,8],j:4,d:12,
  o:"Sortir de l'idée que le point se gagne d'un coup. On prépare, on déplace, on conclut.",
@@ -973,7 +994,7 @@ const EXOS = [
  ad:"Ramener la règle à deux balles.",
  ae:"N'appliquer la contrainte qu'aux joueurs confirmés.",
  r:"Un jeu complet sans tentative prématurée.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[{from:[50,85],to:[20,150]},{from:[50,85],to:[80,150]}]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[{from:[50,85],to:[20,182]},{from:[50,85],to:[80,182]}]},
 
 {id:"e59",imp:3,t:"Annoncer avant de frapper",th:"tactique",n:[3,8],j:4,d:12,
  o:"Faire de la communication un réflexe. Une paire qui se parle gagne des points sans mieux jouer.",
@@ -982,7 +1003,7 @@ const EXOS = [
  ad:"Réduire aux deux annonces essentielles : « à moi » et « laisse ».",
  ae:"Le joueur fort ne peut annoncer qu'après son partenaire, ce qui oblige le débutant à décider en premier.",
  r:"Un jeu complet sans balle silencieuse.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[]},
 
 {id:"e60",imp:4,t:"Rotation américaine",th:"tactique",n:[1,8],j:4,d:15,
  o:"Faire jouer tout le monde avec tout le monde. Format idéal pour finir une séance à quatre.",
@@ -991,7 +1012,7 @@ const EXOS = [
  ad:"Manches plus courtes, quatre jeux, pour garder le rythme.",
  ae:"Format conçu pour ça : chaque joueur fort se retrouve une fois avec chaque débutant.",
  r:"Trois manches terminées, moins de trois jeux d'écart entre le premier et le dernier.",
- pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:160,l:"C"},{x:72,y:160,l:"D"}], balls:[]},
+ pos:[{x:28,y:78,l:"A"},{x:72,y:78,l:"B"},{x:28,y:182,l:"C"},{x:72,y:182,l:"D"}], balls:[]},
 
 /* ---------- à la maison ---------- */
 {id:"e61",imp:3,t:"Corde à sauter et appuis",th:"maison",n:[1,8],j:1,d:12,
@@ -1127,7 +1148,7 @@ const COUPS = [
  quand:["Au début de chaque point.","Un seul objectif : mettre la balle en jeu et monter au filet.","Le service ne se gagne pas au padel, il se sécurise."],
  tech:["Laisse rebondir la balle au sol, puis frappe sous le niveau de la taille. C'est obligatoire.","Frappe en diagonale vers le carré adverse, de préférence vers la vitre latérale.","Monte immédiatement après, sans regarder le résultat de ton service.","Le rebond préalable doit être identique à chaque fois : c'est ce qui donne la régularité."],
  err:["Frapper trop fort : le gain est nul et le risque énorme.","Rester au fond après avoir servi : on offre le filet à l'adversaire.","Servir au centre systématiquement : le retourneur s'installe."],
- pos:[{x:70,y:135,l:"S"},{x:30,y:60,l:"R"}],balls:[{from:[70,133],to:[10,70]}],
+ pos:[{x:70,y:184,l:"S"},{x:30,y:16,l:"R"}],balls:[{from:[70,182],to:[10,56]}],
  q:{fr:"padel service technique montée",es:"padel saque tecnica subida"}},
 
 {id:"c3",nom:"La sortie de mur",aussi:"salida de pared",niv:"Niveau 3 et plus",
@@ -1135,7 +1156,7 @@ const COUPS = [
  quand:["Chaque fois qu'une balle profonde touche la vitre du fond.","C'est le coup le plus fréquent du padel amateur, et celui qui coûte le plus de points quand il est raté.","La réponse par défaut est un lob ou un croisé profond, jamais une accélération."],
  tech:["Recule avec la balle dès qu'elle passe : ne l'attends pas sur place.","Garde un bras d'écart avec la vitre, sinon tu seras bloqué.","Mets-toi de profil avant que la balle ne ressorte, épaules fermées.","Frappe quand la balle redescend, à hauteur de hanche, et accompagne vers l'avant."],
  err:["Coller la vitre et se retrouver sans espace pour armer.","Frapper la balle trop haut, quand elle est encore montante.","Finir le geste vers le haut : la balle part dans le filet ou en cloche molle."],
- pos:[{x:30,y:150,l:"Toi"}],balls:[{from:[70,60],to:[30,192]},{from:[30,190],to:[72,55],lob:true}],
+ pos:[{x:30,y:182,l:"Toi"}],balls:[{from:[70,60],to:[30,192]},{from:[30,190],to:[72,18],lob:true}],
  q:{fr:"padel sortie de mur technique",es:"padel salida de pared tecnica"}},
 
 {id:"c4",nom:"Le lob",aussi:"globo · la cloche",niv:"Dès le niveau 2",
@@ -1143,7 +1164,7 @@ const COUPS = [
  quand:["Dès que l'adversaire tient le filet et que tu es au fond.","C'est un coup offensif : un bon lob reprend le filet, il ne subit pas.","Sur défense difficile, c'est aussi la sortie de secours qui donne du temps."],
  tech:["Ouvre la face de la raquette et accompagne du bas vers le haut, épaule finissant vers le ciel.","Vise à un mètre du mur du fond adverse, pas au milieu du terrain.","Passe au-dessus de la raquette levée du joueur au filet, avec une marge nette.","Après un bon lob, avance de deux pas immédiatement."],
  err:["Lober trop court : c'est offrir un smash.","Lober au centre quand les deux adversaires sont au filet : ils choisissent tranquillement.","Rester au fond après un lob réussi, et perdre le bénéfice du coup."],
- pos:[{x:30,y:150,l:"Toi"},{x:70,y:70,l:"Rival"}],balls:[{from:[30,145],to:[72,25],lob:true}],
+ pos:[{x:30,y:182,l:"Toi"},{x:70,y:70,l:"Rival"}],balls:[{from:[30,182],to:[72,18],lob:true}],
  q:{fr:"padel lob globo technique profondeur",es:"padel globo tecnica profundidad"}},
 
 {id:"c5",nom:"La chiquita",aussi:"balle basse dans les pieds",niv:"Niveau 4 et plus",
@@ -1151,7 +1172,7 @@ const COUPS = [
  quand:["Quand l'adversaire est au filet et que tu ne peux pas lober.","Pour l'obliger à jouer une volée basse et difficile, et créer une balle attaquable ensuite.","Alterne-la avec le lob pour rester imprévisible."],
  tech:["Balle lente et rasante, qui passe juste au-dessus du filet et retombe dans ses pieds.","Prépare comme un coup normal pour ne pas annoncer l'intention.","Joue-la de préférence en croisé : le filet est plus bas au centre.","Avance d'un pas après, la réponse sera souvent courte."],
  err:["La jouer trop fort : elle devient une balle facile à volleyer.","La jouer trop haut : c'est un cadeau au filet.","N'utiliser qu'elle : sans lob en alternance, elle devient prévisible."],
- pos:[{x:30,y:155,l:"Toi"},{x:65,y:72,l:"Rival"}],balls:[{from:[30,150],to:[68,88]}],
+ pos:[{x:30,y:182,l:"Toi"},{x:65,y:72,l:"Rival"}],balls:[{from:[30,182],to:[68,88]}],
  q:{fr:"padel chiquita balle basse technique",es:"padel chiquita tecnica"}},
 
 {id:"c6",nom:"La volée",aussi:"volea",niv:"Dès le niveau 2",
@@ -1159,7 +1180,7 @@ const COUPS = [
  quand:["Chaque fois que tu tiens le filet, ce qui devrait être la moitié du temps.","L'objectif n'est presque jamais de gagner : c'est de garder la position et de faire reculer l'adversaire.","Profonde quand tu es loin du filet, courte et croisée quand tu es près."],
  tech:["Préparation très courte : la raquette ne dépasse jamais l'épaule.","Bloque la balle, ne la frappe pas. Le poignet reste ferme, le bras pousse vers l'avant.","Fléchis les jambes pour descendre sur les balles basses, ne baisse pas la raquette.","Sur balle lointaine, vise la tête de l'adversaire ; sur balle proche, vise ses pieds."],
  err:["Armer comme un coup de fond : on est toujours en retard.","Volleyer court quand on est à mi-terrain : on offre le lob.","Reculer la raquette au lieu d'avancer le corps."],
- pos:[{x:32,y:78,l:"Toi"},{x:68,y:150,l:"Rival"}],balls:[{from:[68,145],to:[32,84]},{from:[32,84],to:[70,160]}],
+ pos:[{x:32,y:78,l:"Toi"},{x:68,y:182,l:"Rival"}],balls:[{from:[68,182],to:[32,84]},{from:[32,84],to:[70,182]}],
  q:{fr:"padel volée technique placement",es:"padel volea tecnica colocacion"}},
 
 {id:"c7",nom:"La bandeja",aussi:"le plateau",niv:"Niveau 4 et plus",
@@ -1167,7 +1188,7 @@ const COUPS = [
  quand:["Sur lob profond, quand tu tiens le filet et que tu ne peux pas smasher.","Son but n'est pas de gagner le point : c'est de garder le filet.","C'est le coup qui sépare le niveau 4 du niveau 6."],
  tech:["Recule en pas chassés, épaules de profil, sans jamais tourner le dos au filet.","Point de contact à hauteur d'épaule, devant toi, bras tendu.","Le geste part de l'extérieur vers l'intérieur et coupe la balle.","Vise la vitre latérale adverse, en croisé, à mi-hauteur.","Reviens au filet dès la frappe terminée : deux pas en avant, automatiquement."],
  err:["Frapper trop fort : la balle rebondit haut et revient attaquable.","Se placer sous la balle au lieu de rester légèrement derrière.","Rester au fond après la bandeja, ce qui annule tout l'intérêt du coup."],
- pos:[{x:45,y:60,l:"Toi"},{x:65,y:165,l:"Rival"}],balls:[{from:[65,160],to:[45,25],lob:true},{from:[45,55],to:[93,145]}],
+ pos:[{x:45,y:62,l:"Toi"},{x:65,y:182,l:"Rival"}],balls:[{from:[65,180],to:[45,32],lob:true},{from:[45,50],to:[95,166]}],
  q:{fr:"padel bandeja technique geste",es:"padel bandeja tecnica"}},
 
 {id:"c8",nom:"La vibora",aussi:"la vipère",niv:"Niveau 6 et plus",
@@ -1175,7 +1196,7 @@ const COUPS = [
  quand:["Sur lob moyen, un peu plus court que celui de la bandeja.","Quand tu veux mettre la pression sans prendre le risque du smash.","Souvent vers le coin où le rival est le plus faible."],
  tech:["Point de contact plus haut que la bandeja, plus bas que le smash, sur le côté de la tête.","Le geste coupe la balle de l'extérieur vers l'intérieur, poignet très actif.","Vise la vitre latérale : l'effet fait fuir la balle après le rebond.","Comme la bandeja, tu restes au filet après."],
  err:["La tenter sur lob profond : c'est une bandeja qu'il fallait jouer.","Chercher la puissance au lieu de l'effet : la vibora vit de son rebond, pas de sa vitesse.","Négliger le retour au filet."],
- pos:[{x:42,y:58,l:"Toi"},{x:62,y:160,l:"Rival"}],balls:[{from:[62,155],to:[42,28],lob:true},{from:[42,55],to:[94,132]}],
+ pos:[{x:42,y:60,l:"Toi"},{x:62,y:182,l:"Rival"}],balls:[{from:[62,180],to:[42,40],lob:true},{from:[42,50],to:[95,148]}],
  q:{fr:"padel vibora technique effet",es:"padel vibora tecnica efecto"}},
 
 {id:"c9",nom:"Le smash",aussi:"remate",niv:"Niveau 5 et plus",
@@ -1183,7 +1204,7 @@ const COUPS = [
  quand:["Uniquement sur lob court, jamais sur lob profond.","Version simple : à plat, au centre du terrain, entre les deux adversaires.","Version par 3 : vers l'angle de la vitre latérale et du fond, pour que la balle sorte du terrain."],
  tech:["Place-toi sous la balle, légèrement derrière, et frappe devant toi bras tendu.","Le corps entier participe : les jambes poussent, le buste tourne.","Pour le smash par 3, vise le tiers supérieur de la vitre latérale près du coin, avec du lift.","Attention : un smash raté te fait perdre le filet et le point."],
  err:["Smasher un lob profond : la faute la plus fréquente et la plus coûteuse.","Viser les lignes au lieu du centre quand on débute le coup.","Se jeter en arrière au lieu de reculer en pas chassés."],
- pos:[{x:50,y:62,l:"Toi"},{x:50,y:170,l:"Rival"}],balls:[{from:[50,165],to:[50,42],lob:true},{from:[50,58],to:[52,178]}],
+ pos:[{x:50,y:62,l:"Toi"},{x:50,y:182,l:"Rival"}],balls:[{from:[50,182],to:[50,18],lob:true},{from:[50,58],to:[52,178]}],
  q:{fr:"padel smash remate technique",es:"padel remate tecnica"}},
 
 {id:"c10",nom:"L'amortie",aussi:"dejada · la petite balle",niv:"Niveau 5 et plus",
@@ -1199,7 +1220,7 @@ const COUPS = [
  quand:["Quand l'adversaire smashe et que tu es au fond.","Bien défendu, un smash ne gagne pas : il fatigue celui qui l'a frappé.","La bonne réponse est presque toujours un lob, même court."],
  tech:["Recule avant la frappe adverse, pas après : tu n'auras pas le temps sinon.","Raquette devant le corps, aucune préparation, poignet ferme.","Absorbe et remets haut au centre : gagner du temps est le seul objectif.","Si la balle sort par la vitre, tu as le droit de sortir la chercher hors du terrain."],
  err:["Vouloir contre-attaquer : la balle part n'importe où.","Armer un geste : trop lent, on est débordé.","Rester debout et raide au lieu de fléchir les jambes."],
- pos:[{x:50,y:170,l:"Toi"},{x:50,y:65,l:"Rival"}],balls:[{from:[50,70],to:[50,165]},{from:[50,168],to:[50,30],lob:true}],
+ pos:[{x:50,y:182,l:"Toi"},{x:50,y:65,l:"Rival"}],balls:[{from:[50,70],to:[50,182]},{from:[50,182],to:[50,18],lob:true}],
  q:{fr:"padel défendre le smash bloquer",es:"padel defender remate bloqueo"}},
 
 {id:"c12",nom:"Le contre-mur",aussi:"contrapared",niv:"Niveau 6 et plus",
@@ -1207,7 +1228,7 @@ const COUPS = [
  quand:["Quand tu es acculé dans un coin et qu'aucun autre coup n'est possible.","C'est une sortie de secours, pas un choix tactique.","Souvent après une balle très rapide qui te dépasse."],
  tech:["Joue volontairement dans ta propre vitre latérale, en visant haut.","La balle rebondit sur ta vitre et repasse le filet.","Frappe ferme : une balle molle meurt avant le filet.","Prépare-toi à courir : la réponse adverse sera facile pour eux."],
  err:["Le tenter alors qu'un lob était encore jouable.","Viser trop bas sur la vitre.","Le chercher pour le spectacle : le taux de réussite reste faible."],
- pos:[{x:18,y:172,l:"Toi"}],balls:[{from:[18,170],to:[4,138]},{from:[4,138],to:[70,60]}],
+ pos:[{x:18,y:182,l:"Toi"}],balls:[{from:[18,182],to:[4,138]},{from:[4,138],to:[70,60]}],
  q:{fr:"padel contre-mur contrapared technique",es:"padel contrapared tecnica"}},
 
 {id:"c13",nom:"Le placement en double",aussi:"la corde invisible",niv:"Dès le niveau 2",
@@ -1215,7 +1236,7 @@ const COUPS = [
  quand:["En permanence. C'est ce qui fait gagner le plus de points sans améliorer un seul geste.","Les deux joueurs d'une paire sont toujours côte à côte, jamais l'un devant l'autre.","Soit les deux au filet, soit les deux au fond : jamais un de chaque."],
  tech:["Imagine une corde de trois mètres reliant les deux partenaires : elle ne doit jamais se tendre.","Quand la balle va à gauche, les deux glissent à gauche.","Le joueur du côté de la balle avance, l'autre se recentre pour couvrir le milieu.","Le centre appartient au coup droit du joueur le mieux placé. Décidez-le une fois pour toutes."],
  err:["Un joueur au filet, l'autre au fond : le trou du milieu est indéfendable.","Reculer seul quand le partenaire tient encore le filet.","Ne pas se parler : la moitié des points perdus au centre viennent d'un silence."],
- pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:28,y:160,l:"C"},{x:70,y:160,l:"D"}],balls:[{from:[28,155],to:[35,62]}],
+ pos:[{x:32,y:78,l:"A"},{x:60,y:82,l:"B"},{x:28,y:182,l:"C"},{x:70,y:182,l:"D"}],balls:[{from:[28,182],to:[35,62]}],
  q:{fr:"padel placement double positionnement",es:"padel posicionamiento pareja pista"}},
 
 {id:"c14",nom:"Le split-step",aussi:"le petit saut d'appui",niv:"Dès le début",
@@ -1387,33 +1408,65 @@ function terrain(exo){
     <circle cx="${p.x}" cy="${p.y}" r="7.5" fill="#EAEEE9" stroke="#0F3A4A" stroke-width="1.5"/>
     <text x="${p.x}" y="${p.y+2.8}" font-size="7" font-family="JetBrains Mono, monospace"
           fill="#0F3A4A" text-anchor="middle">${p.l}</text>`).join("");
+
+  // rebond sur une vitre : la balle repart, c'est tout l'intérêt du padel
+  function rebond(x1,y1,x2,y2){
+    const surVitre = x2<=8 || x2>=92 || y2<=8 || y2>=192;
+    if(!surVitre) return "";
+    let dx = x2-x1, dy = y2-y1;
+    const n = Math.hypot(dx,dy) || 1; dx/=n; dy/=n;
+    if(x2<=8 || x2>=92) dx = -dx;
+    if(y2<=8 || y2>=192) dy = -dy;
+    const L = 34, ex = x2+dx*L, ey = y2+dy*L;
+    return `<line x1="${x2}" y1="${y2}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}"
+              stroke="#8FB0A8" stroke-width="1.3" stroke-dasharray="2 3" marker-end="url(#ar2)"/>`;
+  }
+
   const B = (exo.balls||[]).map(b=>{
     const [x1,y1]=b.from, [x2,y2]=b.to;
-    if(b.lob){
-      const mx=(x1+x2)/2 + (x2>x1?18:-18), my=(y1+y2)/2;
-      return `<path d="M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}" stroke="#D9E84A" stroke-width="1.6"
-              fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>`;
-    }
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D9E84A" stroke-width="1.6" marker-end="url(#ar)"/>`;
+    const trait = b.lob
+      ? (()=>{ const mx=(x1+x2)/2 + (x2>x1?18:-18), my=(y1+y2)/2;
+          return `<path d="M${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}" stroke="#D9E84A" stroke-width="1.6"
+                  fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>`; })()
+      : `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D9E84A" stroke-width="1.6" marker-end="url(#ar)"/>`;
+    return trait + rebond(x1,y1,x2,y2);
   }).join("");
-  const Z = exo.zone ? `<rect x="2" y="${exo.zone[0]}" width="96" height="${exo.zone[1]-exo.zone[0]}"
-        fill="#D9E84A" opacity="0.13"/>` : "";
+
+  const zoneInterdite = exo.zoneType === "interdite";
+  const Z = exo.zone ? `
+    <rect x="2" y="${exo.zone[0]}" width="96" height="${exo.zone[1]-exo.zone[0]}"
+      fill="${zoneInterdite?'#B4553A':'#D9E84A'}" opacity="${zoneInterdite?0.22:0.13}"/>
+    <text x="50" y="${(exo.zone[0]+exo.zone[1])/2+3}" font-size="7" text-anchor="middle"
+      font-family="JetBrains Mono, monospace" fill="#EAEEE9" opacity=".85"
+      letter-spacing="1">${zoneInterdite?'ZONE INTERDITE':'ZONE CIBLE'}</text>` : "";
+
   const lob = (exo.balls||[]).some(b=>b.lob);
+  const vitre = (exo.balls||[]).some(b=>b.to[0]<=8||b.to[0]>=92||b.to[1]<=8||b.to[1]>=192);
+  const legende = [
+    lob ? "pointillé jaune : lob" : "flèche jaune : frappe",
+    vitre ? "pointillé gris : rebond sur la vitre" : "",
+    exo.eff ? "effet : " + exo.eff : ""
+  ].filter(Boolean).join(" · ");
+
   return `
   <div class="terrain-wrap">
     <svg class="terrain" viewBox="-4 -4 108 208" role="img" aria-label="Schéma du placement sur la piste">
-      <defs><marker id="ar" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-        <path d="M0,0 L5,2.5 L0,5 z" fill="#D9E84A"/></marker></defs>
+      <defs>
+        <marker id="ar" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5 z" fill="#D9E84A"/></marker>
+        <marker id="ar2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5 z" fill="#8FB0A8"/></marker>
+      </defs>
       <rect x="0" y="0" width="100" height="200" fill="#0F3A4A" stroke="#EAEEE9" stroke-width="1.6"/>
       ${Z}
       <line x1="0" y1="100" x2="100" y2="100" stroke="#EAEEE9" stroke-width="2.2"/>
-      <line x1="0" y1="70" x2="100" y2="70" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
-      <line x1="0" y1="130" x2="100" y2="130" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
-      <line x1="50" y1="0" x2="50" y2="70" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
-      <line x1="50" y1="130" x2="50" y2="200" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
+      <line x1="0" y1="30" x2="100" y2="30" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
+      <line x1="0" y1="170" x2="100" y2="170" stroke="#EAEEE9" stroke-width="0.9" opacity=".85"/>
+      <line x1="50" y1="30" x2="50" y2="100" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
+      <line x1="50" y1="100" x2="50" y2="170" stroke="#EAEEE9" stroke-width="0.9" opacity=".55"/>
       ${B}${P}
     </svg>
-    <div class="terrain-legend">${lob ? "trait plein : balle frappée · pointillé : lob" : "flèche : trajectoire de la balle"}</div>
+    <div class="terrain-legend">${legende}</div>
   </div>`;
 }
 
